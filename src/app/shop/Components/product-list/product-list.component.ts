@@ -12,6 +12,8 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   bookList: Array<Book> = [];
+  productSearchQuery: string = '';
+  trueBookListLength: string = "";
 
   ngOnInit(): void {
     this.getAllBooks();
@@ -21,7 +23,15 @@ export class ProductListComponent implements OnInit {
   {
     this.productService.getAllBooks().subscribe(res => {
       this.bookList = res;
+      this.  productSearchQuery = "";
     })
   }
 
+  refreshBookList(productSearchQuery: string) {
+    this.productService.getBooksBySearch(productSearchQuery).subscribe(res => {
+      this.bookList = res;
+      this.productSearchQuery = productSearchQuery;
+      this.trueBookListLength =  `${this.bookList.length} resultats'`;
+    })
+  }
 }

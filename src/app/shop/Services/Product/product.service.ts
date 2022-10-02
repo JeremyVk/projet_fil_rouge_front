@@ -19,4 +19,8 @@ export class ProductService {
   findBookById(id: number) {
     return this.http.get<Article>(`${this.bookUrl}/${id}`)
   }
+
+  getBooksBySearch(search: string) {
+    return this.http.get<Array<Article>>(`${this.bookUrl}/?title=${search}`);
+  }
 }

@@ -1,17 +1,10 @@
-<!-- <div class="books">
-    <div class="container center m-auto row row-col-3">
-        <div class="card col-12 col-lg-3 m-3" *ngFor="let book of bookList">
-            <img [src]="'/assets/images/javascript.jpeg'" class="img-thumbnail" alt="Image du livre {{ book.title }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ book.title }}</h5>
-              <p class="card-text">{{ book.resume }}</p>
-              <a href="#" class="btn btn-primary">Voir le produit</a>
-              <button class=" btn btn-primary ">Ajouter au panier</button>
-            </div>
-          </div>
-    </div>
-</div> -->
-
+<app-product-search-bar (productSearchQuery)="refreshBookList($event)"></app-product-search-bar>
+<div class="container">
+    <p *ngIf="productSearchQuery.length > 0">{{ trueBookListLength }} pour '<strong>{{ productSearchQuery}}'</strong>.
+        <a role="button" (click)="getAllBooks()" class="underlines">Réinitialiser la recherche</a>
+    </p>
+</div>
+   
 <div class="container w-60">
     <div class="row">
         <app-product-tile *ngFor="let book of bookList" [book]="book" class="col-sm-12 col-md-6 col-lg-4 g-4"></app-product-tile>
