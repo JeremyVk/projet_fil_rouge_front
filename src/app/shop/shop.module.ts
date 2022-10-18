@@ -10,6 +10,7 @@ import { ProductSearchBarComponent } from './Components/product-search-bar/produ
 import { FormsModule } from '@angular/forms';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { LoginComponent } from './Components/login/login.component';
     ProductSearchBarComponent,
     NavigationComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
