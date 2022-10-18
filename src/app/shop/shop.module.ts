@@ -8,6 +8,9 @@ import { HeaderComponent } from './Components/header/header.component';
 import { ProductPageComponent } from './Components/product-page/product-page.component';
 import { ProductSearchBarComponent } from './Components/product-search-bar/product-search-bar.component';
 import { FormsModule } from '@angular/forms';
+import { NavigationComponent } from './Components/navigation/navigation.component';
+import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { FormsModule } from '@angular/forms';
     ProductTileComponent,
     HeaderComponent,
     ProductPageComponent,
-    ProductSearchBarComponent
+    ProductSearchBarComponent,
+    NavigationComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
