@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getBooksBySearch(productSearchQuery).subscribe(res => {
       this.bookList = res;
       this.productSearchQuery = productSearchQuery;
-      this.trueBookListLength =  `${this.bookList.length} resultats'`;
+      this.trueBookListLength =  `${this.bookList.length} ${this.bookList.length > 1 ? 'résultats' : 'résultat'}'`;
     })
   }
 }
