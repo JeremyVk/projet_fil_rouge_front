@@ -6,17 +6,21 @@
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Connexion</h3>
 
-            <form class="px-md-2" (ngSubmit)="login()">
+            <form class="px-md-2" (ngSubmit)="login()" [formGroup]="userForm">
               <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example1q"
                   >Adresse e-mail</label
                 >
                 <input
-                  type="text"
+                  type="email"
                   name="email"
+                  formControlName="email"
                   [(ngModel)]="user.email"
                   class="form-control"
+                  required
+                  email
                 />
+                <div *ngIf="emailCtrl.dirty && emailCtrl.hasError('email')" class="text-danger">L'email doit être de type "email"</div>
               </div>
 
               <div class="row">
@@ -26,15 +30,18 @@
                       >Mot de passe</label
                     >
                     <input
-                      type="text"
+                      type="password"
                       class="form-control"
                       name="password"
-                      [(ngModel)]="user.password" 
+                      required
+                      formControlName="password"
+                      [(ngModel)]="user.password"
                     />
                   </div>
+                  <div *ngIf="errors.length > 0" class="text-danger">Votre adresse email ou votre mot de passe est invalide</div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-success btn-lg mb-1">
+              <button [disabled]="userForm.invalid" type="submit" class="btn btn-success btn-lg mb-1">
                 Se connecter
               </button>
             </form>

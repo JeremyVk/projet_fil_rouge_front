@@ -18,8 +18,11 @@ export class ProductSearchBarComponent implements OnInit {
 
   searchProducts()
   {
-    this.productSearchQuery.emit(this.searchQuery);
-    this.searchQuery = ""
+    if(this.searchQuery.length > 0) {
+      this.productSearchQuery.emit(this.searchQuery);
+      this.searchQuery = ""
+    }
+ 
   }
 
 }

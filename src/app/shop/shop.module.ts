@@ -7,7 +7,7 @@ import { ProductTileComponent } from './Components/product-tile/product-tile.com
 import { HeaderComponent } from './Components/header/header.component';
 import { ProductPageComponent } from './Components/product-page/product-page.component';
 import { ProductSearchBarComponent } from './Components/product-search-bar/product-search-bar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './Components/navigation/navigation.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
@@ -27,7 +27,8 @@ import { RegisterComponent } from './Components/register/register.component';
   imports: [
     CommonModule,
     ShopRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ProductListComponent,
