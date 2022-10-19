@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   emailCtrl = this.fb.control(this.user.email, [Validators.required, Validators.email])
   passwordCtrl = this.fb.control(this.user.password, [Validators.required])
 
-  userForm = this.fb.group({
+  userLoginForm = this.fb.group({
     email: this.emailCtrl,
     password: this.passwordCtrl
   })
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    if(this.userForm.invalid) {
+    if(this.userLoginForm.invalid) {
       return
     }
 

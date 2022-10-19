@@ -19,4 +19,8 @@ export class UserService {
   login(user: User) {
     return this.http.post<{token: string}>(`${this.loginUrl}`, user);
   }
+
+  registerUser(user: User) {
+    return this.http.post<User>(`${this.userUrl}`, user);
+  }
 }
