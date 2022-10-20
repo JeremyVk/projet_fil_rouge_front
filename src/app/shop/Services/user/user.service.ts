@@ -13,8 +13,6 @@ export class UserService {
   userUrl: string = `${environment.url}/api/users`;
   loginUrl: string = `${environment.url}/authentication_token`;
 
-  user: User = {};
-
   constructor(private http: HttpClient, private jwtService: JsonWebTokenService, private router: Router ) { }
 
   findUserByEmail(email?: string) {
