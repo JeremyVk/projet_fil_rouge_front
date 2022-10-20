@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private jwtService: JsonWebTokenService,
     private router: Router,
     private fb: FormBuilder
   ) {}
@@ -39,12 +38,8 @@ export class LoginComponent implements OnInit {
 
     this.errors = [];
     this.userService.login(this.user).subscribe({
-      next: (res) => {
-        this.jwtService.setJsonWebToken(res.token);
-        this.userService.findUserByEmail(this.user.email).subscribe((res) => {
-          localStorage.setItem('user', JSON.stringify(res));
-          this.router.navigateByUrl('');
-        });
+      next: () => {
+        this.router.navigateByUrl('');
       },
       error: (e) => {
         this.errors.push(e);

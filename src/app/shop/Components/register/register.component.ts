@@ -15,12 +15,11 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private jwtService: JsonWebTokenService,
     private router: Router,
-
     ) {}
 
   user: User = {};
+  errors: Array<number> = []
 
   lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(40)]);
   firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(40)]);
@@ -48,24 +47,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   register() {
+    this.errors = [];
     if(this.registerForm.invalid) {
       return
     }
 
     this.userService.registerUser(this.user).subscribe({
-      next: () => {
-        this.userService.login(this.user).subscribe({
-          next: res => {
-            this.jwtService.setJsonWebToken(res.token);
-            this.userService.findUserByEmail(this.user.email).subscribe((res) => {
-            localStorage.setItem('user', JSON.stringify(res));
-            this.router.navigateByUrl('');
-        });
-          }
-        });
+      next: (res) => {
+        this.router.navigateByUrl('')
       },
       error: e => {
-      
+        this.errors.push(e.status);
       }
     })
   }
