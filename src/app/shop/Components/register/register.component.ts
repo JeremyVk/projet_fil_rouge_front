@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { subscribeOn } from 'rxjs';
+import { FormErrorService } from 'src/app/services/form-error.service';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { User } from '../../Interfaces/user';
 import { UserService } from '../../Services/user/user.service';
@@ -16,15 +17,16 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private errorService: FormErrorService,
     ) {}
 
   user: User = {};
-  errors: Array<number> = []
+  errors: any = [];
 
-  lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(40)]);
-  firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(40)]);
-  passwordCtrl = this.fb.control(this.user.password, [Validators.required, Validators.min(5)]);
-  passwordConfirmCtrl = this.fb.control('', [Validators.required, Validators.minLength(2)]);
+  lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
+  firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
+  passwordCtrl = this.fb.control(this.user.password, [Validators.required, Validators.minLength(8)]);
+  passwordConfirmCtrl = this.fb.control('', [Validators.required]);
   emailCtrl = this.fb.control(this.user.email, [Validators.required, Validators.email]);
 
 
@@ -53,11 +55,11 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.registerUser(this.user).subscribe({
-      next: (res) => {
+      next: () => {
         this.router.navigateByUrl('')
       },
       error: e => {
-        this.errors.push(e.status);
+        this.errors = this.errorService.getFormViolations(e)
       }
     })
   }
