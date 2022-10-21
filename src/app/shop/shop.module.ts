@@ -12,7 +12,8 @@ import { NavigationComponent } from './Components/navigation/navigation.componen
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { ShowPricePipe } from '../pipes/show-price.pipe';
+import { AppModule } from '../app.module';
 
 @NgModule({
   declarations: [
@@ -24,17 +25,15 @@ import { TranslateModule } from '@ngx-translate/core';
     NavigationComponent,
     LoginComponent,
     RegisterComponent,
+    ShowPricePipe,
   ],
   imports: [
     CommonModule,
     ShopRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
   ],
-  exports: [
-    ProductListComponent,
-    HeaderComponent
-  ]
+  exports: [ProductListComponent, HeaderComponent, ShowPricePipe],
 })
-export class ShopModule { }
+export class ShopModule {}
