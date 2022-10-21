@@ -5,6 +5,7 @@
         <h6 class="card-title">{{book.title}}</h6>
     </div>
     <div class="row">
+        <p>{{ book.unitPrice|showPrice }}€</p>
         <button class="btn btn-primary mb-1">Ajouter au panier</button>
         <button class="btn btn-primary" routerLink="product/{{book.id}}">Voir la fiche produit</button>
     </div>
