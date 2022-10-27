@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { subscribeOn } from 'rxjs';
 import { FormErrorService } from 'src/app/services/form-error.service';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
-import { User } from '../../Interfaces/user';
-import { UserService } from '../../Services/user/user.service';
+import { User } from '../../interfaces/user';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-register',

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Book } from '../../Interfaces/book';
+import { Article } from '../../interfaces/article';
+import { Book } from '../../interfaces/book';
 
 @Component({
   selector: 'app-product-tile',
@@ -7,7 +8,7 @@ import { Book } from '../../Interfaces/book';
   styleUrls: ['./product-tile.component.css']
 })
 export class ProductTileComponent implements OnInit {
-  @Input() book: Book = {};
+  @Input() article: Article = {};
   constructor() { }
 
   ngOnInit(): void {
