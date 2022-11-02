@@ -17,6 +17,5 @@ export class ProductTileComponent implements OnInit {
 
   addToCart() {
     this.cartService.addProductToCart(this.article);
-    let cart = this.cartService.getCartIntoLocalStorage()
   }
 }

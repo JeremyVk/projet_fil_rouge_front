@@ -22,7 +22,6 @@ export class CartComponent implements OnInit {
   }
 
   ngDoCheck() {
-    console.log('changement')
     this.updateArticleQuantity()
   }
 
