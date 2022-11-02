@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Article } from '../../Interfaces/article';
+import { Article } from '../../interfaces/article';
 
 @Component({
   selector: 'app-product-search-bar',

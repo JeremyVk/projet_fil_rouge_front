@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Book } from '../../Interfaces/book';
+import { Component, Input, OnInit} from '@angular/core';
+import { Article } from '../../interfaces/article';
+import { CartService } from '../../services/cart/cart.service';
 
 @Component({
   selector: 'app-product-tile',
@@ -7,10 +8,15 @@ import { Book } from '../../Interfaces/book';
   styleUrls: ['./product-tile.component.css']
 })
 export class ProductTileComponent implements OnInit {
-  @Input() book: Book = {};
-  constructor() { }
+  @Input() article: Article = {};
+
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
   }
 
+  addToCart() {
+    this.cartService.addProductToCart(this.article);
+    let cart = this.cartService.getCartIntoLocalStorage()
+  }
 }

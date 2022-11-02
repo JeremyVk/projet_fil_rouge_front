@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../Interfaces/book';
-import { ProductService } from '../../Services/Product/product.service';
+import { Article } from '../../interfaces/article';
+import { Book } from '../../interfaces/book';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,7 +12,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
 
-  bookList: Array<Book> = [];
+  articleList: Array<Article> = [];
   productSearchQuery: string = '';
   trueBookListLength: string = "";
 
@@ -22,16 +23,16 @@ export class ProductListComponent implements OnInit {
   getAllBooks()
   {
     this.productService.getAllBooks().subscribe(res => {
-      this.bookList = res;
-      this.  productSearchQuery = "";
+      this.articleList = res;
+      this.productSearchQuery = "";
     })
   }
 
   refreshBookList(productSearchQuery: string) {
     this.productService.getBooksBySearch(productSearchQuery).subscribe(res => {
-      this.bookList = res;
+      this.articleList = res;
       this.productSearchQuery = productSearchQuery;
-      this.trueBookListLength =  `${this.bookList.length} ${this.bookList.length > 1 ? 'résultats' : 'résultat'}'`;
+      this.trueBookListLength =  `${this.articleList.length} ${this.articleList.length > 1 ? 'résultats' : 'résultat'}'`;
     })
   }
 }

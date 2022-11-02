@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { flatMap, map, mergeMap, tap } from 'rxjs';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { environment } from 'src/environments/environment';
-import { User } from '../../Interfaces/user';
+import { User } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
