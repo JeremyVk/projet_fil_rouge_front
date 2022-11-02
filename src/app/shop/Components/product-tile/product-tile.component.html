@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <p>{{ article.unitPrice|showPrice }}€</p>
-        <button class="btn btn-primary mb-1">Ajouter au panier</button>
+        <button class="btn btn-primary mb-1" (click)="addToCart()">Ajouter au panier</button>
         <button class="btn btn-primary" routerLink="product/{{article.id}}">Voir la fiche produit</button>
     </div>
 </div>

@@ -10,6 +10,9 @@
             <div *ngIf="!jwt" class="">
                 <a class="text-decoration-none text-white" routerLink="login">Se connecter</a>
             </div>
+            <div class="mx-2">
+                <app-cart></app-cart>
+            </div>
             <div *ngIf="jwt" class="">
                 <a class="text-decoration-none text-white" (click)="logout()">Se Déconnecter</a>
             </div>

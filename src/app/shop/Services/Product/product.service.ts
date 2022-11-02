@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Article } from '../../interfaces/article';
-import { Book } from '../../interfaces/book';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class ProductService {
 
 
   getAllBooks() {
-    return this.http.get<Array<Book>>(this.bookUrl);
+    return this.http.get<Array<Article>>(this.bookUrl);
   }
 
   // getAllArticles() {

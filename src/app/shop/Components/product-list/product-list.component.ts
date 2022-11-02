@@ -24,7 +24,7 @@ export class ProductListComponent implements OnInit {
   {
     this.productService.getAllBooks().subscribe(res => {
       this.articleList = res;
-      this.  productSearchQuery = "";
+      this.productSearchQuery = "";
     })
   }
 

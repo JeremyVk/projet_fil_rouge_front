@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ShowPricePipe } from '../pipes/show-price.pipe';
 import { AppModule } from '../app.module';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AppModule } from '../app.module';
     LoginComponent,
     RegisterComponent,
     ShowPricePipe,
+    CartComponent,
   ],
   imports: [
     CommonModule,
