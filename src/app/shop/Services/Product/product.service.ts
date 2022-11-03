@@ -24,6 +24,6 @@ export class ProductService {
   }
 
   getBooksBySearch(search: string) {
-    return this.http.get<Array<Article>>(`${this.bookUrl}/?title=${search}&?resume=${search}`);
+    return this.http.get<Array<Article>>(`${this.bookUrl}/?query=${search}`);
   }
 }
