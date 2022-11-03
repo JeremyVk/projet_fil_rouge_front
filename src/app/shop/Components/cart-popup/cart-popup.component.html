@@ -1,0 +1,5 @@
+<div class="popup-cart p-2" (mouseleave)="closePopup()" >
+    <h4>Votre panier {{ cart.length == 0 ? "est vide" : ""}}</h4>
+    <app-cart-popup-article *ngFor="let article of cart" [article]="article"></app-cart-popup-article>
+    <button class="button" *ngIf="cart.length > 0">Consulter votre panier</button>
+</div>

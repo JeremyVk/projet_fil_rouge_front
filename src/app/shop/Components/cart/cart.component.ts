@@ -11,6 +11,7 @@ export class CartComponent implements OnInit {
   cart: Array<Article> = [];
   articleQuantity: number = 0;
 
+  showPopup: boolean = false;
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {

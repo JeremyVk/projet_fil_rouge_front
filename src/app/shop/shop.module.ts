@@ -15,6 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ShowPricePipe } from '../pipes/show-price.pipe';
 import { AppModule } from '../app.module';
 import { CartComponent } from './components/cart/cart.component';
+import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
+import { CartPopupArticleComponent } from './components/cart-popup-article/cart-popup-article.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { CartComponent } from './components/cart/cart.component';
     RegisterComponent,
     ShowPricePipe,
     CartComponent,
+    CartPopupComponent,
+    CartPopupArticleComponent,
   ],
   imports: [
     CommonModule,
