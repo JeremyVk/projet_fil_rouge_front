@@ -15,6 +15,6 @@ export class CartPopupArticleComponent implements OnInit {
   }
 
   deleteArticle() {
-    this.cartService.deleteArticle(this.article);
+    this.cartService.deleteArticleFromLocalStorage(this.article);
   }
 }

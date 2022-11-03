@@ -45,7 +45,7 @@ export class CartService {
     return quantity;
   }
 
-  deleteArticle(article: Article) {
+  deleteArticleFromLocalStorage(article: Article) {
     let cart: Array<Article> = this.getCartIntoLocalStorage();
     cart = cart.filter(elt => elt.id !== article.id);
 
