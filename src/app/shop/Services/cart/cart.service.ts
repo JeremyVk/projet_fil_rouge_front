@@ -23,7 +23,6 @@ export class CartService {
       cart.push(article);
     }
     this.pushCartToLocaleStorage(cart);
-    this.updateCartEmitter.emit(cart);
   }
 
   getCartIntoLocalStorage() {
@@ -33,6 +32,7 @@ export class CartService {
 
   pushCartToLocaleStorage(cart: Array<any>) {
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.updateCartEmitter.emit(cart);
   }
 
   getArticleQuantity(cart: Array<Article>) {
@@ -43,5 +43,12 @@ export class CartService {
     })
 
     return quantity;
+  }
+
+  deleteArticle(article: Article) {
+    let cart: Array<Article> = this.getCartIntoLocalStorage();
+    cart = cart.filter(elt => elt.id !== article.id);
+
+    this.pushCartToLocaleStorage(cart);
   }
 }

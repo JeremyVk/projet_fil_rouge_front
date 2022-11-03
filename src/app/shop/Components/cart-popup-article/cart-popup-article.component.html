@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-between border mb-3 container">
+    <div class="cart-article-image">
+        <img src="{{ article.image }}" alt="">
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <p class="small">{{ article.title }}</p>
+        <p class="small fw-bold">Quantité: {{ article.quantity }}</p>
+    </div>
+    <div class="text-center">
+        <p (click)="deleteArticle()">X</p>
+    </div>
+</div>
+  

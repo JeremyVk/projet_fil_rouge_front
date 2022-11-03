@@ -1,0 +1,17 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.popup-cart  {
+    position: absolute;
+    left: -20vw;
+    top: -15px;
+    background-color: white;
+    overflow: scroll;
+    z-index: 20;
+    width: 23vw;
+    height: 250px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
