@@ -6,23 +6,25 @@ import { Article } from '../../interfaces/article';
   providedIn: 'root',
 })
 export class CartService {
-  constructor() {}
-  updateCartEmitter = new EventEmitter<Array<Article>>()
+  constructor() {
+    this.cart = this.getCartIntoLocalStorage();
+  }
+  updateCartEmitter = new EventEmitter<Array<Article>>();
+  cart: Array<Article> = [];
 
   addProductToCart(article: Article): void {
-    let cart: Array<Article> = this.getCartIntoLocalStorage();
-    let index = cart.findIndex((elt) => elt.id === article.id);
+    let index = this.getArticleIndexInCart(article);
 
     if (index !== -1) {
-      let quantity = cart[index].quantity;
+      let quantity = this.cart[index].quantity;
 
-      cart[index].quantity = quantity ? quantity + 1
+      this.cart[index].quantity = quantity ? quantity + 1
       : 1;
     } else {
       article.quantity = 1;
-      cart.push(article);
+      this.cart.push(article);
     }
-    this.pushCartToLocaleStorage(cart);
+    this.pushCartToLocaleStorage(this.cart);
   }
 
   getCartIntoLocalStorage() {
@@ -46,9 +48,38 @@ export class CartService {
   }
 
   deleteArticleFromLocalStorage(article: Article) {
-    let cart: Array<Article> = this.getCartIntoLocalStorage();
-    cart = cart.filter(elt => elt.id !== article.id);
+    this.cart = this.cart.filter(elt => elt.id !== article.id);
+    this.pushCartToLocaleStorage(this.cart);
+  }
 
-    this.pushCartToLocaleStorage(cart);
+  getCart() {
+    return this.cart;
+  }
+
+  getArticleIndexInCart(article: Article) {
+    return this.cart.findIndex((elt) => elt.id === article.id);
+  }
+
+  isArticleInCart(article: Article) {
+    return this.getArticleIndexInCart(article) !== -1;
+  }
+
+  checkIfArticleIsInStock(article: Article) {
+    if (this.isArticleInCart(article)) {
+      let articleInCart = this.cart[this.getArticleIndexInCart(article)];
+      let quantity = articleInCart.quantity;
+      let stock = articleInCart.stock;
+
+      if (quantity && stock) {
+        return stock - quantity > 0;
+      }
+      return false
+    }
+
+    article.quantity = 0;    
+    if (article.quantity !== undefined && article.stock !== undefined) {
+      return (article.stock - article.quantity) > 0;
+    }    
+    return false;
   }
 }

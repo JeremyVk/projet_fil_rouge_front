@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
 
   getAllBooks()
   {
-    this.productService.getAllBooks().subscribe(res => {
+    this.productService.getAllBooks().subscribe(res => {      
       this.articleList = res;
       this.productSearchQuery = "";
     })
