@@ -12,16 +12,16 @@ export class CartService {
   updateCartEmitter = new EventEmitter<Array<Article>>();
   cart: Array<Article> = [];
 
-  addProductToCart(article: Article): void {
+  addProductToCart(article: Article, quantityToIncrement: number): void {
     let index = this.getArticleIndexInCart(article);
 
     if (index !== -1) {
       let quantity = this.cart[index].quantity;
 
-      this.cart[index].quantity = quantity ? quantity + 1
-      : 1;
+      this.cart[index].quantity = quantity ? quantity + quantityToIncrement
+      : quantityToIncrement;
     } else {
-      article.quantity = 1;
+      article.quantity = quantityToIncrement;
       this.cart.push(article);
     }
     this.pushCartToLocaleStorage(this.cart);
@@ -81,5 +81,18 @@ export class CartService {
       return (article.stock - article.quantity) > 0;
     }    
     return false;
+  }
+
+  getMaxAvailable(article: Article): number {
+    if (!this.isArticleInCart(article) && article.stock !== undefined) {
+      return article.stock;
+    }
+
+    let articleInCart = this.cart[this.getArticleIndexInCart(article)];
+
+    if (articleInCart.stock && articleInCart.quantity) {
+      return articleInCart.stock - articleInCart.quantity;
+    }
+    return 0
   }
 }

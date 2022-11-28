@@ -10,18 +10,40 @@ import { CartService } from '../../services/cart/cart.service';
 export class ProductTileComponent implements OnInit {
   @Input() article: Article = {};
   isArticleInStock: boolean = true;
+  maxAvailable: number = 0;
+  inputQuantity: number = 0;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
+    this.updateIsArticleIsInStock()
+    this.updateMaxAvailable();
+    this.updateInputQuantityAfterSubmitting();
   }
 
   ngDoCheck(): void {
-    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
+    this.updateIsArticleIsInStock()
+    this.updateMaxAvailable();
   }
 
   addToCart() {
-    this.cartService.addProductToCart(this.article);
+    if (this.isArticleInStock) {
+      this.cartService.addProductToCart(this.article, this.inputQuantity);
+      this.updateMaxAvailable();
+      this.updateIsArticleIsInStock()
+      this.updateInputQuantityAfterSubmitting();
+    }
+  }
+
+  updateInputQuantityAfterSubmitting() {
+    this.inputQuantity = 1;
+  }
+
+  updateMaxAvailable() {
+    this.maxAvailable = this.cartService.getMaxAvailable(this.article);
+  }
+
+  updateIsArticleIsInStock() {
+    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
   }
 }

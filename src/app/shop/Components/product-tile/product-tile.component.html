@@ -9,8 +9,12 @@
             <p>{{ article.unitPrice|showPrice }}€</p>
             <p *ngIf="!isArticleInStock" class="text-danger">Hors stock</p>
         </div>
-   
-        <button class="btn btn-primary mb-1" (click)="addToCart()" [disabled]="!isArticleInStock">Ajouter au panier</button>
+        <div>
+            <form (ngSubmit)="addToCart()"  #productQuantity="ngForm">
+                <input *ngIf="isArticleInStock" type="number" [(ngModel)]="inputQuantity" [max]="maxAvailable" name="inputQuantity" min="1">
+                <button class="btn btn-primary mb-1" [disabled]="!isArticleInStock" type="submit">Ajouter au panier</button>
+            </form>
+        </div>
         <button class="btn btn-primary" routerLink="product/{{article.id}}">Voir la fiche produit</button>
     </div>
 </div>

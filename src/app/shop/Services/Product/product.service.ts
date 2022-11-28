@@ -10,7 +10,9 @@ import { Article } from '../../interfaces/article';
 })
 export class ProductService {
   bookUrl: string = `${environment.url}/api/books`;
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    ) { }
 
 
   getAllBooks() {
@@ -23,5 +25,17 @@ export class ProductService {
 
   getBooksBySearch(search: string) {
     return this.http.get<Array<Article>>(`${this.bookUrl}/?query=${search}`);
+  }
+
+  getMaxAvailable(product: Article): number {
+    if (product.quantity === undefined) {
+      return 0;
+    }
+
+    if (product.stock && product.stock > 0) {
+      return product.stock - product.quantity;
+    }
+
+    return 0;
   }
 }
