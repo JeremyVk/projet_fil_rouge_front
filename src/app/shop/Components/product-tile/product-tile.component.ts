@@ -9,10 +9,16 @@ import { CartService } from '../../services/cart/cart.service';
 })
 export class ProductTileComponent implements OnInit {
   @Input() article: Article = {};
+  isArticleInStock: boolean = true;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
+  }
+
+  ngDoCheck(): void {
+    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
   }
 
   addToCart() {
