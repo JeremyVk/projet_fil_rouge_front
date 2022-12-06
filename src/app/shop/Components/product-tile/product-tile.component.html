@@ -1,10 +1,10 @@
 
-<div class="border-2 rounded-xl mx-auto flex flex-col flex-1 items-stretch relative p-5 w-full sm:w1/3">
+<div class="border-2 border-gray-200 shadow-lg rounded-xl mx-auto flex flex-col relative p-5 w-full sm:w-72">
     <img src="assets/images/heart.png" alt="" class="absolute top-2 right-2">
     <div class="flex flex-col w-full mt-2">
         <img src="{{ article.image }}" alt="" class="w-36 mb-5 mx-auto">
         <div class="ml-4">
-            <div class="pb-5 grow">
+            <div class="pb-20 grow">
                 <div class="line-clamp-2 grow">
                     <h6 class="text-start text-bold w-full">{{article.title}}</h6>
                 </div>
@@ -13,11 +13,10 @@
                </div> 
             </div>
             <!-- Pricing -->
-            <div class="w-full pb-8">
+            <div class="w-5/6 pb-8 absolute bottom-0 pr-5">
                 <div class="flex justify-between items-center w-full">
                     <div class="text-indigo-800 text-bold text-xl">
                         <p>{{ article.unitPrice|showPrice }}€</p>
-                        <p *ngIf="!isArticleInStock" class="text-red-500">Hors stock</p>
                     </div>
                     <div>
                         <form (ngSubmit)="addToCart()"  #productQuantity="ngForm">
@@ -28,7 +27,9 @@
                                 <button class="border-2 p-1">+</button>
                             </div> -->
                             <!-- <div class="p-2 rounded-full border-2 border-black" (click)="addToCart()"><img class="w-8" src="assets/images/cart.png"></div> -->
-                            <button class=" {{ !isArticleInStock && 'opacity-0' }} p-2 rounded-full border-2 border-black " [disabled]="!isArticleInStock" type="submit"><img class="w-8" src="assets/images/cart.png"></button>
+                            <p *ngIf="!isArticleInStock" class="text-red-500 my-auto">Hors stock</p>
+                            <button *ngIf="isArticleInStock"class="p-2 rounded-full border-2 border-black " [disabled]="!isArticleInStock" type="submit">
+                                <img class="w-8" src="assets/images/cart.png"></button>
                         </form>
                     </div>
                 </div>
