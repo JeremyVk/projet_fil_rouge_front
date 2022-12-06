@@ -1,20 +1,40 @@
 
-<div class="article-tile card p-5">
-    <img src="{{ article.image }}" alt="" class="w-50 lg-w-50 img card-img-top m-auto">
-    <div class="card-body">
-        <h6 class="card-title">{{article.title}}</h6>
-    </div>
-    <div class="row">
-        <div class="d-flex justify-content-between">
-            <p>{{ article.unitPrice|showPrice }}€</p>
-            <p *ngIf="!isArticleInStock" class="text-danger">Hors stock</p>
+<div class="border-2 rounded-xl mx-auto flex flex-col flex-1 items-stretch relative p-5 w-full sm:w1/3">
+    <img src="assets/images/heart.png" alt="" class="absolute top-2 right-2">
+    <div class="flex flex-col w-full mt-2">
+        <img src="{{ article.image }}" alt="" class="w-36 mb-5 mx-auto">
+        <div class="ml-4">
+            <div class="pb-5 grow">
+                <div class="line-clamp-2 grow">
+                    <h6 class="text-start text-bold w-full">{{article.title}}</h6>
+                </div>
+               <div class="line-clamp-2">
+                    <p class="text-gray-400">{{ article.editor }}</p>
+               </div> 
+            </div>
+            <!-- Pricing -->
+            <div class="w-full pb-8">
+                <div class="flex justify-between items-center w-full">
+                    <div class="text-indigo-800 text-bold text-xl">
+                        <p>{{ article.unitPrice|showPrice }}€</p>
+                        <p *ngIf="!isArticleInStock" class="text-red-500">Hors stock</p>
+                    </div>
+                    <div>
+                        <form (ngSubmit)="addToCart()"  #productQuantity="ngForm">
+                            <!-- <div class="w-14 flex justify-between" *ngIf="isArticleInStock">
+                                <button class="border-2 p-1">-</button>
+                                <input type="number" [(ngModel)]="inputQuantity" [max]="maxAvailable" name="inputQuantity" min="1"
+                                class="form-control text-center">
+                                <button class="border-2 p-1">+</button>
+                            </div> -->
+                            <!-- <div class="p-2 rounded-full border-2 border-black" (click)="addToCart()"><img class="w-8" src="assets/images/cart.png"></div> -->
+                            <button class=" {{ !isArticleInStock && 'opacity-0' }} p-2 rounded-full border-2 border-black " [disabled]="!isArticleInStock" type="submit"><img class="w-8" src="assets/images/cart.png"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-        <div>
-            <form (ngSubmit)="addToCart()"  #productQuantity="ngForm">
-                <input *ngIf="isArticleInStock" type="number" [(ngModel)]="inputQuantity" [max]="maxAvailable" name="inputQuantity" min="1">
-                <button class="btn btn-primary mb-1" [disabled]="!isArticleInStock" type="submit">Ajouter au panier</button>
-            </form>
-        </div>
-        <button class="btn btn-primary" routerLink="product/{{article.id}}">Voir la fiche produit</button>
+       
     </div>
 </div>
