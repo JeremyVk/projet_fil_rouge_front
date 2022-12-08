@@ -1,14 +1,11 @@
 <header>
-    <div class="bg-sky-700 h-30 mx-0 w-full flex justify-center items-center flex-col md:flex-row md:h-20 md:justify-around ">
-        <div class="w-full flex flex-col justify-around h-20 items-center md:flex-row ">
+    <div class="bg-sky-700 mx-0 w-full py-5 flex justify-center items-center flex-col md:flex-row md:h-20 md:justify-around ">
+        <div class="w-full flex justify-around px-4 h-20 items-center md:flex-row ">
             <div class="logo">
                 <a class="text-decoration-non text-white" routerLink="">Accueil</a>
             </div>
-            <div class="flex justify-around text-white w-80 ">
-                <div *ngIf="!jwt" class="mx-2">
-                    <a class="" routerLink="register">S'inscrire</a>
-                </div>
-                <div *ngIf="!jwt" class="">
+            <div class="flex items-center justify-end md:flex-row text-white w-80 ">
+                <div *ngIf="!jwt" class="mr-4">
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
                 <div class="">
@@ -20,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center font-bold  mt-5">
-        <h1 class="">Les meilleurs livres de formation sont chez 2iBook</h1>
+    <div class="text-center break-words font-bold  mt-5 w-full">
+        <h1 class="break-words">Les meilleurs livres de formation sont chez 2iBook</h1>
     </div>
 </header>
