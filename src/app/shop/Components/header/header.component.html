@@ -1,25 +1,23 @@
 <header>
-    <div class="container-fluid p-3 d-flex justify-content-between align-items-center text-center"style="background-color: #1B72E8;">
-        <div class="logo">
-            <a class="text-decoration-none text-white" routerLink="">Accueil</a>
-        </div>
-        <div class="d-flex flex-row justify-content-between align-items-center">
-            <div *ngIf="!jwt" class="mx-2">
-                <a class="text-decoration-none text-white" routerLink="register">S'inscrire</a>
+    <div class="bg-sky-700 mx-0 w-full py-5 flex justify-center items-center flex-col md:flex-row md:h-20 md:justify-around ">
+        <div class="w-full flex justify-around px-4 h-20 items-center md:flex-row ">
+            <div class="logo">
+                <a class="text-decoration-non text-white" routerLink="">Accueil</a>
             </div>
-            <div *ngIf="!jwt" class="">
-                <a class="text-decoration-none text-white" routerLink="login">Se connecter</a>
-            </div>
-            <div class="mx-2">
-                <app-cart></app-cart>
-            </div>
-            <div *ngIf="jwt" class="">
-                <a class="text-decoration-none text-white" (click)="logout()">Se Déconnecter</a>
+            <div class="flex items-center justify-end md:flex-row text-white w-80 ">
+                <div *ngIf="!jwt" class="mr-4">
+                    <a class="" routerLink="login">Se connecter</a>
+                </div>
+                <div class="">
+                    <app-cart></app-cart>
+                </div>
+                <div *ngIf="jwt" class="">
+                    <a class="" (click)="logout()">Se Déconnecter</a>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="container-fluid bg-white">
-        <h1 class="title text-center my-5">Les meilleurs livres de formation sont chez 2iBook</h1>
+    <div class="text-center break-words font-bold  mt-5 w-full">
+        <h1 class="break-words">Les meilleurs livres de formation sont chez 2iBook</h1>
     </div>
 </header>

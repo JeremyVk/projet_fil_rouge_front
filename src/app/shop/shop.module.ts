@@ -17,6 +17,7 @@ import { AppModule } from '../app.module';
 import { CartComponent } from './components/cart/cart.component';
 import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
 import { CartPopupArticleComponent } from './components/cart-popup-article/cart-popup-article.component';
+import { SpinnerDataLoaderComponent } from './components/spinner-data-loader/spinner-data-loader.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CartPopupArticleComponent } from './components/cart-popup-article/cart-
     CartComponent,
     CartPopupComponent,
     CartPopupArticleComponent,
+    SpinnerDataLoaderComponent,
   ],
   imports: [
     CommonModule,

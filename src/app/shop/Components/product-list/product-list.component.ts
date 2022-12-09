@@ -15,6 +15,7 @@ export class ProductListComponent implements OnInit {
   articleList: Array<Article> = [];
   productSearchQuery: string = '';
   trueBookListLength: string = "";
+  isLoading = false;
 
   ngOnInit(): void {
     this.getAllBooks();
@@ -22,17 +23,21 @@ export class ProductListComponent implements OnInit {
 
   getAllBooks()
   {
+    this.isLoading = true;
     this.productService.getAllBooks().subscribe(res => {      
       this.articleList = res;
+      this.isLoading = false;
       this.productSearchQuery = "";
     })
   }
 
   refreshBookList(productSearchQuery: string) {
+    this.isLoading = true;
     this.productService.getBooksBySearch(productSearchQuery).subscribe(res => {
       this.articleList = res;
+      this.isLoading = false;
       this.productSearchQuery = productSearchQuery;
-      this.trueBookListLength =  `${this.articleList.length} ${this.articleList.length > 1 ? 'résultats' : 'résultat'}'`;
+      this.trueBookListLength =  `${this.articleList.length} ${this.articleList.length > 1 ? 'résultats' : 'résultat'}`;
     })
   }
 }
