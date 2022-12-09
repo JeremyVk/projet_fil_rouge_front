@@ -1,11 +1,13 @@
 <app-product-search-bar (productSearchQuery)="refreshBookList($event)"></app-product-search-bar>
-<div class="flex"></div>
-<div class="">
+<div class="mt-32" *ngIf="isLoading">
+    <app-spinner-data-loader></app-spinner-data-loader>
+</div>
+<div class="" *ngIf="!isLoading">
     <p *ngIf="productSearchQuery.length > 0" class="text-center mt-0 mb-4">{{ trueBookListLength }} pour '<strong>{{ productSearchQuery}}'</strong>.
         <a role="button" (click)="getAllBooks()" class="text-bold text-indigo-800 ">Réinitialiser la recherche</a>
     </p>
 </div>
-<div class="flex items-stretch mx-auto xl:container my-5">
+<div *ngIf="!isLoading" class="flex items-stretch mx-auto xl:container my-5">
     <div class="col-span-1 bg-gray-300 hidden lg:block lg:w-3/12 h-auto xl:w-3/12">
         <h3 class="text-bold text-xl text-center">Filtres</h3>
         <label for="">brochet</label>
