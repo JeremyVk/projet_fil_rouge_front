@@ -1,5 +1,7 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { Article } from '../../interfaces/article';
+import { BaseVariant } from '../../interfaces/baseVariant';
+import { Book } from '../../interfaces/book';
 import { CartService } from '../../services/cart/cart.service';
 
 @Component({
@@ -12,38 +14,34 @@ export class ProductTileComponent implements OnInit {
   isArticleInStock: boolean = true;
   maxAvailable: number = 0;
   inputQuantity: number = 0;
+  hasManyVariants: boolean = false;;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.updateIsArticleIsInStock()
     this.updateMaxAvailable();
     this.updateInputQuantityAfterSubmitting();
+    this.hasManyVariants = this.hasArticleManyVariants();
   }
 
   ngDoCheck(): void {
-    this.updateIsArticleIsInStock()
     this.updateMaxAvailable();
   }
-
-  addToCart() {
-    if (this.isArticleInStock) {
-      this.cartService.addProductToCart(this.article, this.inputQuantity);
-      this.updateMaxAvailable();
-      this.updateIsArticleIsInStock()
-      this.updateInputQuantityAfterSubmitting();
-    }
-  }
-
+ 
   updateInputQuantityAfterSubmitting() {
     this.inputQuantity = 1;
   }
 
   updateMaxAvailable() {
-    this.maxAvailable = this.cartService.getMaxAvailable(this.article);
+    // this.maxAvailable = this.cartService.getMaxAvailable(this.article);
   }
 
-  updateIsArticleIsInStock() {
-    this.isArticleInStock = this.cartService.checkIfArticleIsInStock(this.article);
+  
+
+  hasArticleManyVariants() {
+    if(this.article.variants !== undefined) {
+      return this.article.variants.length > 1
+    }
+    return false
   }
 }

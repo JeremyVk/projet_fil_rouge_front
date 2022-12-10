@@ -32,9 +32,9 @@ export class ProductService {
       return 0;
     }
 
-    if (product.stock && product.stock > 0) {
-      return product.stock - product.quantity;
-    }
+    // if (product.stock && product.stock > 0) {
+    //   return product.stock - product.quantity;
+    // }
 
     return 0;
   }

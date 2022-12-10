@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { elementAt } from 'rxjs';
 import { Article } from '../../interfaces/article';
+import { BaseVariant } from '../../interfaces/baseVariant';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +10,17 @@ export class CartService {
   constructor() {
     this.cart = this.getCartIntoLocalStorage();
   }
-  updateCartEmitter = new EventEmitter<Array<Article>>();
-  cart: Array<Article> = [];
+  updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
+  cart: Array<BaseVariant> = [];
 
-  addProductToCart(article: Article, quantityToIncrement: number): void {
-    let index = this.getArticleIndexInCart(article);
+  addProductToCart(article: BaseVariant, quantityToIncrement: number = 1): void|string {
 
-    if (index !== -1) {
-      let quantity = this.cart[index].quantity;
-
-      this.cart[index].quantity = quantity ? quantity + quantityToIncrement
-      : quantityToIncrement;
-    } else {
-      article.quantity = quantityToIncrement;
-      this.cart.push(article);
+    if(!this.isArticleInStock(article)) {
+      return "L'article n'est plus en stock";
     }
+      this.cart.push(article);
+      console.log(this.cart);
+
     this.pushCartToLocaleStorage(this.cart);
   }
 
@@ -37,7 +34,12 @@ export class CartService {
     this.updateCartEmitter.emit(cart);
   }
 
-  getArticleQuantity(cart: Array<Article>) {
+  deleteArticleFromLocalStorage(article: Article) {
+    this.cart = this.cart.filter(elt => elt.id !== article.id);
+    this.pushCartToLocaleStorage(this.cart);
+  }
+
+  getArticleQuantity(cart: Array<BaseVariant>) {
     let quantity = 0;
 
     cart.forEach(article => {
@@ -47,52 +49,58 @@ export class CartService {
     return quantity;
   }
 
-  deleteArticleFromLocalStorage(article: Article) {
-    this.cart = this.cart.filter(elt => elt.id !== article.id);
-    this.pushCartToLocaleStorage(this.cart);
-  }
+
 
   getCart() {
     return this.cart;
   }
 
-  getArticleIndexInCart(article: Article) {
+  getArticleIndexInCart(article: BaseVariant) {
     return this.cart.findIndex((elt) => elt.id === article.id);
   }
 
-  isArticleInCart(article: Article) {
+  //LES FONCTIONS QUE JE GARDE
+
+  isArticleInCart(article: BaseVariant) {
     return this.getArticleIndexInCart(article) !== -1;
   }
 
-  checkIfArticleIsInStock(article: Article) {
-    if (this.isArticleInCart(article)) {
-      let articleInCart = this.cart[this.getArticleIndexInCart(article)];
-      let quantity = articleInCart.quantity;
-      let stock = articleInCart.stock;
-
-      if (quantity && stock) {
-        return stock - quantity > 0;
-      }
-      return false
-    }
-
-    article.quantity = 0;    
-    if (article.quantity !== undefined && article.stock !== undefined) {
-      return (article.stock - article.quantity) > 0;
-    }    
-    return false;
+  getArticleQuantityInCart(article: BaseVariant) {   
+    return this.cart.filter(elt => elt.id == article.id && elt.parent === article.parent).length;
   }
 
-  getMaxAvailable(article: Article): number {
-    if (!this.isArticleInCart(article) && article.stock !== undefined) {
-      return article.stock;
+  isArticleInStock(article: BaseVariant): boolean {
+   
+    if(!article.stock) {
+      return false;
     }
 
-    let articleInCart = this.cart[this.getArticleIndexInCart(article)];
-
-    if (articleInCart.stock && articleInCart.quantity) {
-      return articleInCart.stock - articleInCart.quantity;
+    if(!this.isArticleInCart(article)) {
+      return article?.stock > 0;
     }
+
+    let quantity = this.getArticleQuantityInCart(article);
+    return article.stock - quantity > 0;
+  }
+
+  getMaxAvailable(article: BaseVariant): number {
+    // if (!this.isArticleInCart(article) && article.stock !== undefined) {
+    //   return article.stock;
+    // }
+
+    // let articleInCart = this.cart[this.getArticleIndexInCart(article)];
+
+    // if (articleInCart.stock && articleInCart.quantity) {
+    //   return articleInCart.stock - articleInCart.quantity;
+    // }
     return 0
   }
+
+  // hasManyVariants(article: Article) {
+  //   return article.variants !== undefined && article.variants.length > 1;
+  // }
+
+  // hasVariant(article: Article) {
+  //   return article.variants !== undefined && article.variants.length > 0;
+  // }
 }

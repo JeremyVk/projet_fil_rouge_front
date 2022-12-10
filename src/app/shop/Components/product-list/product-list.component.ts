@@ -24,7 +24,9 @@ export class ProductListComponent implements OnInit {
   getAllBooks()
   {
     this.isLoading = true;
-    this.productService.getAllBooks().subscribe(res => {      
+    this.productService.getAllBooks().subscribe(res => {
+      console.log(res);
+      
       this.articleList = res;
       this.isLoading = false;
       this.productSearchQuery = "";

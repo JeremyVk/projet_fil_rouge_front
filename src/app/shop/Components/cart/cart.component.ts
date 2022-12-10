@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../interfaces/article';
+import { BaseVariant } from '../../interfaces/baseVariant';
 import { CartService } from '../../services/cart/cart.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CartService } from '../../services/cart/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cart: Array<Article> = [];
+  cart: Array<BaseVariant> = [];
   articleQuantity: number = 0;
 
   showPopup: boolean = false;
@@ -16,6 +17,8 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
+    console.log(this.cart);
+    
     this.cartService.updateCartEmitter.subscribe(data => {
       this.cart = data;
     })
@@ -27,6 +30,6 @@ export class CartComponent implements OnInit {
   }
 
   updateArticleQuantity() {
-    this.articleQuantity = this.cartService.getArticleQuantity(this.cart);
+    this.articleQuantity = this.cart.length ;
   }
 }
