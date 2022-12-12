@@ -1,14 +1,35 @@
 
-    <div class="">
-        <button (click)="toggleBlala()" class="p-2 rounded-full border-2 border-black" type="submit">
-            <img class="w-8" src="assets/images/cart.png">
-        </button>
-    </div>
-    <div class="absolute w-60 h-80 bg-red-300 -top-60 right-2 p-6 border-2 rounded-lg">
-        <div class="" *ngFor="let variant of article.variants">
-            <!-- {{console.log(variant)}} -->
-            <p *ngIf="variant.format !== undefined">{{ variant.format.name }}</p>
+<div class="">
+    <button (click)="toggleOpenLayer()" class="p-2 rounded-full border-2 border-black" type="submit">
+        <img class="w-8" src="assets/images/cart.png">
+    </button>
+</div>
+<div *ngIf="openLayer" class="variant-listing absolute w-full md:w-64 bg-white p-6 border-2 border-gray-600 rounded-lg bottom-0 left-1/2 transform -translate-x-1/2 mr-3 ">
+    <div *ngIf="openLayer" class="variant-listing-content">
+        <div class="mb-2" *ngFor="let variant of article.variants">
+            <div class="border-b-2 border-b-gray-300 p-2 pb-4 flex justify-around items-center">
+                <div class="w-8/12 flex items-center justify-start">
+                    <div class="text-sm">
+                        <p *ngIf="variant.format !== undefined">{{ variant.format.name }}:</p>
+                    </div>
+                    <div class="text-sm font-bold pl-2">
+                        <p *ngIf="variant.format !== undefined">{{ variant.unitPrice|showPrice }}€</p>
+                    </div>
+                </div>
+                <div class="w-4/12">
+                    <div class="w-10">
+                        <app-simple-add-to-cart-button [variant]="variant" class="w-14"></app-simple-add-to-cart-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end items-center pt-4">
+            <div class="w-12" (click)="toggleOpenLayer()">
+                <img src="assets/images/close.svg" alt="">
+            </div>
         </div>
     </div>
+</div>
+
 
 

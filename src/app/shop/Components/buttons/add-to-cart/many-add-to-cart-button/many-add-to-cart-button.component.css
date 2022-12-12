@@ -1,0 +1,29 @@
+
+@keyframes displayListingVariants {
+    from {width: 0;}
+    to {width: 100%;}
+  }
+
+@keyframes displayListingVariantsContent {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes hiddenListingVariantsContent {
+    from {width: 100%;}
+    to {width: 0;}
+}
+
+.variant-listing {
+    animation-name: displayListingVariants;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+  }
+
+  .variant-listing-content {
+    opacity: 0;
+    animation-name: displayListingVariantsContent;
+    animation-delay: 0.3s;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+  }

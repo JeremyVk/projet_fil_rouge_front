@@ -16,8 +16,8 @@ export class ManyAddToCartButtonComponent implements OnInit {
   this.article.variants?.forEach(elt => console.log(elt.format))    
   }
 
-  toggleBlala() {
-    this.openLayer = !this.openLayer;    
+  toggleOpenLayer() {
+    this.openLayer = !this.openLayer;
   }
 
 }

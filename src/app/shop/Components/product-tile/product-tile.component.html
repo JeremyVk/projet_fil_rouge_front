@@ -21,8 +21,12 @@
                     <div *ngIf="hasManyVariants" class="text-indigo-800 text-bold text-xl">
                         <p> <span class="text-sm">Dès</span>  {{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
-                    <app-simple-add-to-cart-button *ngIf="!hasManyVariants" [variant]="article.variants[0]"></app-simple-add-to-cart-button>
-                    <app-many-add-to-cart-button *ngIf="hasManyVariants" [article]="article" ></app-many-add-to-cart-button>
+                    <div>
+                        <app-simple-add-to-cart-button *ngIf="!hasManyVariants" [variant]="article.variants[0]"></app-simple-add-to-cart-button>
+                    </div>
+                    <div>
+                        <app-many-add-to-cart-button class="w-full" *ngIf="hasManyVariants" [article]="article" ></app-many-add-to-cart-button>
+                    </div>
                 </div>
             </div>
             
