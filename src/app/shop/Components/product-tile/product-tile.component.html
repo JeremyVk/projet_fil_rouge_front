@@ -1,5 +1,5 @@
 
-<div class="border-2 border-gray-200 shadow-lg rounded-xl mx-auto flex flex-col relative p-5 w-full sm:w-72">
+<div *ngIf="article.variants !== undefined && article.variants.length > 0" class="border-2 border-gray-200 shadow-lg rounded-xl mx-auto flex flex-col relative p-5 w-full sm:w-72">
     <img src="assets/images/heart.png" alt="" class="absolute top-2 right-2">
     <div class="flex flex-col w-full mt-2">
         <a href="" routerLink="product/{{article.id}}"><img src="{{ article.image }}" alt="Image du livre {{ article.title }}" class="w-36 h-48 mb-5 mx-auto"></a>
@@ -15,22 +15,17 @@
             <!-- Pricing -->
             <div class="w-5/6 pb-8 absolute bottom-0 pr-5">
                 <div class="flex justify-between items-center w-full">
-                    <div class="text-indigo-800 text-bold text-xl">
-                        <p>{{ article.unitPrice|showPrice }}€</p>
+                    <div class="text-indigo-800 text-bold text-xl" *ngIf="!hasManyVariants">
+                        <p>{{article.variants[0].unitPrice|showPrice }}€</p>
+                    </div>
+                    <div *ngIf="hasManyVariants" class="text-indigo-800 text-bold text-xl">
+                        <p> <span class="text-sm">Dès</span>  {{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
                     <div>
-                        <form (ngSubmit)="addToCart()"  #productQuantity="ngForm">
-                            <!-- <div class="w-14 flex justify-between" *ngIf="isArticleInStock">
-                                <button class="border-2 p-1">-</button>
-                                <input type="number" [(ngModel)]="inputQuantity" [max]="maxAvailable" name="inputQuantity" min="1"
-                                class="form-control text-center">
-                                <button class="border-2 p-1">+</button>
-                            </div> -->
-                            <!-- <div class="p-2 rounded-full border-2 border-black" (click)="addToCart()"><img class="w-8" src="assets/images/cart.png"></div> -->
-                            <p *ngIf="!isArticleInStock" class="text-red-500 my-auto">Hors stock</p>
-                            <button *ngIf="isArticleInStock"class="p-2 rounded-full border-2 border-black " [disabled]="!isArticleInStock" type="submit">
-                                <img class="w-8" src="assets/images/cart.png"></button>
-                        </form>
+                        <app-simple-add-to-cart-button *ngIf="!hasManyVariants" [variant]="article.variants[0]"></app-simple-add-to-cart-button>
+                    </div>
+                    <div>
+                        <app-many-add-to-cart-button class="w-full" *ngIf="hasManyVariants" [article]="article" ></app-many-add-to-cart-button>
                     </div>
                 </div>
             </div>
