@@ -16,7 +16,9 @@ export class ProductService {
 
 
   getAllBooks() {
-    return this.http.get<Array<Article>>(this.bookUrl)
+    return this.http.get<{'hydra:member': Array<Article>}>(this.bookUrl).pipe(
+      map((elt) => elt['hydra:member'])
+    )
   }
 
   findBookById(id: number) {
@@ -24,7 +26,9 @@ export class ProductService {
   }
 
   getBooksBySearch(search: string) {
-    return this.http.get<Array<Article>>(`${this.bookUrl}/?query=${search}`);
+    return this.http.get<{'hydra:member': Array<Article>}>(`${this.bookUrl}/?query=${search}`).pipe(
+      map((elt) => elt['hydra:member'])
+    );
   }
 
   getMaxAvailable(product: Article): number {
