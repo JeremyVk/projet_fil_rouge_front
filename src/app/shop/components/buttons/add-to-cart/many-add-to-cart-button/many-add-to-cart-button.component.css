@@ -1,7 +1,7 @@
 
 @keyframes displayListingVariants {
-    from {width: 0;}
-    to {width: 100%;}
+    from {opacity: 0;}
+    to {opacity: 100%;}
   }
 
 @keyframes displayListingVariantsContent {
@@ -23,7 +23,6 @@
   .variant-listing-content {
     opacity: 0;
     animation-name: displayListingVariantsContent;
-    animation-delay: 0.3s;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
   }

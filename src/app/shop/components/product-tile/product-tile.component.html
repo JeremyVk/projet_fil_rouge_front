@@ -13,24 +13,26 @@
                </div> 
             </div>
             <!-- Pricing -->
-            <div class="w-full pb-8 absolute bottom-0 left-4 pr-7">
-                <div class="flex justify-between items-center w-full">
-                    <div class="text-indigo-800 text-bold text-xl" *ngIf="!hasManyVariants">
+            <div class="w-full pb-8 absolute bottom-0 left-2">
+                <!-- If one variant -->
+                <div *ngIf="!hasManyVariants" class="flex justify-around items-center w-full">
+                    <div class="text-indigo-800 text-bold text-xl">
                         <p>{{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
-                    <div *ngIf="hasManyVariants" class="text-indigo-800 text-bold text-xl">
+                    <div>
+                        <app-simple-add-to-cart-button  [variant]="article.variants[0]"></app-simple-add-to-cart-button>
+                    </div>
+                </div>
+                <!-- If many variants -->
+                <div *ngIf="hasManyVariants" class="flex justify-around items-center w-full">
+                    <div  class="text-indigo-800 text-bold text-xl">
                         <p> <span class="text-sm">Dès</span>  {{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
                     <div>
-                        <app-simple-add-to-cart-button *ngIf="!hasManyVariants" [variant]="article.variants[0]"></app-simple-add-to-cart-button>
-                    </div>
-                    <div>
-                        <app-many-add-to-cart-button *ngIf="hasManyVariants" [article]="article" ></app-many-add-to-cart-button>
+                        <app-many-add-to-cart-button [article]="article" ></app-many-add-to-cart-button>
                     </div>
                 </div>
             </div>
-            
         </div>
-       
     </div>
 </div>
