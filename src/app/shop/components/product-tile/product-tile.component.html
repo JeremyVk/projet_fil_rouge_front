@@ -6,31 +6,33 @@
         <div class="ml-4">
             <div class="pb-20 grow">
                 <div class="line-clamp-2 grow">
-                    <h6 class="text-start text-bold w-full hover:underline"><a routerLink="product/{{article.id}}">{{article.title}}</a></h6>
+                    <h6 class="text-start text-bold w-full hover:underline"><a routerLink="product/{{article.id}}">{{ article.title }}</a></h6>
                 </div>
                <div class="line-clamp-2">
                     <p class="text-gray-400">{{ article.editor }}</p>
                </div> 
             </div>
             <!-- Pricing -->
-            <div class="w-5/6 pb-8 absolute bottom-0 pr-5">
-                <div class="flex justify-between items-center w-full">
-                    <div class="text-indigo-800 text-bold text-xl" *ngIf="!hasManyVariants">
+            <div class="w-full pb-8 absolute bottom-0 left-2">
+                <!-- If one variant -->
+                <div *ngIf="!hasManyVariants" class="flex justify-around items-center w-full">
+                    <div class="text-indigo-800 text-bold text-xl">
                         <p>{{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
-                    <div *ngIf="hasManyVariants" class="text-indigo-800 text-bold text-xl">
+                    <div>
+                        <app-simple-add-to-cart-button  [variant]="article.variants[0]"></app-simple-add-to-cart-button>
+                    </div>
+                </div>
+                <!-- If many variants -->
+                <div *ngIf="hasManyVariants" class="flex justify-around items-center w-full">
+                    <div  class="text-indigo-800 text-bold text-xl">
                         <p> <span class="text-sm">Dès</span>  {{article.variants[0].unitPrice|showPrice }}€</p>
                     </div>
                     <div>
-                        <app-simple-add-to-cart-button *ngIf="!hasManyVariants" [variant]="article.variants[0]"></app-simple-add-to-cart-button>
-                    </div>
-                    <div>
-                        <app-many-add-to-cart-button class="w-full" *ngIf="hasManyVariants" [article]="article" ></app-many-add-to-cart-button>
+                        <app-many-add-to-cart-button [article]="article" ></app-many-add-to-cart-button>
                     </div>
                 </div>
             </div>
-            
         </div>
-       
     </div>
 </div>
