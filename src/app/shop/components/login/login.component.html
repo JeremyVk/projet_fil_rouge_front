@@ -1,14 +1,9 @@
-<section class="h-100 h-custom">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-8 col-xl-6">
-        <div class="card rounded-3">
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Connexion</h3>
+<section>
+            <h3>Connexion</h3>
 
-            <form class="px-md-2" (ngSubmit)="login()" [formGroup]="userLoginForm">
-              <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example1q"
+            <form (ngSubmit)="login()" [formGroup]="userLoginForm">
+              <div>
+                <label for="form3Example1q"
                   >Adresse e-mail</label
                 >
                 <input
@@ -20,12 +15,12 @@
                   required
                   email
                 />
-                <div *ngIf="emailCtrl.dirty && emailCtrl.hasError('email')" class="text-danger">Veuillez rentrer une addresse e-mail</div>
+                <div *ngIf="emailCtrl.dirty && emailCtrl.hasError('email')">Veuillez rentrer une addresse e-mail</div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6 mb-4">
-                  <div class="form-outline datepicker">
+              <div>
+                <div>
+                  <div>
                     <label for="exampleDatepicker1" class="form-label"
                       >Mot de passe</label
                     >
@@ -39,17 +34,12 @@
                     />
                   </div>
                 </div>
-                <div *ngIf="errors.length > 0" class="text-danger container mb-4">Email et/ou mot de passe incorrect.</div>
+                <div *ngIf="errors.length > 0">Email et/ou mot de passe incorrect.</div>
               </div>
-              <button [disabled]="userLoginForm.invalid" type="submit" class="btn btn-success btn-lg mb-1">
+              <app-button-cta text="Se connecter" bgColor="bg-basePurple"></app-button-cta>
+              <button [disabled]="userLoginForm.invalid" type="submit">
                 Se connecter
               </button>
-              
             </form>
             <p  class="px-md-2">Pas de compte ? <a routerLink="/register">S'inscrire</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

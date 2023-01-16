@@ -21,6 +21,7 @@ import { SpinnerDataLoaderComponent } from './components/spinner-data-loader/spi
 import { SimpleAddToCartButtonComponent } from './components/buttons/add-to-cart/simple-add-to-cart-button/simple-add-to-cart-button.component';
 import { ManyAddToCartButtonComponent } from './components/buttons/add-to-cart/many-add-to-cart-button/many-add-to-cart-button.component';
 import { LayerManyAddToCartButtonComponent } from './components/buttons/add-to-cart/layer-many-add-to-cart-button/layer-many-add-to-cart-button.component';
+import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LayerManyAddToCartButtonComponent } from './components/buttons/add-to-c
     SimpleAddToCartButtonComponent,
     ManyAddToCartButtonComponent,
     LayerManyAddToCartButtonComponent,
+    ButtonCtaComponent,
   ],
   imports: [
     CommonModule,
