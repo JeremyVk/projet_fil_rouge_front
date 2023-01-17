@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-button-cta',
@@ -8,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ButtonCtaComponent implements OnInit {
   @Input() bgColor: string = '';
   @Input() text: string = '';
+  @Input() form: any = false;
   constructor() { }
 
   ngOnInit(): void {

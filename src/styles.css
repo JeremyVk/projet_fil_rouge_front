@@ -2,3 +2,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .input {
+        @apply border-2 h-5 p-5 rounded-lg outline-none focus:border-basePurple;
+    }
+    .text-error {
+        @apply text-red-500 break-normal;
+    }
+
+    .input-container {
+        @apply flex justify-center items-start flex-col mt-5 flex-wrap w-72;
+    }
+}
