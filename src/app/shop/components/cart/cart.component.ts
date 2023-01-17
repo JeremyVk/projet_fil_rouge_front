@@ -17,7 +17,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
-    console.log(this.cart);
     
     this.cartService.updateCartEmitter.subscribe(data => {
       this.cart = data;
@@ -30,6 +29,6 @@ export class CartComponent implements OnInit {
   }
 
   updateArticleQuantity() {
-    this.articleQuantity = this.cart.length ;
+    this.articleQuantity = this.cartService.getTotalVariantsQuantity();
   }
 }

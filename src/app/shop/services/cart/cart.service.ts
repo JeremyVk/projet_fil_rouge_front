@@ -18,9 +18,19 @@ export class CartService {
     if(!this.isArticleInStock(article)) {
       return "L'article n'est plus en stock";
     }
-      this.cart.push(article);
-      console.log(this.cart);
 
+    let variantInCart = this.getArticleInCart(article)
+
+    if( !variantInCart) {
+      article.quantity = 1;
+      this.cart.push(article);
+    } else {      
+      this.cart.map(variant => {
+        if (variant.id === variantInCart?.id && variant.type === variantInCart?.type) {          
+          variant.quantity && variant.quantity ++
+        }
+      });
+    }
     this.pushCartToLocaleStorage(this.cart);
   }
 
@@ -49,8 +59,6 @@ export class CartService {
     return quantity;
   }
 
-
-
   getCart() {
     return this.cart;
   }
@@ -65,10 +73,6 @@ export class CartService {
     return this.getArticleIndexInCart(article) !== -1;
   }
 
-  getArticleQuantityInCart(article: BaseVariant) {   
-    return this.cart.filter(elt => elt.id == article.id && elt.parent === article.parent).length;
-  }
-
   isArticleInStock(article: BaseVariant): boolean {
    
     if(!article.stock) {
@@ -79,28 +83,24 @@ export class CartService {
       return article?.stock > 0;
     }
 
-    let quantity = this.getArticleQuantityInCart(article);
-    return article.stock - quantity > 0;
+    let quantity = this.getArticleInCart(article)?.quantity;
+    return quantity ? article.stock - quantity > 0 : false;
   }
 
-  getMaxAvailable(article: BaseVariant): number {
-    // if (!this.isArticleInCart(article) && article.stock !== undefined) {
-    //   return article.stock;
-    // }
-
-    // let articleInCart = this.cart[this.getArticleIndexInCart(article)];
-
-    // if (articleInCart.stock && articleInCart.quantity) {
-    //   return articleInCart.stock - articleInCart.quantity;
-    // }
-    return 0
+  getArticleInCart(baseVariant: BaseVariant) {
+    return this.cart.find(elt => elt.id === baseVariant.id && elt.type === baseVariant.type);
   }
 
-  // hasManyVariants(article: Article) {
-  //   return article.variants !== undefined && article.variants.length > 1;
-  // }
+  getTotalVariantsQuantity(): number {
+    let quantity = 0;
 
-  // hasVariant(article: Article) {
-  //   return article.variants !== undefined && article.variants.length > 0;
-  // }
+    this.cart.forEach(variant => {
+      if (variant.quantity) {
+        quantity += variant.quantity
+      }
+    })
+    return quantity;
+  }
 }
+
+
