@@ -23,12 +23,12 @@ export class AppComponent {
             firstname: {
               max_length: "Le prénom ne doit pas dépasser 20 caractères",
               min_length: "Le prénom doit faire au moins 3 caractères",
-              required: 'Le mot de passe est requis',
+              required: 'Le prénom est requis',
             },
             lastname: {
               max_length: "Le nom ne doit pas dépasser 30 caractères",
               min_length: "Le nom doit faire au moins 2 caractères",
-              required: 'Le mot de passe est requis',
+              required: 'Le nom est requis',
             },
             email: {
               unique: "Cet email est déja utilisé",

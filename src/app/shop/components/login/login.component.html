@@ -1,55 +1,41 @@
-<section class="h-100 h-custom">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-8 col-xl-6">
-        <div class="card rounded-3">
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Connexion</h3>
-
-            <form class="px-md-2" (ngSubmit)="login()" [formGroup]="userLoginForm">
-              <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example1q"
-                  >Adresse e-mail</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  formControlName="email"
-                  [(ngModel)]="user.email"
-                  class="form-control"
-                  required
-                  email
-                />
-                <div *ngIf="emailCtrl.dirty && emailCtrl.hasError('email')" class="text-danger">Veuillez rentrer une addresse e-mail</div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-4">
-                  <div class="form-outline datepicker">
-                    <label for="exampleDatepicker1" class="form-label"
-                      >Mot de passe</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="password"
-                      required
-                      formControlName="password"
-                      [(ngModel)]="user.password"
-                    />
-                  </div>
-                </div>
-                <div *ngIf="errors.length > 0" class="text-danger container mb-4">Email et/ou mot de passe incorrect.</div>
-              </div>
-              <button [disabled]="userLoginForm.invalid" type="submit" class="btn btn-success btn-lg mb-1">
-                Se connecter
-              </button>
-              
-            </form>
-            <p  class="px-md-2">Pas de compte ? <a routerLink="/register">S'inscrire</a></p>
-          </div>
-        </div>
+<section class="w-full mx-auto mt-12">
+  <h3 class="text-center font-bold text-xl">Connexion</h3>
+  <form (ngSubmit)="login()" [formGroup]="userLoginForm" class="mt-5">
+    <div class="flex justify-center flex-col items-center">
+      <div class="flex justify-center items-start flex-col">
+        <label for="form3Example1q"
+          >Adresse e-mail</label
+        >
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+          [(ngModel)]="user.email"
+          class="input"
+          required
+          email
+        />
+        <div *ngIf="emailCtrl.dirty && emailCtrl.hasError('email')" class="text-red-500">Veuillez rentrer une adresse e-mail</div>
+      </div>
+      <div class="flex justify-center items-start flex-col mt-5">
+          <label for="exampleDatepicker1" class="form-label"
+            >Mot de passe</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            required
+            formControlName="password"
+            [(ngModel)]="user.password"
+            class="input"
+          />
+        <div *ngIf="errors.length > 0" class="text-red-500">Email et/ou mot de passe incorrect.</div>
+      </div>
+      <div class="flex flex-col justify-center items-start">
+        <app-button-cta text="Se connecter" form="userLoginForm" class="mt-5"></app-button-cta>
+        <p  class="mt-5">Pas de compte ? <a routerLink="/register" class="font-bold text-basePurple">S'inscrire</a></p>
       </div>
     </div>
-  </div>
+  </form>
 </section>

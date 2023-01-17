@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   user: User = {};
   errors: any = [];
 
-  lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
+  lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
   firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
   passwordCtrl = this.fb.control(this.user.password, [Validators.required, Validators.minLength(8)]);
   passwordConfirmCtrl = this.fb.control('', [Validators.required]);
