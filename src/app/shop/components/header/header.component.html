@@ -8,8 +8,8 @@
                 <div *ngIf="!jwt" class="mr-4">
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
-                <div class="">
-                    <app-cart></app-cart>
+                <div>
+                    <app-cart class="relative"></app-cart>
                 </div>
                 <div *ngIf="jwt" class="">
                     <a class="" (click)="logout()">Se Déconnecter</a>

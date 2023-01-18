@@ -32,7 +32,7 @@ export class SimpleAddToCartButtonComponent implements OnInit {
     }
   }
 
-  updateIsArticleIsInStock() {
+  updateIsArticleIsInStock() {    
     this.isArticleInStock = this.cartService.isArticleInStock(this.variant);
   }
 }

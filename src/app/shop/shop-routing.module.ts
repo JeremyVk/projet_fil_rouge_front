@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 const routes: Routes = [
   { path: '', component: ProductListComponent },
   { path: 'product/:productId', component: ProductPageComponent },
+  { path: 'product/:productType/:productId', component: ProductPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];

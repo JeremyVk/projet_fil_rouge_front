@@ -1,5 +1,5 @@
 <p class="text-center m-0 text-white" (mouseover)="showPopup=true">panier: {{ articleQuantity }}</p>
 
-<div class="position-relative" *ngIf="showPopup">
-    <app-cart-popup [cart]="cart" class="bg-danger" (closePopupEmitter)="showPopup=false"></app-cart-popup>
+<div class="position-relative hidden  lg:{{ showPopup ? 'block' : 'hidden' }} ">
+    <app-cart-popup [cart]="cart" (closePopupEmitter)="showPopup=false"></app-cart-popup>
 </div>

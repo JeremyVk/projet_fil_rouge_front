@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { elementAt, map, mergeMap, pipe, reduce, tap, switchMap } from 'rxjs';
+import { elementAt, map, mergeMap, pipe, reduce, tap, switchMap, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CartPopupArticleComponent } from '../../components/cart-popup-article/cart-popup-article.component';
 import { Article } from '../../interfaces/article';
+import { BaseVariant } from '../../interfaces/baseVariant';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,17 @@ export class ProductService {
     // }
 
     return 0;
+  }
+
+  getProductImage(variant: BaseVariant): Observable<string | undefined> {
+      return this.http.get<Article>(`${environment.url}${variant.parent}`).pipe(
+        map((elt) => elt.image)
+      )
+  }
+
+  getParent(variant: BaseVariant): Observable<Article> {
+    console.log(variant.parent);
+    
+    return this.http.get<Article>(`${environment.url}${variant.parent}`)
   }
 }
