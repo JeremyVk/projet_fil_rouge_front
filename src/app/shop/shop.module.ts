@@ -22,6 +22,8 @@ import { SimpleAddToCartButtonComponent } from './components/buttons/add-to-cart
 import { ManyAddToCartButtonComponent } from './components/buttons/add-to-cart/many-add-to-cart-button/many-add-to-cart-button.component';
 import { LayerManyAddToCartButtonComponent } from './components/buttons/add-to-cart/layer-many-add-to-cart-button/layer-many-add-to-cart-button.component';
 import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.component';
+import { CartPageComponent } from './components/cart-page/cart-page.component';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.c
     ManyAddToCartButtonComponent,
     LayerManyAddToCartButtonComponent,
     ButtonCtaComponent,
+    CartPageComponent,
+    CartItemComponent,
   ],
   imports: [
     CommonModule,

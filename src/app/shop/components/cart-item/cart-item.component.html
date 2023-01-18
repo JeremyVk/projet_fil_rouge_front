@@ -1,0 +1,30 @@
+<div class="flex p-4 mb-5 border-2 justify-between mx-auto sm:w-96 lg:w-96">
+    <div class="flex flex-start">
+        <div class="">
+            <img src="{{ variant.parent?.image }}" alt="Image de {{ variant.parent?.title }}" class="w-16 object-cover">
+        </div>
+        <div class="w-2/3 pl-2 flex flex-col justify-between">
+            <p class="text-sm font-bold pb-1">{{ variant.parent?.title }}</p>
+            <div class="">
+                <p class="text-xs">{{ variant.parent?.editor }}</p>
+                <p class="text-xs">Édition {{ variant.format?.name }}</p>
+            </div>
+        </div>
+    </div>
+    <div class=" flex flex-col items-center justify-between">
+        <div class="w-20 border-2 rounded-md flex justify-between items-start">
+            <div class="w-1/4 border-r-2 text-center">
+                -
+            </div>
+            <div class="w-2/4 text-center">
+                {{ variant.quantity }}
+            </div>
+            <div class="w-1/4 border-l-2 text-center">
+                +
+            </div>
+        </div>
+        <div class="text-basePurple">
+            {{ variantsPrice|showPrice }}€
+        </div>
+    </div>
+</div>

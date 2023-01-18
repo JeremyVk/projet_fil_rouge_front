@@ -14,4 +14,7 @@
     .input-container {
         @apply flex justify-center items-start flex-col mt-5 flex-wrap w-72;
     }
+    .title {
+        @apply text-center text-xl font-bold pt-5
+    }
 }
