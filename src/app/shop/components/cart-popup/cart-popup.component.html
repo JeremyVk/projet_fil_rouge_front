@@ -1,7 +1,7 @@
 <div class="absolute bg-white w-96 h-52 border-2 rounded-lg text-black overflow-y-scroll right-0 z-10 mt-5" (mouseleave)="closePopup()" >
-    <h4 class="text-center font-bold text-xl pt-5">Votre panier {{ cart.length == 0 ? "est vide" : ""}}</h4>
+    <h4 class="title">Votre panier {{ cart.length == 0 ? "est vide" : ""}}</h4>
     <app-cart-popup-article *ngFor="let article of cart" [variant]="article"></app-cart-popup-article>
     <div class="mx-auto py-5 flex justify-center">
-        <button class="button" *ngIf="cart.length > 0" class="text-basePurple font-bold">Consulter votre panier</button>
+        <button class="button" *ngIf="cart.length > 0" class="text-basePurple font-bold" routerLink="cart">Consulter votre panier</button>
     </div>
 </div>

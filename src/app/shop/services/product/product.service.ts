@@ -55,4 +55,11 @@ export class ProductService {
     
     return this.http.get<Article>(`${environment.url}${variant.parent}`)
   }
+
+  getVariantsPrice(variant: BaseVariant): number {
+    if(variant.unitPrice && variant.quantity) {
+          return variant.unitPrice * variant.quantity
+    }
+    return 0
+  }
 }

@@ -101,6 +101,17 @@ export class CartService {
     })
     return quantity;
   }
+
+  getTotalCartPrice(): number {
+    let total = 0;
+    this.cart.forEach(variant => {
+      if (variant.unitPrice && variant.quantity) {
+        total +=  variant.unitPrice * variant.quantity;
+      }
+      
+    })
+    return total;
+  }
 }
 
 
