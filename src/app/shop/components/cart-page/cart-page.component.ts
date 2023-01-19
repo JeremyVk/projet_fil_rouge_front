@@ -18,14 +18,15 @@ export class CartPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCart();
+    this.cartService.cart$.subscribe(cart => {
+      this.cart = cart;
+    });
     
     this.variantQuantity = this.cartService.getTotalVariantsQuantity();
     this.cartTotalPrice = this.cartService.getTotalCartPrice();
   }
 
   ngDoCheck() {
-    this.cart = this.cartService.getCart();
     this.variantQuantity = this.cartService.getTotalVariantsQuantity();
     this.cartTotalPrice = this.cartService.getTotalCartPrice();
   }

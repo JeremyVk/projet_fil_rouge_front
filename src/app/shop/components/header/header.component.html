@@ -9,9 +9,7 @@
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
                 <div>
-                    <a routerLink="cart">
                         <app-cart class="relative"></app-cart>
-                    </a>
                 </div>
                 <div *ngIf="jwt" class="">
                     <a class="" (click)="logout()">Se Déconnecter</a>
