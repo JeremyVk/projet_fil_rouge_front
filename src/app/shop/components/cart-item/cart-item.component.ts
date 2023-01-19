@@ -20,7 +20,7 @@ export class CartItemComponent implements OnInit {
     this.variantsPrice = this.productService.getVariantsPrice(this.variant)
   }
 
-  ngOnChanges() {
+  ngDoCheck() {
     this.variantsPrice = this.productService.getVariantsPrice(this.variant)
   }
 }
