@@ -1,0 +1,11 @@
+<div class="w-20 border-2 rounded-md flex justify-between items-start">
+    <span class="w-1/4 text-center cursor-pointer border-r-2" (click)="decrementVariantQuantity()">
+        -
+    </span>
+    <div class="w-2/4 text-center">
+        <input class="w-full text-base text-center rounded-lg border-0 ring-0 appearance-none outline-0 focus:outline-none focus:ring-0 focus:border-basePurple" type="number" name="" id="" value="{{ variant.quantity }}" min="1" max="{{ variant.stock }}">    
+    </div>
+    <span class="w-1/4  text-center cursor-pointer border-l-2" (click)="incrementVariantQuantity()">
+        +
+    </span>
+</div>

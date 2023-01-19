@@ -24,6 +24,7 @@ import { LayerManyAddToCartButtonComponent } from './components/buttons/add-to-c
 import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.component';
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { ProductQuantityIncrementComponent } from './components/product/product-quantity-increment/product-quantity-increment.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
     ButtonCtaComponent,
     CartPageComponent,
     CartItemComponent,
+    ProductQuantityIncrementComponent,
   ],
   imports: [
     CommonModule,

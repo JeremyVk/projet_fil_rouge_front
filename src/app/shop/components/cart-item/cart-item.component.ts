@@ -19,4 +19,8 @@ export class CartItemComponent implements OnInit {
   ngOnInit(): void {
     this.variantsPrice = this.productService.getVariantsPrice(this.variant)
   }
+
+  ngOnChanges() {
+    this.variantsPrice = this.productService.getVariantsPrice(this.variant)
+  }
 }

@@ -18,3 +18,13 @@
         @apply text-center text-xl font-bold pt-5
     }
 }
+
+@layer base {
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number'] {
+      -webkit-appearance: none;
+      margin: 0;
+      -moz-appearance: textfield !important;
+    }
+ }

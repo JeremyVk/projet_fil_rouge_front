@@ -12,17 +12,7 @@
         </div>
     </div>
     <div class=" flex flex-col items-center justify-between">
-        <div class="w-20 border-2 rounded-md flex justify-between items-start">
-            <div class="w-1/4 border-r-2 text-center">
-                -
-            </div>
-            <div class="w-2/4 text-center">
-                {{ variant.quantity }}
-            </div>
-            <div class="w-1/4 border-l-2 text-center">
-                +
-            </div>
-        </div>
+        <app-product-quantity-increment [variant]="variant"></app-product-quantity-increment>
         <div class="text-basePurple">
             {{ variantsPrice|showPrice }}€
         </div>

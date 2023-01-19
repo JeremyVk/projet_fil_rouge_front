@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { elementAt } from 'rxjs';
+import { BehaviorSubject, elementAt } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 
@@ -13,6 +13,9 @@ export class CartService {
   updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
   cart: Array<BaseVariant> = [];
 
+  cartSubject = new BehaviorSubject<Array<BaseVariant>>([]);
+  cart$ = this.cartSubject.asObservable();
+
   addProductToCart(article: BaseVariant, quantityToIncrement: number = 1): void|string {
 
     if(!this.isArticleInStock(article)) {
@@ -25,11 +28,7 @@ export class CartService {
       article.quantity = 1;
       this.cart.push(article);
     } else {      
-      this.cart.map(variant => {
-        if (variant.id === variantInCart?.id && variant.type === variantInCart?.type) {          
-          variant.quantity && variant.quantity ++
-        }
-      });
+      this.incrementVariantQuantity(variantInCart);
     }
     this.pushCartToLocaleStorage(this.cart);
   }
@@ -111,6 +110,24 @@ export class CartService {
       
     })
     return total;
+  }
+
+  decrementVariantQuantity(variant: BaseVariant) {
+    this.cart.map(cartItem => {
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
+        cartItem.quantity && cartItem.quantity --
+      }
+    });
+    this.pushCartToLocaleStorage(this.cart);
+  }
+
+  incrementVariantQuantity(variant: BaseVariant) {
+    this.cart.map(cartItem => {
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
+        cartItem.quantity && cartItem.quantity ++
+      }
+    });
+    this.pushCartToLocaleStorage(this.cart);
   }
 }
 
