@@ -18,9 +18,7 @@ export class ProductQuantityIncrementComponent implements OnInit {
   }
 
   decrementVariantQuantity(): void {
-    if(this.variant.quantity && this.variant.quantity > 1) {
-      console.log('fnrr');
-      
+    if(this.variant.quantity && this.variant.quantity > 1) {      
       this.cartService.decrementVariantQuantity(this.variant)
     }
   }

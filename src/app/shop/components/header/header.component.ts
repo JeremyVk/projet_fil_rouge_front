@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    // console.log('ibfoezrbf')
     this.jwtService.deleteJsonWebToken();
     this.router.navigateByUrl('');
   }

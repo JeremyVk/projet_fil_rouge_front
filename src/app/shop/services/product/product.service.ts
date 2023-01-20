@@ -50,9 +50,7 @@ export class ProductService {
       )
   }
 
-  getParent(variant: BaseVariant): Observable<Article> {
-    console.log(variant.parent);
-    
+  getParent(variant: BaseVariant): Observable<Article> {    
     return this.http.get<Article>(`${environment.url}${variant.parent}`)
   }
 
