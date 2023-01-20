@@ -1,4 +1,4 @@
-<p class="text-center m-0 text-white" (mouseover)="showPopup=true">panier: {{ articleQuantity }}</p>
+<a class="text-center m-0 text-white" (mouseover)="showPopup=true" routerLink="cart">panier: {{ articleQuantity }}</a>
 
 <div class="position-relative hidden  lg:{{ showPopup ? 'block' : 'hidden' }} ">
     <app-cart-popup [cart]="cart" (closePopupEmitter)="showPopup=false"></app-cart-popup>

@@ -13,7 +13,6 @@ export class ManyAddToCartButtonComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  this.article.variants?.forEach(elt => console.log(elt.format))    
   }
 
   toggleOpenLayer() {

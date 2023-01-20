@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { elementAt } from 'rxjs';
+import { BehaviorSubject, elementAt } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 
@@ -7,11 +7,13 @@ import { BaseVariant } from '../../interfaces/baseVariant';
   providedIn: 'root',
 })
 export class CartService {
-  constructor() {
-    this.cart = this.getCartIntoLocalStorage();
+  constructor() {    
+    this.cartSubject.next(this.getCartIntoLocalStorage())
   }
   updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
-  cart: Array<BaseVariant> = [];
+
+  cartSubject = new BehaviorSubject<Array<BaseVariant>>([]);
+  cart$ = this.cartSubject.asObservable();
 
   addProductToCart(article: BaseVariant, quantityToIncrement: number = 1): void|string {
 
@@ -23,15 +25,12 @@ export class CartService {
 
     if( !variantInCart) {
       article.quantity = 1;
-      this.cart.push(article);
+      let newCart = [...this.cartSubject.value, article];
+      this.cartSubject.next(newCart);
     } else {      
-      this.cart.map(variant => {
-        if (variant.id === variantInCart?.id && variant.type === variantInCart?.type) {          
-          variant.quantity && variant.quantity ++
-        }
-      });
+      this.incrementVariantQuantity(variantInCart);
     }
-    this.pushCartToLocaleStorage(this.cart);
+    this.pushCartToLocaleStorage(this.cartSubject.value);
   }
 
   getCartIntoLocalStorage() {
@@ -45,8 +44,9 @@ export class CartService {
   }
 
   deleteArticleFromLocalStorage(article: Article) {
-    this.cart = this.cart.filter(elt => elt.id !== article.id);
-    this.pushCartToLocaleStorage(this.cart);
+    let newCart = this.cartSubject.value.filter(elt => elt.id !== article.id);
+    this.pushCartToLocaleStorage(newCart);
+    this.cartSubject.next(newCart);
   }
 
   getArticleQuantity(cart: Array<BaseVariant>) {
@@ -59,12 +59,9 @@ export class CartService {
     return quantity;
   }
 
-  getCart() {
-    return this.cart;
-  }
 
   getArticleIndexInCart(article: BaseVariant) {
-    return this.cart.findIndex((elt) => elt.id === article.id);
+    return this.cartSubject.value.findIndex((elt) => elt.id === article.id);
   }
 
   //LES FONCTIONS QUE JE GARDE
@@ -88,13 +85,13 @@ export class CartService {
   }
 
   getArticleInCart(baseVariant: BaseVariant) {
-    return this.cart.find(elt => elt.id === baseVariant.id && elt.type === baseVariant.type);
+    return this.cartSubject.value.find(elt => elt.id === baseVariant.id && elt.type === baseVariant.type);
   }
 
   getTotalVariantsQuantity(): number {
     let quantity = 0;
 
-    this.cart.forEach(variant => {
+    this.cartSubject.value.forEach(variant => {
       if (variant.quantity) {
         quantity += variant.quantity
       }
@@ -104,13 +101,31 @@ export class CartService {
 
   getTotalCartPrice(): number {
     let total = 0;
-    this.cart.forEach(variant => {
+    this.cartSubject.value.forEach(variant => {
       if (variant.unitPrice && variant.quantity) {
         total +=  variant.unitPrice * variant.quantity;
       }
       
     })
     return total;
+  }
+
+  decrementVariantQuantity(variant: BaseVariant) {
+    this.cartSubject.value.map(cartItem => {
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
+        cartItem.quantity && cartItem.quantity --
+      }
+    });
+    this.pushCartToLocaleStorage(this.cartSubject.value);
+  }
+
+  incrementVariantQuantity(variant: BaseVariant) {
+    this.cartSubject.value.map(cartItem => {
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
+        cartItem.quantity && cartItem.quantity ++
+      }
+    });
+    this.pushCartToLocaleStorage(this.cartSubject.value);
   }
 }
 
