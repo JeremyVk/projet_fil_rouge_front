@@ -8,6 +8,10 @@ module.exports = {
       colors: {
         basePurple: '#333366',
       },
+      spacing: {
+        '128': '32rem',
+        '148': '48rem'
+      },
     },
   },
   plugins: [

@@ -25,6 +25,7 @@ import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.c
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { ProductQuantityIncrementComponent } from './components/product/product-quantity-increment/product-quantity-increment.component';
+import { SelectVariantsComponent } from './components/select-variants/select-variants.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ProductQuantityIncrementComponent } from './components/product/product-
     CartPageComponent,
     CartItemComponent,
     ProductQuantityIncrementComponent,
+    SelectVariantsComponent,
   ],
   imports: [
     CommonModule,
