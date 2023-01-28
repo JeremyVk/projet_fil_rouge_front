@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { CartService } from '../../services/cart/cart.service';
+import { OrderService } from '../../services/order/order.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -14,7 +15,8 @@ export class CartPageComponent implements OnInit {
   shippingCost: number = 400;
 
   constructor(
-    private cartService: CartService
+    private cartService: CartService,
+    private orderService: OrderService
   ) { }
 
   ngOnInit(): void {
@@ -29,5 +31,19 @@ export class CartPageComponent implements OnInit {
   ngDoCheck() {
     this.variantQuantity = this.cartService.getTotalVariantsQuantity();
     this.cartTotalPrice = this.cartService.getTotalCartPrice();
+  }
+
+  checkoutOrder() {
+    console.log("nfeikozfne");
+    this.orderService.postOrder().subscribe({
+      next: (res) => {
+        this.cartService.deleteCart();
+      },
+      error: (e) => {
+        console.error(e)
+      }
+    }
+
+    )
   }
 }

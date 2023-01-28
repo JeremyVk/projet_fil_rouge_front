@@ -37,11 +37,11 @@
                 </div>
             </div>
             <div class="mx-auto w-full justify-center mt-3 hidden md:flex">
-                <app-button-cta text="Valider mon panier"></app-button-cta>
+                <app-button-cta (click)="checkoutOrder()" text="Valider mon panier"></app-button-cta>
             </div>
         </div>
     </div>
-    <div class="mx-auto w-full flex justify-center mt-3 sticky bottom-2 md:hidden">
-        <app-button-cta text="Valider mon panier"></app-button-cta>
+    <div (click)="checkoutOrder()" class="mx-auto w-full flex justify-center mt-3 sticky bottom-2 md:hidden">
+        <app-button-cta  text="Valider mon panier"></app-button-cta>
     </div>
 </div>
