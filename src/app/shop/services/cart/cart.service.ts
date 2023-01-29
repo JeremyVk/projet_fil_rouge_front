@@ -127,6 +127,11 @@ export class CartService {
     });
     this.pushCartToLocaleStorage(this.cartSubject.value);
   }
+
+  deleteCart() {
+    this.cartSubject.next([]);
+    localStorage.removeItem('cart');
+  }
 }
 
 

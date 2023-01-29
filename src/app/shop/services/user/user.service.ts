@@ -13,10 +13,14 @@ export class UserService {
   userUrl: string = `${environment.url}/api/users`;
   loginUrl: string = `${environment.url}/authentication_token`;
 
+  user: User = {}
+
   constructor(private http: HttpClient, private jwtService: JsonWebTokenService, private router: Router ) { }
 
   findUserByEmail(email?: string) {
-    return this.http.get<Array<User>>(`${this.userUrl}/?email=${email}`);
+    return this.http.get<{'hydra:member': Array<User>}>(`${this.userUrl}/?email=${email}`).pipe(
+      map((elt) => elt['hydra:member'])
+    );
   }
 
   login(user: User) {
@@ -38,5 +42,14 @@ export class UserService {
         return this.login(user)
       })
     );
+  }
+
+  setUserLogged(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUserLogged(): User {
+    let user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 }
