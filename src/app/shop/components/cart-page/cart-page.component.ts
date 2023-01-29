@@ -34,7 +34,6 @@ export class CartPageComponent implements OnInit {
   }
 
   checkoutOrder() {
-    console.log("nfeikozfne");
     this.orderService.postOrder().subscribe({
       next: (res) => {
         this.cartService.deleteCart();
