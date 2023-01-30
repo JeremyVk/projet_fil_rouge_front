@@ -5,5 +5,6 @@ export interface Order {
     user?: User,
     orderItems?: Array<BaseVariant>
     amount?: number,
-    createdAt?: Date
+    createdAt?: Date,
+    shippingAmount?: number,
 }

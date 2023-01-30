@@ -27,6 +27,7 @@ export class OrderService {
     let order: Order = {};
     order.user = this.userService.getUserLogged();
     order.orderItems = this.cartService.getCartIntoLocalStorage();
+    order.shippingAmount = environment.baseShippingAmount,
     console.log(order);
     return order
   }
