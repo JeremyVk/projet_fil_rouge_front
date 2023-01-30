@@ -13,6 +13,7 @@ export class CartPageComponent implements OnInit {
   variantQuantity: number = 0;
   cartTotalPrice: number = 0;
   shippingCost: number = 400;
+  loadingData: boolean = false;
 
   constructor(
     private cartService: CartService,
@@ -34,15 +35,19 @@ export class CartPageComponent implements OnInit {
   }
 
   checkoutOrder() {
-    this.orderService.postOrder().subscribe({
-      next: (res) => {
-        this.cartService.deleteCart();
-      },
-      error: (e) => {
-        console.error(e)
-      }
+    if (this.cart.length > 0) {
+      this.loadingData = true;
+       this.orderService.postOrder().subscribe({
+        next: (res) => {
+          this.loadingData = false;
+          this.cartService.deleteCart();
+        },
+        error: (e) => {
+          this.loadingData = false;
+          console.error(e)
+        }
+      })
     }
-
-    )
+   
   }
 }

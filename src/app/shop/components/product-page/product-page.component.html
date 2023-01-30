@@ -1,15 +1,15 @@
-<div class="flex flex-col justify-center items-center mx-auto mt-5 sm:w-48 md:w-148 md:justify-around md:items-start md:flex-row ">
+<div class="flex flex-col justify-center items-center mx-auto mt-5 sm:w-48 md:w-148 md:justify-around md:items-start md:flex-row md:mt-12">
     <div class="">
         <img src="{{ article.image }}" alt="" class="md:pr-3 md:w-56">
     </div>
     <div class="flex flex-col items-start w-full md:w-auto pl-3">
-        <h1 class="font-bold text-xl mt-5">{{ article.title }}</h1>
+        <h1 class="font-bold text-xl mt-5 md:mt-0">{{ article.title }}</h1>
         <p class="text-gray-400 text-sm">Éditeur: {{ article.editor }}</p>
         <div class="flex flex-col md:justify-start md:items-start md:w-64">
             <app-select-variants *ngIf="variants.length > 0" [variants]="variants" class="w-60 mt-3" (eventSelectedVariant)="changeSelectedVariant($event)"></app-select-variants>
             <app-button-cta text="Ajouter au panier" class="mt-3 relative" (click)="addToCart()"></app-button-cta>
         </div>
-        <div class="mt-5  md:w-96">
+        <div class="mt-5 md:w-96">
             <p class="font-bold text-basePurple text-xl">Description</p>
             <p class="pt-4">{{ article.resume }}</p>
         </div>

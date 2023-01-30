@@ -1,13 +1,15 @@
-<div class="p-5 border-2 border-basePurple static" (click)="toggleDisplayVariants()">
+<div class="px-5 pt-5 {{ displayVariants ? 'pb-2' : 'pb-5' }} border-2 border-basePurple static cursor-pointer" (click)="toggleDisplayVariants()">
     <ul class="">
         <li class="flex w-full {{ displayVariants && 'pb-3' }}">
             <div class="flex justify-between w-full">
+                <img src="assets/images/icons/small-dropdown.png">
                 <p class="">Format {{ selectedVariant.format?.name }}</p>
                 <p class="font-bold text-basePurple">{{ selectedVariant.unitPrice|showPrice }} €</p>
             </div>
         </li>
         <li *ngFor="let variant of variants">
             <div class="flex justify-between py-3 border-t-2 w-full"  *ngIf="displayVariants && variant !== selectedVariant" (click)="changeSelectedVariant(variant)">
+                <div class="fantom-dropdown"></div>
                 <p class="">Format {{ variant?.format?.name }}</p>
                 <p class="font-bold text-basePurple">{{ variant.unitPrice|showPrice }} €</p>
             </div>

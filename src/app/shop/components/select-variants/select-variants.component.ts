@@ -20,7 +20,7 @@ export class SelectVariantsComponent implements OnInit {
   }
 
   toggleDisplayVariants() {
-    this.displayVariants = !this.displayVariants    
+    this.displayVariants = !this.displayVariants
   }
 
   changeSelectedVariant(variant: BaseVariant) {

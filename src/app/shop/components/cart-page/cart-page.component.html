@@ -1,47 +1,54 @@
-<h1 class="title">Votre panier</h1>
-
-<div class="flex flex-col justify-center items-center pt-3 lg:flex-row lg:w-auto mx-auto lg:justify-center lg:items-start">
-    <div class="w-full lg:w-auto lg:pr-3">
-        <p class="text-center text-lg font-semibold">
-            {{ variantQuantity }} Produits
-        </p>
-        <div class="mt-5">
-            <app-cart-item *ngFor="let variant of cart" [variant]="variant"></app-cart-item>
-        </div>
-    </div>
-    <div class="w-full sm:w-96 lg:flex lg:flex-col lg:pl-3">
-        <p class="text-center text-lg font-semibold mb-3">Récapitulatif</p>
-        <div class=" flex flex-col">
-            <div class="flex justify-between px-4 py-2 w-full">
-                <div class="">
-                    <p>Total de vos articles</p>
-                </div>
-                <div class="">
-                    <p>{{ cartTotalPrice|showPrice }}€</p>
-                </div>
-            </div>
-            <div class="flex justify-between px-4 py-2 w-full">
-                <div class="">
-                    Livraison
-                </div>
-                <div>
-                    {{ shippingCost|showPrice }} €
-                </div>
-            </div>
-            <div class="flex justify-between px-4 py-2 w-full">
-                <div class="">
-                    Total
-                </div>
-                <div>
-                    {{ cartTotalPrice + shippingCost|showPrice }} €
-                </div>
-            </div>
-            <div class="mx-auto w-full justify-center mt-3 hidden md:flex">
-                <app-button-cta (click)="checkoutOrder()" text="Valider mon panier"></app-button-cta>
+<div *ngIf="!loadingData">
+    <div class="flex flex-col justify-center items-center pt-3 lg:flex-row lg:w-auto mx-auto lg:justify-center lg:items-start" *ngIf="cart.length > 0">
+        <h1 class="title">Votre panier</h1>
+        <div class="w-full lg:w-auto lg:pr-3">
+            <p class="text-center text-lg font-semibold">
+                {{ variantQuantity }} Produits
+            </p>
+            <div class="mt-5">
+                <app-cart-item *ngFor="let variant of cart" [variant]="variant"></app-cart-item>
             </div>
         </div>
+        <div class="w-full sm:w-96 lg:flex lg:flex-col lg:pl-3">
+            <p class="text-center text-lg font-semibold mb-3">Récapitulatif</p>
+            <div class=" flex flex-col">
+                <div class="flex justify-between px-4 py-2 w-full">
+                    <div class="">
+                        <p>Total de vos articles</p>
+                    </div>
+                    <div class="">
+                        <p>{{ cartTotalPrice|showPrice }}€</p>
+                    </div>
+                </div>
+                <div class="flex justify-between px-4 py-2 w-full">
+                    <div class="">
+                        Livraison
+                    </div>
+                    <div>
+                        {{ shippingCost|showPrice }} €
+                    </div>
+                </div>
+                <div class="flex justify-between px-4 py-2 w-full">
+                    <div class="">
+                        Total
+                    </div>
+                    <div>
+                        {{ cartTotalPrice + shippingCost|showPrice }} €
+                    </div>
+                </div>
+                <div class="mx-auto w-full justify-center mt-3 hidden md:flex">
+                    <app-button-cta (click)="checkoutOrder()" text="Valider mon panier"></app-button-cta>
+                </div>
+            </div>
+        </div>
+        <div (click)="checkoutOrder()" class="mx-auto w-full flex justify-center mt-3 sticky bottom-2 md:hidden">
+            <app-button-cta  text="Valider mon panier"></app-button-cta>
+        </div>
     </div>
-    <div (click)="checkoutOrder()" class="mx-auto w-full flex justify-center mt-3 sticky bottom-2 md:hidden">
-        <app-button-cta  text="Valider mon panier"></app-button-cta>
-    </div>
+</div>
+<div class="pt-8">
+    <app-spinner-data-loader *ngIf="loadingData"></app-spinner-data-loader>
+</div>
+<div class="mx-auto" *ngIf="cart.length === 0">
+    <h2 class="text-center font-bold">Votre panier est vide</h2>
 </div>
