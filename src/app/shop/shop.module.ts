@@ -26,6 +26,8 @@ import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { ProductQuantityIncrementComponent } from './components/product/product-quantity-increment/product-quantity-increment.component';
 import { SelectVariantsComponent } from './components/select-variants/select-variants.component';
+import { CheckoutCreateAddressComponent } from './components/order-tunnel/checkout-create-address/checkout-create-address.component';
+import { AddressFormComponent } from './components/forms/address-form/address-form.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { SelectVariantsComponent } from './components/select-variants/select-var
     CartItemComponent,
     ProductQuantityIncrementComponent,
     SelectVariantsComponent,
+    CheckoutCreateAddressComponent,
+    AddressFormComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { flatMap, map, mergeMap, tap } from 'rxjs';
+import { map, mergeMap, Observable, tap} from 'rxjs';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { environment } from 'src/environments/environment';
 import { User } from '../../interfaces/user';
@@ -51,5 +51,11 @@ export class UserService {
   getUserLogged(): User {
     let user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+  }
+
+  getUserAddressesCount(user: User): Observable<number> {
+    return this.http.get<{'hydra:totalItems': number}>(`${this.userUrl}/${user.id}/addresses`).pipe(
+      map((elt) => elt["hydra:totalItems"])
+    );
   }
 }

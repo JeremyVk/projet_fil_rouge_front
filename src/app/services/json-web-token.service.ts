@@ -17,6 +17,7 @@ export class JsonWebTokenService {
 
   deleteJsonWebToken():void {
     localStorage.removeItem('JWT');
+    localStorage.removeItem('user');
   }
 
   hasJsonWebToken(): boolean {

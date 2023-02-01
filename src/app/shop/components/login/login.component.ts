@@ -6,6 +6,7 @@ import { FormErrorService } from 'src/app/services/form-error.service';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user/user.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -26,9 +27,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
     private fb: FormBuilder,
-    private formErrorService: FormErrorService
+    private location: Location
   ) {}
 
   ngOnInit(): void {}
@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe({
       next: (res: Array<User>) => {
         this.userService.setUserLogged(res[0])
-        this.router.navigateByUrl('');
+        //this.router.navigateByUrl('');
+        this.location.back();
       },
       error: (e) => {
         this.errors.push(e);
