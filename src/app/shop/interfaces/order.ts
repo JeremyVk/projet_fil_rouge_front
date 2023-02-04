@@ -8,4 +8,5 @@ export interface Order {
     createdAt?: Date,
     shippingAmount?: number,
     shippingAddress?: number,
+    number?: number
 }

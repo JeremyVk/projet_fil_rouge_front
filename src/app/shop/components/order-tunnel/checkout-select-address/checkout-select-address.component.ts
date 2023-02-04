@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Address } from 'src/app/shop/interfaces/address';
 import { Order } from 'src/app/shop/interfaces/order';
 import { User } from 'src/app/shop/interfaces/user';
+import { CartService } from 'src/app/shop/services/cart/cart.service';
 import { OrderService } from 'src/app/shop/services/order/order.service';
 import { UserService } from 'src/app/shop/services/user/user.service';
 
@@ -19,6 +20,7 @@ export class CheckoutSelectAddressComponent implements OnInit {
     private userService: UserService,
     private orderService: OrderService,
     private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +39,8 @@ export class CheckoutSelectAddressComponent implements OnInit {
 
     this.orderService.postOrder(this.selectedAddress).subscribe({
       next: (order: Order) => {
-        console.log(order);
-        this.router.navigateByUrl("/")
+        this.cartService.deleteCart();
+        this.router.navigate(["/checkout/order-success", {'order': JSON.stringify(order)}])
       },
       error: (e) => {
         console.error(e);
