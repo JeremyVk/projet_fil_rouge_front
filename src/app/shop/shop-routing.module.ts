@@ -9,6 +9,7 @@ import {
   CheckoutCreateAddressComponent
 } from "./components/order-tunnel/checkout-create-address/checkout-create-address.component";
 import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
+import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'checkout/create-address', component: CheckoutCreateAddressComponent },
   { path: 'checkout/select-address', component: CheckoutSelectAddressComponent },
+  { path: 'checkout/order-success', component: OrderConfirmationComponent },
 ];
 
 @NgModule({
