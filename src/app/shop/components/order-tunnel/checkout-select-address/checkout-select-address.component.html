@@ -1,0 +1,20 @@
+<div class="w-full mx-auto mt-5">
+    <form (submit)="checkoutOrder()" #selectedAddressForm="ngForm">
+        <div *ngFor="let address of userAddresses" class="w-72  mx-auto border-2 rounded-lg flex flex-col justify-start items-center mb-4 sm:w-80">
+            <div class="flex justify-around items-center w-full p-5">
+                <div class="">
+                    <input type="radio" name="addressSelected" value="{{ address.id }}" id="{{ address.id }}" [(ngModel)]="selectedAddress.id" name="id">
+                </div>
+                <div class="font-semibold">
+                    <label for="{{ address.id }}"> <p>{{ address.firstname }}</p></label>
+                    <label for="{{ address.id }}"> <p>{{ address.lastname }}</p></label>
+                    <label for="{{ address.id }}"> <p>{{ address.street }}</p></label>
+                    <label for="{{ address.id }}"> <p>{{ address.postalCode }}</p></label>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center items-center w-full">
+            <app-button-cta text="Valider mon adresse" class="mx-auto" [form]="selectedAddressForm"></app-button-cta>
+        </div>
+    </form>
+</div>
