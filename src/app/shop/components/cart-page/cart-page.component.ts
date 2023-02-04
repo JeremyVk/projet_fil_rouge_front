@@ -15,7 +15,6 @@ import {User} from "../../interfaces/user";
 })
 export class CartPageComponent implements OnInit {
   cart: Array<BaseVariant> = [];
-  order: Order = {};
   userHasAddresses = false;
   variantQuantity: number = 0;
   cartTotalPrice: number = 0;
@@ -24,7 +23,6 @@ export class CartPageComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private orderService: OrderService,
     private userService: UserService,
     private jwtService: JsonWebTokenService,
     private router: Router
@@ -33,15 +31,10 @@ export class CartPageComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.cart$.subscribe(cart => {
       this.cart = cart;
-      this.orderService.addCartToOrder(this.cart);
     });
 
     this.variantQuantity = this.cartService.getTotalVariantsQuantity();
     this.cartTotalPrice = this.cartService.getTotalCartPrice();
-
-    this.orderService.order$.subscribe(order => {
-      this.order = order;
-    })
 
    this.checkIfUserHaveAddresses(this.userService.getUserLogged())
   }
@@ -51,40 +44,35 @@ export class CartPageComponent implements OnInit {
     this.cartTotalPrice = this.cartService.getTotalCartPrice();
   }
 
-  async checkoutOrder() {
+  checkoutOrder() {
     if (this.cart.length <= 0) {
       return;
     }
     let user = this.userService.getUserLogged();
+
     if (!user || !this.jwtService.hasJsonWebToken()) {
-      this.router.navigateByUrl('/login');
+       return this.router.navigateByUrl('/login');
     }
     
     if (!this.userHasAddresses) {
-      this.router.navigateByUrl('/checkout/create-address');
+      return this.router.navigateByUrl('/checkout/create-address');
     }
 
-    this.loadingData = true;
-    this.orderService.postOrder().subscribe({
-      next: (res) => {
-        this.loadingData = false;
-        this.cartService.deleteCart();
-      },
-      error: (e) => {
-        this.loadingData = false;
-        console.error(e)
-      }
-    })
+    return this.router.navigateByUrl('/checkout/select-address');
   }
 
    public checkIfUserHaveAddresses(user: User)
   {
     let result:boolean = false;
-    this.userService.getUserAddressesCount(user).subscribe({
-      next: (res) => {
-        this.userHasAddresses = res > 0
-        this.loadingData = false
-  }
-    })
+    if (this.userService.getUserLogged()) {
+      this.userService.getUserAddressesCount(user).subscribe({
+        next: (res) => {          
+          this.userHasAddresses = res > 0
+          this.loadingData = false
+    }
+      })
+    } else {
+      this.loadingData = false
+    }
   }
 }

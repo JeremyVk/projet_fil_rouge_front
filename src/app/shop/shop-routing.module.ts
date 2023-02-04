@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {
   CheckoutCreateAddressComponent
 } from "./components/order-tunnel/checkout-create-address/checkout-create-address.component";
+import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'checkout/create-address', component: CheckoutCreateAddressComponent },
+  { path: 'checkout/select-address', component: CheckoutSelectAddressComponent },
 ];
 
 @NgModule({

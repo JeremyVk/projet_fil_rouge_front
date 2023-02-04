@@ -28,6 +28,7 @@ import { ProductQuantityIncrementComponent } from './components/product/product-
 import { SelectVariantsComponent } from './components/select-variants/select-variants.component';
 import { CheckoutCreateAddressComponent } from './components/order-tunnel/checkout-create-address/checkout-create-address.component';
 import { AddressFormComponent } from './components/forms/address-form/address-form.component';
+import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AddressFormComponent } from './components/forms/address-form/address-fo
     SelectVariantsComponent,
     CheckoutCreateAddressComponent,
     AddressFormComponent,
+    CheckoutSelectAddressComponent,
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, mergeMap, Observable, tap} from 'rxjs';
+import { map, mergeMap, Observable, Subject, tap} from 'rxjs';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { environment } from 'src/environments/environment';
+import { Address } from '../../interfaces/address';
 import { User } from '../../interfaces/user';
 
 @Injectable({
@@ -15,7 +16,8 @@ export class UserService {
 
   user: User = {}
 
-  constructor(private http: HttpClient, private jwtService: JsonWebTokenService, private router: Router ) { }
+  constructor(private http: HttpClient, private jwtService: JsonWebTokenService, private router: Router ) {    
+   }
 
   findUserByEmail(email?: string) {
     return this.http.get<{'hydra:member': Array<User>}>(`${this.userUrl}/?email=${email}`).pipe(
@@ -56,6 +58,12 @@ export class UserService {
   getUserAddressesCount(user: User): Observable<number> {
     return this.http.get<{'hydra:totalItems': number}>(`${this.userUrl}/${user.id}/addresses`).pipe(
       map((elt) => elt["hydra:totalItems"])
+    );
+  }
+
+  getUserAddresses(user: User): Observable<Array<Address>> {
+    return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${user.id}/addresses`).pipe(
+      map((elt) => elt['hydra:member'])
     );
   }
 }
