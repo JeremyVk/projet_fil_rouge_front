@@ -16,6 +16,7 @@ export class CheckoutSelectAddressComponent implements OnInit {
   userAddresses: Array<Address> = [];
   user: User = {}
   selectedAddress: Address = {};
+  loadingData: boolean = true;
   constructor(
     private userService: UserService,
     private orderService: OrderService,
@@ -27,8 +28,12 @@ export class CheckoutSelectAddressComponent implements OnInit {
     this.user = this.userService.getUserLogged();
     this.userService.getUserAddresses(this.user).subscribe({
       next: (userAddresses) => {
-        this.userAddresses = userAddresses;        
+        this.userAddresses = userAddresses;
+        this.loadingData =  false;
       },
+      error: (e) => {
+        console.error(e);
+      }
     })
   }
 
@@ -37,7 +42,6 @@ export class CheckoutSelectAddressComponent implements OnInit {
       return;
     }
     let variantsRemoveds = await this.cartService.productStockCheckout();
-    console.log(variantsRemoveds);
 
     if (variantsRemoveds.length > 0) {
       return this.router.navigate(['/cart', {'variantsRemoveds': JSON.stringify(variantsRemoveds)}] );
@@ -57,5 +61,9 @@ export class CheckoutSelectAddressComponent implements OnInit {
     })
 
     return null;
+  }
+
+  addAddress() {
+    return this.router.navigateByUrl('/checkout/create-address')
   }
 }
