@@ -58,7 +58,7 @@ export class AddressFormComponent implements OnInit {
 
 public redirect() {
   if ( this.method === "POST" && this.checkout) {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/checkout/select-address')
   }
 }
 }

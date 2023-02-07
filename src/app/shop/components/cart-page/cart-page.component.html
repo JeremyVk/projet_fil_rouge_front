@@ -1,10 +1,13 @@
 <div *ngIf="!loadingData">
-    <h1 class="title">Votre panier</h1>
+    <h1 class="title" *ngIf="cart.length > 0">Votre panier</h1>
     <div class="flex flex-col justify-center items-center pt-3 lg:flex-row lg:w-auto mx-auto lg:justify-center lg:items-start" *ngIf="cart.length > 0">
         <div class="w-full lg:w-auto lg:pr-3">
             <p class="text-center text-lg font-semibold">
                 {{ variantQuantity }} Produits
             </p>
+            <div class="text-center bg-red-300 p-3 w-10/12 mx-auto my-5" *ngFor="let error of errorMessages">
+                <p class="text-white">{{ error }}</p>
+            </div>
             <div class="mt-5">
                 <app-cart-item *ngFor="let variant of cart" [variant]="variant"></app-cart-item>
             </div>
@@ -51,4 +54,7 @@
 </div>
 <div class="mx-auto" *ngIf="cart.length === 0">
     <h2 class="text-center font-bold">Votre panier est vide</h2>
+    <div class="text-center bg-red-300 p-3 w-10/12 mx-auto my-5" *ngFor="let error of errorMessages">
+        <p class="text-white">{{ error }}</p>
+    </div>
 </div>
