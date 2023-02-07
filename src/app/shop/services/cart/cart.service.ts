@@ -1,13 +1,16 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject, elementAt } from 'rxjs';
+import { BehaviorSubject, elementAt, lastValueFrom } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
+import { ProductVariantService } from '../product-variant/product-variant.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  constructor() {    
+  constructor(
+    private productVariantService: ProductVariantService
+  ) {    
     this.cartSubject.next(this.getCartIntoLocalStorage())
   }
   updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
@@ -40,7 +43,6 @@ export class CartService {
 
   pushCartToLocaleStorage(cart: Array<any>) {
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.updateCartEmitter.emit(cart);
   }
 
   deleteArticleFromLocalStorage(article: Article) {
@@ -131,6 +133,43 @@ export class CartService {
   deleteCart() {
     this.cartSubject.next([]);
     localStorage.removeItem('cart');
+  }
+
+  async productStockCheckout() {
+    let cartVariantIds = this.cartSubject.getValue().map(variant => variant.id);
+    let variantsRefresheds = await lastValueFrom(this.productVariantService.getRequestedVariants(cartVariantIds));
+
+    return this.removeVariantsOutOfStock(variantsRefresheds);
+  }
+
+  removeVariantsOutOfStock(variantsRefresheds: Array<BaseVariant>) {
+    let cart = this.cartSubject.getValue();
+    let variantsRemoved: Array<BaseVariant> = [];
+    cart.forEach(variant => {
+      let variantRefreshed: BaseVariant = variantsRefresheds.find(elt => elt.id === variant.id) ?? {};
+      
+      if (variantRefreshed
+          && variantRefreshed.stock !== undefined
+          && variant.quantity !== undefined
+          && variant.quantity > variantRefreshed.stock
+        ) {        
+        cart = cart.filter(elt => elt.id !== variant.id);
+        variantsRemoved.push({title: variant.parent?.title, format: variant.format});
+      }
+    })
+    this.cartSubject.next(cart);
+    this.pushCartToLocaleStorage(cart);
+    
+    return variantsRemoved
+  }
+
+  generateCartErrorMessages(variantsRemoved: Array<BaseVariant>) {
+    let messages: string[] = [];
+    variantsRemoved.forEach(variant => {
+      messages.push(`Le produit ${variant.title} en format ${variant.format?.name} n'est plus en stock et à donc été retiré de votre panier`);
+    });
+
+    return messages;
   }
 }
 

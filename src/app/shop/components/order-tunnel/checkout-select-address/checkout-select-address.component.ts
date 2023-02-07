@@ -32,19 +32,30 @@ export class CheckoutSelectAddressComponent implements OnInit {
     })
   }
 
-  checkoutOrder() {
+  async checkoutOrder() {
     if (this.selectedAddress.id === undefined) {
       return;
     }
+    let variantsRemoveds = await this.cartService.productStockCheckout();
+    console.log(variantsRemoveds);
+
+    if (variantsRemoveds.length > 0) {
+      return this.router.navigate(['/cart', {'variantsRemoveds': JSON.stringify(variantsRemoveds)}] );
+  }
 
     this.orderService.postOrder(this.selectedAddress).subscribe({
       next: (order: Order) => {
         this.cartService.deleteCart();
-        this.router.navigate(["/checkout/order-success", {'order': JSON.stringify(order)}])
+        return this.router.navigate(["/checkout/order-success", {'order': JSON.stringify(order)}])
       },
       error: (e) => {
         console.error(e);
+        if (e.error === 'product.stock.empty') {
+          return console.log("produit hors stock");
+        }
       }
-    })    
+    })
+
+    return null;
   }
 }

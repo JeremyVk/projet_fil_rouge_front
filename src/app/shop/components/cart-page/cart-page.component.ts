@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseVariant } from '../../interfaces/baseVariant';
-import { Order } from '../../interfaces/order';
 import { CartService } from '../../services/cart/cart.service';
-import { OrderService } from '../../services/order/order.service';
 import {UserService} from "../../services/user/user.service";
 import {JsonWebTokenService} from "../../../services/json-web-token.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../interfaces/user";
 
 @Component({
@@ -21,22 +19,40 @@ export class CartPageComponent implements OnInit {
   shippingCost: number = 400;
   loadingData: boolean = true;
 
+  errorMessages: Array<string> = [];
+
   constructor(
     private cartService: CartService,
     private userService: UserService,
     private jwtService: JsonWebTokenService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    let errors = null;
+    let variantRemoveds = this.route.snapshot.paramMap.get('variantsRemoveds');
+
+    if (variantRemoveds) {
+      errors = JSON.parse(variantRemoveds);
+    }
+
+    if (errors) {
+      this.errorMessages = this.cartService.generateCartErrorMessages(errors);
+    }
+
     this.cartService.cart$.subscribe(cart => {
       this.cart = cart;
     });
 
-    this.variantQuantity = this.cartService.getTotalVariantsQuantity();
-    this.cartTotalPrice = this.cartService.getTotalCartPrice();
+    if (this.cart.length > 0) {
+      this.variantQuantity = this.cartService.getTotalVariantsQuantity();
+      this.cartTotalPrice = this.cartService.getTotalCartPrice();
 
-   this.checkIfUserHaveAddresses(this.userService.getUserLogged())
+      this.checkIfUserHaveAddresses(this.userService.getUserLogged())
+    }
+
+    this.loadingData = false;
   }
 
   ngDoCheck() {
@@ -66,7 +82,7 @@ export class CartPageComponent implements OnInit {
     let result:boolean = false;
     if (this.userService.getUserLogged()) {
       this.userService.getUserAddressesCount(user).subscribe({
-        next: (res) => {          
+        next: (res) => {
           this.userHasAddresses = res > 0
           this.loadingData = false
     }

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { elementAt, map, mergeMap, pipe, reduce, tap, switchMap, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CartPopupArticleComponent } from '../../components/cart-popup-article/cart-popup-article.component';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 
@@ -10,7 +9,7 @@ import { BaseVariant } from '../../interfaces/baseVariant';
   providedIn: 'root'
 })
 export class ProductService {
-  bookUrl: string = `${environment.url}/api/books`;
+  bookUrl: string = `${environment.url}/api/base_articles`;
   constructor(
     private http: HttpClient,
     ) { }
