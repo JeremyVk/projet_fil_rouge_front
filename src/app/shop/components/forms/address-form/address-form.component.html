@@ -20,13 +20,13 @@
             <div class="input-container flex-col mt-5 relative">
                 <label class="" for="form3Example1q">Rue</label>
                 <input type="text" id="form3Example1q" class="input" formControlName="street" [(ngModel)]="address.street" />
-                <div *ngIf="streetCtrl.dirty && streetCtrl.hasError('street')" class="text-error">{{ 'app.form.error.street.type'|translate }}</div>
+                <div *ngIf="streetCtrl.dirty && streetCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.street'|translate }}</div>
                 <div *ngIf="errors['street']" class="text-error absolute bottom-0">{{ errors['street']|translate }}</div>
             </div>
             <div class="input-container flex-col mt-5 relative">
                 <label class="" for="form3Example1q">Code postal</label>
                 <input type="text" id="form3Example1q" class="input" formControlName="postalCode" [(ngModel)]="address.postalCode" />
-                <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('postalCode')" class="text-error">{{ 'app.form.error.postalCode.type'|translate }}</div>
+                <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.postalCode'|translate }}</div>
                 <div *ngIf="errors['postalCode']" class="text-error absolute bottom-0">{{ errors['postalCode']|translate }}</div>
             </div>
         </div>

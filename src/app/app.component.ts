@@ -40,6 +40,10 @@ export class AppComponent {
             },
             password_confirm: {
               not_same: 'Les mots de passe ne sont pas similaires',
+            },
+            address: {
+              street: "La rue doit faire au moins 4 caractères",
+              postalCode: "Le code postal doit faire au moins 5 caractères",
             }
           }
         }

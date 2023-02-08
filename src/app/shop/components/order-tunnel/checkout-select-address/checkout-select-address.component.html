@@ -1,4 +1,7 @@
-<div class="w-full mx-auto mt-5">
+<div class="mt-10" *ngIf="loadingData">
+    <app-spinner-data-loader></app-spinner-data-loader>
+</div>
+<div class="w-full mx-auto mt-5" *ngIf="!loadingData">
     <form (submit)="checkoutOrder()" #selectedAddressForm="ngForm">
         <div *ngFor="let address of userAddresses" class="w-72  mx-auto border-2 rounded-lg flex flex-col justify-start items-center mb-4 sm:w-80">
             <div class="flex justify-around items-center w-full p-5">
@@ -13,8 +16,13 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center items-center w-full">
-            <app-button-cta text="Valider mon adresse" class="mx-auto" [form]="selectedAddressForm"></app-button-cta>
+        <div class="flex flex-col-reverse justify-center items-center w-full md:flex-row md:gap-5">
+            <div class="my-5" (click)="addAddress()">
+                <app-button-cta text="Créer une nouvelle adresse"></app-button-cta>
+            </div>
+            <div>
+                <app-button-cta text="Valider mon adresse" class="mx-auto"></app-button-cta>
+            </div>
         </div>
     </form>
 </div>
