@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../../interfaces/article';
 import { Book } from '../../interfaces/book';
+import { HydraView } from '../../interfaces/hydra-view';
 import { ProductService } from '../../services/product/product.service';
 
 @Component({
@@ -10,22 +11,27 @@ import { ProductService } from '../../services/product/product.service';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService) { }
 
   articleList: Array<Article> = [];
   productSearchQuery: string = '';
   trueBookListLength: string = "";
   isLoading = false;
+  pagination: HydraView = {}
 
   ngOnInit(): void {
     this.getAllBooks();
   }
 
-  getAllBooks()
+  getAllBooks(url: string|null = null)
   {
     this.isLoading = true;
-    this.productService.getAllBooks().subscribe(res => {
-      this.articleList = res;
+    this.productService.getAllArticles(url).subscribe(res => {
+      console.log(res);
+      
+      this.articleList = res['hydra:member'];
+      this.pagination = res['hydra:view']
       this.isLoading = false;
       this.productSearchQuery = "";
     })

@@ -4,6 +4,7 @@ import { elementAt, map, mergeMap, pipe, reduce, tap, switchMap, Observable } fr
 import { environment } from 'src/environments/environment';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
+import { Hydra } from '../../interfaces/hydra';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,20 @@ export class ProductService {
     ) { }
 
 
-  getAllBooks() {
-    return this.http.get<{'hydra:member': Array<Article>}>(this.bookUrl).pipe(
-      map((elt) => elt['hydra:member'])
-    )
+  // getAllBooks() {
+  //   return this.http.get<{'hydra:member': Array<Article>}>(this.bookUrl).pipe(
+  //     map((elt) => elt['hydra:member'])
+  //   )
+  // }
+
+  getAllArticles(url: string|null = null) {
+    console.log(url);
+    
+    if (url) {
+      return this.http.get<Hydra>(`${environment.url}${url}`)
+    }
+  
+    return this.http.get<Hydra>(this.bookUrl)
   }
 
   findBookById(id: number) {
