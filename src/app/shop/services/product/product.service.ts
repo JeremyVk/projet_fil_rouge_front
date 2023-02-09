@@ -22,9 +22,7 @@ export class ProductService {
   //   )
   // }
 
-  getAllArticles(url: string|null = null) {
-    console.log(url);
-    
+  getAllArticlesByUrl(url: string|null = null) {    
     if (url) {
       return this.http.get<Hydra>(`${environment.url}${url}`)
     }
@@ -32,26 +30,16 @@ export class ProductService {
     return this.http.get<Hydra>(this.bookUrl)
   }
 
+  getAllArticlesPageNumber(pageNumber: number|null = null) {    
+    return this.http.get<Hydra>(`${this.bookUrl}?page=${pageNumber}`)
+  }
+
   findBookById(id: number) {
     return this.http.get<Article>(`${this.bookUrl}/${id}`)
   }
 
   getBooksBySearch(search: string) {
-    return this.http.get<{'hydra:member': Array<Article>}>(`${this.bookUrl}/?query=${search}`).pipe(
-      map((elt) => elt['hydra:member'])
-    );
-  }
-
-  getMaxAvailable(product: Article): number {
-    if (product.quantity === undefined) {
-      return 0;
-    }
-
-    // if (product.stock && product.stock > 0) {
-    //   return product.stock - product.quantity;
-    // }
-
-    return 0;
+    return this.http.get<Hydra>(`${this.bookUrl}/?query=${search}`);
   }
 
   getProductImage(variant: BaseVariant): Observable<string | undefined> {

@@ -1,7 +1,24 @@
-<div class="flex gap-5">
-    <div class="" (click)="changePage(pagination['hydra:first'] ?? '')">
-        <p>1</p>
-    </div>
-    <div class="" (click)="changePage(pagination['hydra:next'] ?? '')">2</div>
-    <div class=""></div>
+<div class="flex gap-5" *ngIf="pagination['hydra:first']">
+    <a *ngIf="pagination['hydra:first'] && pagination['hydra:first'] !== pagination['@id']" (click)="changePage(pagination['hydra:first'])" >
+        {{ getUrlPageNumber(pagination['hydra:first'] ?? "") }}
+    </a>
+    <p *ngIf="isManyPagesBetween(pagination['hydra:first'] ?? '1', pagination['hydra:previous'] ?? '1')">
+        ...
+    </p>
+    <a *ngIf="pagination['hydra:previous'] && pagination['hydra:previous'] !== pagination['@id'] && pagination['hydra:previous'] !== pagination['hydra:first']" (click)="changePage(pagination['hydra:previous'])" >
+        {{ getUrlPageNumber(pagination['hydra:previous'] ?? "") }}
+    </a>
+
+    <a class="font-bold text-basePurple">
+        {{ getUrlPageNumber(pagination['@id'] ?? "") }}
+    </a>
+    <a *ngIf="pagination['hydra:next'] && pagination['hydra:next'] !== pagination['@id']" class="" (click)="changePage(pagination['hydra:next'])">
+        {{ getUrlPageNumber(pagination['hydra:next'] ?? "") }}
+    </a>
+    <p *ngIf= "pagination['hydra:last'] !== pagination['@id'] && isManyPagesBetween(pagination['hydra:next'] ?? '1', pagination['hydra:last'] ?? '1')">
+        ...
+    </p>
+    <p *ngIf="pagination['hydra:next'] !== pagination['hydra:last'] && pagination['hydra:last'] !== pagination['@id']" (click)="changePage(pagination['hydra:last'] ?? '')">
+        {{ getUrlPageNumber(pagination['hydra:last'] ?? "") }}
+    </p>
 </div>

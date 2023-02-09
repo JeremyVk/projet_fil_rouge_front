@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { HydraView } from 'src/app/shop/interfaces/hydra-view';
 import { ProductService } from 'src/app/shop/services/product/product.service';
 
@@ -10,23 +11,37 @@ import { ProductService } from 'src/app/shop/services/product/product.service';
 export class PaginationComponent implements OnInit {
   @Input() pagination: HydraView = {};
   @Output() changePageEmmiter = new EventEmitter<string>();
+
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    console.log(this.pagination);
   }
 
   ngDoCheck() {
-    console.log(this.pagination);
     
   }
 
   changePage(url: string) {
-    console.log(url);
-    
+    let pageNumber = this.getUrlPageNumber(url);
+
+    this.router.navigateByUrl('/?page=' + pageNumber)
+  
     this.changePageEmmiter.emit(url)
+  }
+
+  getUrlPageNumber(url: string): number
+  {
+    return Number(url[url.length - 1]);
+  }
+
+  isManyPagesBetween(url1: string, url2: string) {
+    let number1 = this.getUrlPageNumber(url1)
+    let number2 = this.getUrlPageNumber(url2)
+
+    return number1 - number2 < - 1
   }
 
 }

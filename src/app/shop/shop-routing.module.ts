@@ -12,7 +12,7 @@ import { CheckoutSelectAddressComponent } from './components/order-tunnel/checko
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
-  { path: '', component: ProductListComponent },
+  { path: '', component: ProductListComponent, runGuardsAndResolvers: 'always' },
   { path: 'product/:productId', component: ProductPageComponent },
   { path: 'product/:productType/:productId', component: ProductPageComponent },
   { path: 'cart', component: CartPageComponent },
@@ -24,7 +24,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class ShopRoutingModule { }
