@@ -30,6 +30,7 @@ import { CheckoutCreateAddressComponent } from './components/order-tunnel/checko
 import { AddressFormComponent } from './components/forms/address-form/address-form.component';
 import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
+import { PaginationComponent } from './components/pagination/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { OrderConfirmationComponent } from './components/order-tunnel/order-conf
     AddressFormComponent,
     CheckoutSelectAddressComponent,
     OrderConfirmationComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
