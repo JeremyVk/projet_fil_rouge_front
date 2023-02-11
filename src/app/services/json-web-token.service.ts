@@ -46,19 +46,7 @@ export class JsonWebTokenService {
       return now > decryptedToken.exp;
   }
 
-  isRefreshTokenExpired(refreshToken: string): boolean {
-    const token = this.getJsonWebToken();
-    if(token) {
-      let decryptedToken: Jwt = jwt_decode(token);
-      const now = new Date().getTime() / 1000;
-      return now > decryptedToken.exp;
-    }
-    return true;
-  }
-
   refreshJwtToken(refresh_token: string) {
     return this.http.post<{token: string, refresh_token: string}>(`${environment.url}/api/token/refresh`, {"refresh_token": refresh_token})
   }
-
-
 }
