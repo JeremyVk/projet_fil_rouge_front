@@ -15,6 +15,7 @@ export class ProductPageComponent implements OnInit {
   article: Article = {};
   variants: Array<BaseVariant> = [];
   selectedVariant: BaseVariant = {};
+  loadingData: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +32,8 @@ export class ProductPageComponent implements OnInit {
     this.productService.findBookById(id).subscribe(res => {
       this.article = res;
       this.variants = this.article.variants ? this.article.variants : []
-      this.selectedVariant = this.variants[0];      
+      this.selectedVariant = this.variants[0];
+      this.loadingData = false;
       })
   }
 

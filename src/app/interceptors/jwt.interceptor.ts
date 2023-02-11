@@ -26,10 +26,8 @@ export class JwtInterceptor implements HttpInterceptor {
     }
     
     if(this.jwtService.isJsonWebTokenExpired(token) && refreshToken && request.url !== this.jwtService.refreshTokenUrl) {
-      console.log('je vais rafraichir le token');
       return this.jwtService.refreshJwtToken(refreshToken).pipe(
         mergeMap(res => {
-          console.log("je refresh le token");
           this.jwtService.setJsonWebToken(res.token);
           this.jwtService.setRefreshWebToken(res.refresh_token);
            request = request.clone({
@@ -43,6 +41,10 @@ export class JwtInterceptor implements HttpInterceptor {
         })
       )
     }
+
+    request = request.clone({
+      setHeaders: {Authorization: `Bearer ${token}`}
+    })
 
   return next.handle(request)
   }

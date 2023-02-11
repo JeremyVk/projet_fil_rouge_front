@@ -31,6 +31,7 @@ import { AddressFormComponent } from './components/forms/address-form/address-fo
 import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
+import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
 
 @NgModule({
   declarations: [
@@ -69,5 +70,6 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
     TranslateModule,
   ],
   exports: [ProductListComponent, HeaderComponent, ShowPricePipe],
+  providers: [UserAuthenticatedGuard]
 })
 export class ShopModule {}
