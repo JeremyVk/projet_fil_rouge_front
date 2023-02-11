@@ -12,11 +12,14 @@ import { User } from '../../interfaces/user';
 })
 export class UserService {
   userUrl: string = `${environment.url}/api/users`;
-  loginUrl: string = `${environment.url}/authentication_token`;
+  loginUrl: string = `${environment.url}/api/login_check`;
 
   user: User = {}
 
-  constructor(private http: HttpClient, private jwtService: JsonWebTokenService, private router: Router ) {    
+  constructor(
+    private http: HttpClient,
+    private jwtService: JsonWebTokenService,
+    private router: Router ) {    
    }
 
   findUserByEmail(email?: string) {
@@ -26,15 +29,21 @@ export class UserService {
   }
 
   login(user: User) {
-    return this.http.post<{token: string}>(`${this.loginUrl}`, user)
+    return this.http.post<{token: string, refresh_token: string}>(`${this.loginUrl}`, user)
     .pipe(
       tap(elt => {
         this.jwtService.setJsonWebToken(elt.token);
+        this.jwtService.setRefreshWebToken(elt['refresh_token']);
       }),
       mergeMap(_ => {
         return this.findUserByEmail(user.email);
       }),
     )
+  }
+
+  logout() {
+    this.jwtService.deleteJsonWebToken();
+    this.router.navigateByUrl('/login');
   }
 
   registerUser(user: User) {

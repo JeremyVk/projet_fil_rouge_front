@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,10 @@ import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 })
 export class HeaderComponent implements OnInit {
   jwt?: boolean;
-  constructor(private router: Router, private jwtService: JsonWebTokenService) { }
+  constructor(
+    private userService: UserService,
+    private jwtService: JsonWebTokenService
+  ) { }
 
   ngOnInit(): void {
     this.jwt = this.jwtService.hasJsonWebToken();
@@ -24,7 +28,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.jwtService.deleteJsonWebToken();
-    this.router.navigateByUrl('');
+    this.userService.logout();
   }
 }
