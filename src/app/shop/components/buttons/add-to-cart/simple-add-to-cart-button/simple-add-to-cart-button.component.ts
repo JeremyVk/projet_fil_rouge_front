@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/app/shop/interfaces/article';
 import { BaseVariant } from 'src/app/shop/interfaces/baseVariant';
 import { CartService } from 'src/app/shop/services/cart/cart.service';
+import { NotificationsService } from 'src/app/shop/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-simple-add-to-cart-button',
@@ -15,7 +16,10 @@ export class SimpleAddToCartButtonComponent implements OnInit {
   };
   isArticleInStock: boolean = true;
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private notificationService: NotificationsService
+    ) { }
 
   ngOnInit(): void {
     this.updateIsArticleIsInStock()
@@ -28,7 +32,8 @@ export class SimpleAddToCartButtonComponent implements OnInit {
   addToCart(variant: BaseVariant) {    
     if (this.isArticleInStock) {      
       this.cartService.addProductToCart(variant);
-      this.updateIsArticleIsInStock()
+      this.updateIsArticleIsInStock();
+      this.notificationService.pushNotification("Votre article a bien été ajouté au panier")
     }
   }
 
