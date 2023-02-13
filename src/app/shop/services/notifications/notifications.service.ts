@@ -17,9 +17,7 @@ export class NotificationsService {
     this.notificationSubject$.next(notifications)
   }
 
-  deleteNotification(notification: Notification) {
-    console.log("je delete cette notif", notification.id);
-    
+  deleteNotification(notification: Notification) {    
     let notifications = this.notificationSubject$.getValue().filter(elt => elt.id !== notification.id);
     this.notificationSubject$.next(notifications);
   }

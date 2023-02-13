@@ -25,9 +25,7 @@ export class AddToCartNotificationComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  deleteNotification(notification: Notification) {
-    console.log(notification);
-    
+  deleteNotification(notification: Notification) {    
     this.notificationService.deleteNotification(notification)
   }
 }

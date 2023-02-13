@@ -15,7 +15,6 @@ export class SelectVariantsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.variants);
     this.selectedVariant = this.variants[0];
   }
 

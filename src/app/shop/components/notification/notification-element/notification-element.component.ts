@@ -12,9 +12,7 @@ export class NotificationElementComponent implements OnInit {
   @Output() deleteNotificationEmitter = new EventEmitter<Notification>()
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.notification);
-    
+  ngOnInit(): void {    
     setTimeout(() => {
       this.deleteNotificationEmitter.emit(this.notification)
     }, 4000);
