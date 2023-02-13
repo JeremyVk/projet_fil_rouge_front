@@ -32,6 +32,8 @@ import { CheckoutSelectAddressComponent } from './components/order-tunnel/checko
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
 import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
+import { AddToCartNotificationComponent } from './components/notification/add-to-cart-notification/add-to-cart-notification.component';
+import { NotificationElementComponent } from './components/notification/notification-element/notification-element.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
     CheckoutSelectAddressComponent,
     OrderConfirmationComponent,
     PaginationComponent,
+    AddToCartNotificationComponent,
+    NotificationElementComponent,
   ],
   imports: [
     CommonModule,
@@ -69,7 +73,7 @@ import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
     ReactiveFormsModule,
     TranslateModule,
   ],
-  exports: [ProductListComponent, HeaderComponent, ShowPricePipe],
+  exports: [ProductListComponent, HeaderComponent, ShowPricePipe, AddToCartNotificationComponent],
   providers: [UserAuthenticatedGuard]
 })
 export class ShopModule {}
