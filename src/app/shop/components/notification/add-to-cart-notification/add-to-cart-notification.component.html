@@ -1,7 +1,6 @@
 <div class="relative flex justify-center items-center" *ngIf="activeNotifications.length > 0">
     <div class="w-72 fixed z-10 top-10 mx-auto h-24 overflow-hidden md:h-96 md:m-0 md:right-5">
-        <div class="border-2 border-basePurple p-5 mb-5 bg-white" *ngFor="let notification of activeNotifications">
-            {{ notification }}
-        </div>
+        <app-notification-element *ngFor="let notification of activeNotifications" [notification] = notification (deleteNotificationEmitter)="deleteNotification($event)">
+        </app-notification-element>
     </div>
 </div>

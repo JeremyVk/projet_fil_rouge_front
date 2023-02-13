@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { Notification } from 'src/app/shop/interfaces/notification';
 import { NotificationsService } from 'src/app/shop/services/notifications/notifications.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { NotificationsService } from 'src/app/shop/services/notifications/notifi
   styleUrls: ['./add-to-cart-notification.component.css']
 })
 export class AddToCartNotificationComponent implements OnInit, OnDestroy {
-  activeNotifications: string[] = []
+  activeNotifications: Notification[] = []
   private subscription = new Subscription();
   constructor(
     private notificationService: NotificationsService
@@ -18,14 +19,15 @@ export class AddToCartNotificationComponent implements OnInit, OnDestroy {
     this.subscription.add(this.notificationService.notificationSubject$.subscribe(res => {
       this.activeNotifications = res
     }))
-        setInterval(() => {
-          if (this.activeNotifications.length > 0) {
-            this.activeNotifications.splice(0, 1)
-          }
-        }, 3000)
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  deleteNotification(notification: Notification) {
+    console.log(notification);
+    
+    this.notificationService.deleteNotification(notification)
   }
 }
