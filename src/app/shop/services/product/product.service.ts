@@ -10,7 +10,7 @@ import { Hydra } from '../../interfaces/hydra';
   providedIn: 'root'
 })
 export class ProductService {
-  bookUrl: string = `${environment.url}/api/base_articles`;
+  bookUrl: string = `${environment.url}/api/books`;
   constructor(
     private http: HttpClient,
     ) { }
@@ -57,5 +57,17 @@ export class ProductService {
           return variant.unitPrice * variant.quantity
     }
     return 0
+  }
+
+  getUrlProductFiltered(type: string ,formats: string|null) {
+    let url = ''
+    let oneFilter = false
+    if (formats) {
+      url = url + `?formats=${formats}`
+      oneFilter = true
+    }
+
+
+    return url
   }
 }

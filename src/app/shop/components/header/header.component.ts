@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
   jwt?: boolean;
   constructor(
     private userService: UserService,
-    private jwtService: JsonWebTokenService
+    private jwtService: JsonWebTokenService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,4 +31,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.userService.logout();
   }
+
+  redirectToMainPage() {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate(['/']));  }
 }
