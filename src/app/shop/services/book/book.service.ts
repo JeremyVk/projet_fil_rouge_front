@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { EntityFilter } from '../../interfaces/entity-filter';
 import { Hydra } from '../../interfaces/hydra';
 
 @Injectable({
@@ -10,11 +11,19 @@ import { Hydra } from '../../interfaces/hydra';
 })
 export class BookService {
   private bookFormatUrl = `${environment.url}/api/book_formats`;
+  bookFilterSubject$ = new BehaviorSubject<Array<EntityFilter>>([]);
+  bookFilters: EntityFilter[] = [];
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute
-  ) { }
+  )
+  { 
+    this.getBookFormats().subscribe(res => {
+      this.bookFilterSubject$.next(res)
+      this.bookFilters = res
+    })
+  }
 
   getBookFormats() {
     let formatFilter = this.route.snapshot.queryParamMap.get('formats')?.split(',')
@@ -29,5 +38,10 @@ export class BookService {
         })
       })
     )
+  }
+
+  editBookFilters(bookFilters:  Array<EntityFilter>)
+  {
+    this.bookFilterSubject$.next(bookFilters)
   }
 }

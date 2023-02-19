@@ -13,7 +13,7 @@ import { OrderConfirmationComponent } from './components/order-tunnel/order-conf
 import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
 
 const routes: Routes = [
-  { path: '', component: ProductListComponent, runGuardsAndResolvers: 'always' },
+  { path: '', pathMatch: 'full', redirectTo: 'books' },
   { path: '',
     canActivate: [UserAuthenticatedGuard],
     children: [
@@ -22,13 +22,12 @@ const routes: Routes = [
       { path: 'checkout/order-success', component: OrderConfirmationComponent },
     ]
   },
+  { path: 'books', component: ProductListComponent },
   { path: 'product/:productId', component: ProductPageComponent },
   { path: 'product/:productType/:productId', component: ProductPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  
-  
 ];
 
 @NgModule({

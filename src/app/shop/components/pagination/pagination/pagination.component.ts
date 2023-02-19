@@ -25,10 +25,9 @@ export class PaginationComponent implements OnInit {
   }
 
   changePage(url: string) {
-    let pageNumber = this.getUrlPageNumber(url);
-
-    this.router.navigateByUrl('/?page=' + pageNumber)
-  
+    let urlToNavigate = url.replace('/api', '')
+    
+    this.router.navigateByUrl(urlToNavigate)
     this.changePageEmmiter.emit(url)
   }
 

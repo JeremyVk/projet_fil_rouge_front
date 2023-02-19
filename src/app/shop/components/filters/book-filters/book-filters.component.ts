@@ -1,18 +1,19 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BookService } from 'src/app/shop/services/book/book.service';
 import { ProductService } from 'src/app/shop/services/product/product.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-book-filters',
   templateUrl: './book-filters.component.html',
   styleUrls: ['./book-filters.component.css']
 })
-export class BookFiltersComponent implements OnInit, OnChanges {
+export class BookFiltersComponent implements OnInit, OnDestroy {
   bookFormats: Array<any> = [];
   formatsSelecteds: string = "";
   @Output() reloadProductsEmmiter = new EventEmitter<string>()
+  private bookFormatSubscription = new Subscription()
 
   constructor(
     private bookService: BookService,
@@ -22,24 +23,16 @@ export class BookFiltersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.bookService.getBookFormats().subscribe({
-      next: res => {
-        this.bookFormats = res;
-        console.log(res);
-
-      },
-      error: e => {
-
-      }
+    this.bookFormatSubscription = this.bookService.bookFilterSubject$.subscribe(res => {
+      this.bookFormats = res
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    
+  ngOnDestroy(): void {
+    this.bookFormatSubscription.unsubscribe()
   }
 
-  filterBooks(formatForm: any) {
+  filterBooks() {
     this.formatsSelecteds = this.bookFormats.filter(elt => elt.checked)
     .map(elt => elt.name)
     .join(',')
@@ -48,5 +41,6 @@ export class BookFiltersComponent implements OnInit, OnChanges {
     
     this.router.navigateByUrl('/' + url)
     this.reloadProductsEmmiter.emit('/api/books' + url)
+    this.bookService.editBookFilters(this.bookFormats)
   }
 }

@@ -15,18 +15,11 @@ export class ProductService {
     private http: HttpClient,
     ) { }
 
-
-  // getAllBooks() {
-  //   return this.http.get<{'hydra:member': Array<Article>}>(this.bookUrl).pipe(
-  //     map((elt) => elt['hydra:member'])
-  //   )
-  // }
-
   getAllArticlesByUrl(url: string|null = null) {    
     if (url) {
       return this.http.get<Hydra>(`${environment.url}${url}`)
     }
-  
+
     return this.http.get<Hydra>(this.bookUrl)
   }
 
@@ -54,7 +47,7 @@ export class ProductService {
 
   getVariantsPrice(variant: BaseVariant): number {
     if(variant.unitPrice && variant.quantity) {
-          return variant.unitPrice * variant.quantity
+        return variant.unitPrice * variant.quantity
     }
     return 0
   }
@@ -66,7 +59,6 @@ export class ProductService {
       url = url + `?formats=${formats}`
       oneFilter = true
     }
-
 
     return url
   }

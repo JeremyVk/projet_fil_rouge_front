@@ -8,7 +8,7 @@
             <a role="button" (click)="getAllBooks()" class="text-bold text-indigo-800 ">Réinitialiser la recherche</a>
         </p>
     </div>
-    <div *ngIf="!isLoading" class="flex items-stretch mx-auto xl:container my-5">
+    <div [hidden]="isLoading" class="flex items-stretch mx-auto xl:container my-5">
         <app-book-filters class="lg:w-3/12 h-auto xl:w-3/12" (reloadProductsEmmiter)="getAllBooks($event)"></app-book-filters>
         <div class="col-span-5 lg:col-span-4 lg:ml-5 mx-auto">
             <div class="grid grid-cols-1 justify-around items-stretch md:grid-cols-2 xl:grid-cols-3">
