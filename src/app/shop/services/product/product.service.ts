@@ -10,23 +10,16 @@ import { Hydra } from '../../interfaces/hydra';
   providedIn: 'root'
 })
 export class ProductService {
-  bookUrl: string = `${environment.url}/api/base_articles`;
+  bookUrl: string = `${environment.url}/api/books`;
   constructor(
     private http: HttpClient,
     ) { }
-
-
-  // getAllBooks() {
-  //   return this.http.get<{'hydra:member': Array<Article>}>(this.bookUrl).pipe(
-  //     map((elt) => elt['hydra:member'])
-  //   )
-  // }
 
   getAllArticlesByUrl(url: string|null = null) {    
     if (url) {
       return this.http.get<Hydra>(`${environment.url}${url}`)
     }
-  
+
     return this.http.get<Hydra>(this.bookUrl)
   }
 
@@ -54,8 +47,19 @@ export class ProductService {
 
   getVariantsPrice(variant: BaseVariant): number {
     if(variant.unitPrice && variant.quantity) {
-          return variant.unitPrice * variant.quantity
+        return variant.unitPrice * variant.quantity
     }
     return 0
+  }
+
+  getUrlProductFiltered(type: string ,formats: string|null) {
+    let url = ''
+    let oneFilter = false
+    if (formats) {
+      url = url + `?formats=${formats}`
+      oneFilter = true
+    }
+
+    return url
   }
 }

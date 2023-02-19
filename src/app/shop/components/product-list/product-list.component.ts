@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from '../../interfaces/article';
 import { Book } from '../../interfaces/book';
 import { Hydra } from '../../interfaces/hydra';
 import { HydraView } from '../../interfaces/hydra-view';
 import { ProductService } from '../../services/product/product.service';
+import { UrlService } from '../../services/url/url.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,9 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private urlService: UrlService
     ) { }
 
   articleList: Array<Article> = [];
@@ -23,28 +26,23 @@ export class ProductListComponent implements OnInit {
   trueBookListLength: string = "";
   isLoading = false;
   pagination: HydraView = {}
+  formats: string|null = null;
 
   ngOnInit(): void {
-    this.getAllBooks();
+    this.formats = this.route.snapshot.queryParamMap.get("formats");
+    this.getAllBooks()
   }
 
   getAllBooks(url: string|null = null)
   {
     this.isLoading = true;
-    let pageNumber = null;
-    
+
     if (!url) {
-      pageNumber = Number(this.route.snapshot.queryParamMap.get('page'));
+      url = this.urlService.generateUrlForGetService()
     }
 
-    if (pageNumber) {
-      return this.productService.getAllArticlesPageNumber(pageNumber).subscribe(res => {
-        this.consumeResponse(res)
-      })
-    }
-
-      return this.productService.getAllArticlesByUrl(url).subscribe(res => {      
-        this.consumeResponse(res)
+    return this.productService.getAllArticlesByUrl(url).subscribe(res => {      
+      this.consumeResponse(res)
     })
   }
 
@@ -66,5 +64,6 @@ export class ProductListComponent implements OnInit {
         this.pagination = response['hydra:view']
         this.isLoading = false;
         this.productSearchQuery = "";
+        this.formats = null
   }
 }

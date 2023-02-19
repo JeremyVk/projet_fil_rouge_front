@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   jwt?: boolean;
   constructor(
     private userService: UserService,
-    private jwtService: JsonWebTokenService
+    private jwtService: JsonWebTokenService,
   ) { }
 
   ngOnInit(): void {

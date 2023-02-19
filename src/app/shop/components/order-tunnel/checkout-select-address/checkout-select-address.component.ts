@@ -55,7 +55,7 @@ export class CheckoutSelectAddressComponent implements OnInit {
       error: (e) => {
         console.error(e);
         if (e.error === 'product.stock.empty') {
-          return console.log("produit hors stock");
+          return;
         }
       }
     })
