@@ -35,6 +35,7 @@ import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
 import { AddToCartNotificationComponent } from './components/notification/add-to-cart-notification/add-to-cart-notification.component';
 import { NotificationElementComponent } from './components/notification/notification-element/notification-element.component';
 import { BookFiltersComponent } from './components/filters/book-filters/book-filters.component';
+import { UserAreaModule } from './user-area/user-area.module';
 
 @NgModule({
   declarations: [

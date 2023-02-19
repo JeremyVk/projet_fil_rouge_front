@@ -11,6 +11,7 @@ import {
 import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
+import { UserAreaModule } from './user-area/user-area.module';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'books' },
@@ -28,6 +29,9 @@ const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'user', loadChildren: () => import('./user-area/user-area.module').then(m => m.UserAreaModule), canActivate: [UserAuthenticatedGuard] },
+  { path: '**', redirectTo: 'books' },
+
 ];
 
 @NgModule({
