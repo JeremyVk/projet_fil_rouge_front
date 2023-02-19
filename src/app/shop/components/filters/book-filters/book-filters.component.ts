@@ -39,7 +39,7 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
 
     let url = this.productService.getUrlProductFiltered('books', this.formatsSelecteds)
     
-    this.router.navigateByUrl('/' + url)
+    this.router.navigateByUrl('/books' + url)
     this.reloadProductsEmmiter.emit('/api/books' + url)
     this.bookService.editBookFilters(this.bookFormats)
   }

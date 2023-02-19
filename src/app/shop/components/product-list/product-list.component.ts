@@ -30,7 +30,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.formats = this.route.snapshot.queryParamMap.get("formats");
-    console.log(this.formats);
     this.getAllBooks()
   }
 
