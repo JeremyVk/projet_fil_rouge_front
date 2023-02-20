@@ -5,13 +5,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { ButtonsModule } from '../buttons/buttons.module';
+import { UserChangePasswordFormComponent } from './components/user-change-password-form/user-change-password-form.component';
 
 
 
 @NgModule({
   declarations: [
     UserRegisterFormComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserChangePasswordFormComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { ButtonsModule } from '../buttons/buttons.module';
   ],
   exports: [
     UserRegisterFormComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserChangePasswordFormComponent
   ]
 })
 export class AppFormsModule { }
