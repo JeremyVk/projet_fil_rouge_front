@@ -13,7 +13,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ShowPricePipe } from '../pipes/show-price.pipe';
-import { AppModule } from '../app.module';
 import { CartComponent } from './components/cart/cart.component';
 import { CartPopupComponent } from './components/cart-popup/cart-popup.component';
 import { CartPopupArticleComponent } from './components/cart-popup-article/cart-popup-article.component';
@@ -21,13 +20,11 @@ import { SpinnerDataLoaderComponent } from './components/spinner-data-loader/spi
 import { SimpleAddToCartButtonComponent } from './components/buttons/add-to-cart/simple-add-to-cart-button/simple-add-to-cart-button.component';
 import { ManyAddToCartButtonComponent } from './components/buttons/add-to-cart/many-add-to-cart-button/many-add-to-cart-button.component';
 import { LayerManyAddToCartButtonComponent } from './components/buttons/add-to-cart/layer-many-add-to-cart-button/layer-many-add-to-cart-button.component';
-import { ButtonCtaComponent } from './components/buttons/button-cta/button-cta.component';
 import { CartPageComponent } from './components/cart-page/cart-page.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { ProductQuantityIncrementComponent } from './components/product/product-quantity-increment/product-quantity-increment.component';
 import { SelectVariantsComponent } from './components/select-variants/select-variants.component';
 import { CheckoutCreateAddressComponent } from './components/order-tunnel/checkout-create-address/checkout-create-address.component';
-import { AddressFormComponent } from './components/forms/address-form/address-form.component';
 import { CheckoutSelectAddressComponent } from './components/order-tunnel/checkout-select-address/checkout-select-address.component';
 import { OrderConfirmationComponent } from './components/order-tunnel/order-confirmation/order-confirmation.component';
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
@@ -35,7 +32,8 @@ import { UserAuthenticatedGuard } from './guards/user-authenticated.guard';
 import { AddToCartNotificationComponent } from './components/notification/add-to-cart-notification/add-to-cart-notification.component';
 import { NotificationElementComponent } from './components/notification/notification-element/notification-element.component';
 import { BookFiltersComponent } from './components/filters/book-filters/book-filters.component';
-import { UserAreaModule } from './user-area/user-area.module';
+import { AppFormsModule } from '../app-forms/app-forms.module';
+import { ButtonsModule } from '../buttons/buttons.module';
 
 @NgModule({
   declarations: [
@@ -55,13 +53,11 @@ import { UserAreaModule } from './user-area/user-area.module';
     SimpleAddToCartButtonComponent,
     ManyAddToCartButtonComponent,
     LayerManyAddToCartButtonComponent,
-    ButtonCtaComponent,
     CartPageComponent,
     CartItemComponent,
     ProductQuantityIncrementComponent,
     SelectVariantsComponent,
     CheckoutCreateAddressComponent,
-    AddressFormComponent,
     CheckoutSelectAddressComponent,
     OrderConfirmationComponent,
     PaginationComponent,
@@ -75,6 +71,8 @@ import { UserAreaModule } from './user-area/user-area.module';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
+    AppFormsModule,
+    ButtonsModule
   ],
   exports: [ProductListComponent, HeaderComponent, ShowPricePipe, AddToCartNotificationComponent],
   providers: [UserAuthenticatedGuard]

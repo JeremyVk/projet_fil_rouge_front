@@ -75,4 +75,12 @@ export class UserService {
       map((elt) => elt['hydra:member'])
     );
   }
+
+  editUser(user: User) {
+    return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
+  }
+
+  getUser() {
+    return this.http.get<User>(`${environment.url}/api/getMe`)
+  }
 }
