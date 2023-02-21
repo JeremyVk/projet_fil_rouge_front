@@ -25,7 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
     
-    if(this.jwtService.isJsonWebTokenExpired(token) && refreshToken && request.url !== this.jwtService.refreshTokenUrl) {
+    if(this.jwtService.isJsonWebTokenExpired(token) && refreshToken && request.url !== this.jwtService.refreshTokenUrl && request.url !== this.jwtService.loginUrl) {      
       return this.jwtService.refreshJwtToken(refreshToken).pipe(
         mergeMap(res => {
           this.jwtService.setJsonWebToken(res.token);

@@ -89,8 +89,15 @@ export class UserService {
   }
 
   getUser() {
-    this.http.get<User>(`${environment.url}/api/getMe`).subscribe(res => {
-      this.userSubject$.next(res)
+    this.http.get<User>(`${environment.url}/api/getMe`).subscribe({
+      next: res => {
+        if (res) {
+          this.userSubject$.next(res)
+        }
+      },
+      error: e => {
+        this.jwtService.deleteJsonWebToken();
+      }
     })
   }
 

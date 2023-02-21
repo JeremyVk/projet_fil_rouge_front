@@ -31,7 +31,7 @@ export class UserRegisterFormComponent implements OnInit {
   lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
   firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
   
-  passwordCtrl = this.method === "POST" ? this.fb.control(this.user.password, [Validators.required, Validators.minLength(8)]) : null;
+  passwordCtrl = this.method === "POST" ? this.fb.control(this.user.plainPassword, [Validators.required, Validators.minLength(8)]) : null;
   passwordConfirmCtrl = this.method === "POST" ? this.fb.control('', [Validators.required]) : null;
   emailCtrl = this.fb.control(this.user.email, [Validators.required, Validators.email]);
 
@@ -88,9 +88,17 @@ export class UserRegisterFormComponent implements OnInit {
     }
 
     if (this.method === "PUT") {
-      this.userService.editUser(this.user).subscribe(res => {
-        let notification: Notification = { text: "Vos informations ont été mises à jour" };
-        this.notificationService.pushNotification(notification);        
+      // delete this.user.password
+      console.log(this.user);
+      
+      this.userService.editUser(this.user).subscribe({
+        next: res => {
+          let notification: Notification = { text: "Vos informations ont été mises à jour" };
+          this.notificationService.pushNotification(notification);        
+        },
+        error: e => {
+          this.errors = this.errorService.getFormViolations(e)
+        }
       })
     }
   }

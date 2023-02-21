@@ -9,6 +9,7 @@ import { Jwt } from '../shop/interfaces/jwt';
 })
 export class JsonWebTokenService {
   refreshTokenUrl: string = `${environment.url}/api/token/refresh`
+  loginUrl: string = `${environment.url}/api/login_check`
   constructor(
     private http: HttpClient,
   ) { }
