@@ -14,10 +14,10 @@ import { UserService } from 'src/app/shop/services/user/user.service';
   styleUrls: ['./address-form.component.css']
 })
 export class AddressFormComponent implements OnInit {
-  @Input()address: Address = {};
+  @Input() address: Address = {};
   errors: any = [];
-  @Input()method: string = "";
-  @Input()checkout: boolean = false;
+  @Input() method: string = "";
+  @Input() checkout: boolean = false;
 
   lastNameCtrl = this.fb.control(this.address.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
   firstNameCtrl = this.fb.control(this.address.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
@@ -47,6 +47,9 @@ export class AddressFormComponent implements OnInit {
  
 
   public postAddress() {
+    if (this.addressForm.invalid) {
+      return;
+    }
     if (this.method === "POST") {
       this.addressService.postAddress(this.address).subscribe({
         next: (res) => {
