@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, mergeMap, Observable, Subject, tap} from 'rxjs';
+import { BehaviorSubject, map, mergeMap, Observable, Subject, tap} from 'rxjs';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { environment } from 'src/environments/environment';
 import { Address } from '../../interfaces/address';
@@ -16,10 +16,12 @@ export class UserService {
 
   user: User = {}
 
+  userSubject$: BehaviorSubject<User> = new BehaviorSubject<User>({})
+
   constructor(
     private http: HttpClient,
     private jwtService: JsonWebTokenService,
-    private router: Router ) {    
+    private router: Router ) {
    }
 
   findUserByEmail(email?: string) {
@@ -44,6 +46,7 @@ export class UserService {
   logout() {
     this.jwtService.deleteJsonWebToken();
     this.router.navigateByUrl('/login');
+    this.userSubject$.next({});
   }
 
   registerUser(user: User) {
@@ -74,5 +77,19 @@ export class UserService {
     return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${user.id}/addresses`).pipe(
       map((elt) => elt['hydra:member'])
     );
+  }
+
+  editUser(user: User) {
+    return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
+  }
+
+  editUserSubject(user: User) {
+    this.userSubject$.next(user);
+  }
+
+  getUser() {
+    this.http.get<User>(`${environment.url}/api/getMe`).subscribe(res => {
+      this.userSubject$.next(res)
+    })
   }
 }
