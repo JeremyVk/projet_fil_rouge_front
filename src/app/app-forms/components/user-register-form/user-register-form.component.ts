@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormErrorService } from 'src/app/services/form-error.service';
+import { Notification } from 'src/app/shop/interfaces/notification';
 import { User } from 'src/app/shop/interfaces/user';
+import { NotificationsService } from 'src/app/shop/services/notifications/notifications.service';
 import { UserService } from 'src/app/shop/services/user/user.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class UserRegisterFormComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private errorService: FormErrorService,
+    private notificationService: NotificationsService
     ) {}
   
   user: User = {};
@@ -54,7 +57,7 @@ export class UserRegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.method === "PUT") {
-      this.userService.getUser().subscribe({
+      this.userService.userSubject$.subscribe({
         next: res => {
           this.user = res
         },
@@ -68,7 +71,6 @@ export class UserRegisterFormComponent implements OnInit {
 
   sendData() {
     this.errors = [];
-    console.log(this.registerForm);
     
     if(this.registerForm.invalid) {
       return
@@ -88,11 +90,10 @@ export class UserRegisterFormComponent implements OnInit {
 
     if (this.method === "PUT") {
       this.userService.editUser(this.user).subscribe(res => {
-        console.log(res);
-        
+        let notification: Notification = { text: "Vos informations ont été mises à jour" };
+        this.notificationService.pushNotification(notification);        
       })
     }
-   
   }
 
 }

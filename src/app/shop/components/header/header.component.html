@@ -5,13 +5,18 @@
                 <a class="text-decoration-non text-white" href="/">Accueil</a>
             </div>
             <div class="flex items-center justify-end md:flex-row text-white w-80 ">
-                <div *ngIf="!jwt" class="mr-4">
+                <div *ngIf="user" class="">
+                    <a [routerLink]="['/user/dashboard']">
+                        <img src="assets/images/icons/icons8-utilisateur-64.png" alt="">
+                    </a>
+                </div>
+                <div *ngIf="!user" class="mr-4">
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
                 <div>
                         <app-cart class="relative"></app-cart>
                 </div>
-                <div *ngIf="jwt" class="">
+                <div *ngIf="user" class="">
                     <a class="" (click)="logout()">Se Déconnecter</a>
                 </div>
             </div>
