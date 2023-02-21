@@ -17,6 +17,7 @@ export class UserService {
   user: User = {}
 
   userSubject$: BehaviorSubject<User> = new BehaviorSubject<User>({})
+  userAddresses$: BehaviorSubject<Address[]> = new BehaviorSubject<Address[]>([])
 
   constructor(
     private http: HttpClient,
@@ -73,8 +74,8 @@ export class UserService {
     );
   }
 
-  getUserAddresses(user: User): Observable<Array<Address>> {
-    return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${user.id}/addresses`).pipe(
+  getUserAddresses(): Observable<Array<Address>> {
+    return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${this.userSubject$.getValue().id}/addresses`).pipe(
       map((elt) => elt['hydra:member'])
     );
   }
@@ -91,5 +92,10 @@ export class UserService {
     this.http.get<User>(`${environment.url}/api/getMe`).subscribe(res => {
       this.userSubject$.next(res)
     })
+  }
+
+  editUserAddressesSubject(addresses: Address[])
+  {
+    this.userAddresses$.next(addresses)
   }
 }

@@ -71,7 +71,6 @@ export class UserRegisterFormComponent implements OnInit {
 
   sendData() {
     this.errors = [];
-    
     if(this.registerForm.invalid) {
       return
     }

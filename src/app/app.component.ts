@@ -10,7 +10,7 @@ import { UserService } from './shop/services/user/user.service';
 export class AppComponent {
   title = 'projet_fil_rouge_front';
   
-  constructor(translate: TranslateService, private userService: UserService) {
+  constructor(translate: TranslateService, private userService: UserService) {    
     this.userService.getUser();
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('fr');

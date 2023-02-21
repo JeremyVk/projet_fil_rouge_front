@@ -1,0 +1,4 @@
+<h1 class="title">Modification de votre d'adresse</h1>
+<div *ngIf="legacy" class="mx-auto flex justify-center items-center w-full">
+    <app-address-form method="PUT" [checkout]=false [address]="address"></app-address-form>
+</div>
