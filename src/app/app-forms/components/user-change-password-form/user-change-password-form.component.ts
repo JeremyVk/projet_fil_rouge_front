@@ -28,7 +28,7 @@ export class UserChangePasswordFormComponent implements OnInit {
   subscription = new Subscription();
 
   passwordCtrl =  this.fb.control(this.user.plainPassword, [Validators.required, Validators.minLength(8)]);
-  passwordConfirmCtrl = this.fb.control('', [Validators.required]);
+  passwordConfirmCtrl = this.fb.control(this.user.currentPassword, [Validators.required]);
 
   ngOnInit(): void {
    this.subscription.add(this.userService.userSubject$.subscribe(res => {
@@ -36,18 +36,11 @@ export class UserChangePasswordFormComponent implements OnInit {
    }))
   }
 
-  arePasswordsSimilars: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-      let password = group.get('password')?.value;
-      let passwordConfirm = group.get('passwordConfirm')?.value;
-  
-      return password === passwordConfirm ? null : {notSame: true}
-  }
 
   passwordForm: FormGroup = this.fb.group({
-    password: this.passwordCtrl,
-    passwordConfirm: this.passwordConfirmCtrl,
-  },
-  {validators: this.arePasswordsSimilars })
+    currentPassword: this.passwordCtrl,
+    plainPassword: this.passwordConfirmCtrl,
+  })
 
   sendData() {
     this.userService.editUser(this.user).subscribe({

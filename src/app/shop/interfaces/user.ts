@@ -8,6 +8,7 @@ export interface User {
     email?: string,
     roles?: Array<string>,
     plainPassword?: string,
+    currentPassword?: string,
     password?: string,
     addresses?: Address[]
 }
