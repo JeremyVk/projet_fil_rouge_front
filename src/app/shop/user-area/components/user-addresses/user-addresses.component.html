@@ -10,9 +10,14 @@
                 <label for="{{ address.id }}"> <p>{{ address.postalCode }}</p></label>
             </div>
             <div class="mt-5">
-                <a [routerLink]="['/user/dashboard/edit-address/', address.id]">
-                    <app-button-cta text="Modifier votre adresse"></app-button-cta>
-                </a>
+                <div class="mb-2">
+                    <a [routerLink]="['/user/dashboard/edit-address/', address.id]">
+                        <app-button-cta text="Modifier votre adresse"></app-button-cta>
+                    </a>
+                </div>
+                <div (click)="removeAddresse(address)">
+                    <app-button-cta text="Supprimer cette adresse"></app-button-cta>
+                </div>
             </div>
         </div>
         <a [routerLink]="['/user/dashboard/create-address']" class="mt-5">

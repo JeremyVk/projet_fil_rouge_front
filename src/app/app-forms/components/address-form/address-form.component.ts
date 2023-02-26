@@ -53,6 +53,7 @@ export class AddressFormComponent implements OnInit {
     if (this.method === "POST") {
       this.addressService.postAddress(this.address).subscribe({
         next: (res) => {
+          this.userService.getUser();
           this.redirect();
         },
         error: (err) => {

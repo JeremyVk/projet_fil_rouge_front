@@ -10,5 +10,5 @@ export interface User {
     plainPassword?: string,
     currentPassword?: string,
     password?: string,
-    addresses?: Address[]
+    addresses?: string[]
 }

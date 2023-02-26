@@ -80,7 +80,7 @@ export class UserService {
     );
   }
 
-  editUser(user: User) {
+  editUser(user: User) {    
     return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
   }
 
