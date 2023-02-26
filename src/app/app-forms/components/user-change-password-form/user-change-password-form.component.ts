@@ -43,7 +43,10 @@ export class UserChangePasswordFormComponent implements OnInit {
   })
 
   sendData() {
-    this.userService.editUser(this.user).subscribe({
+    if (this.passwordForm.invalid) {
+      return;
+    }
+    this.userService.editUserPassword(this.user).subscribe({
       next: res => {
         let notification: Notification = {text: "Votre mot de passe a bien été modifié"};
         this.notificationService.pushNotification(notification);     
@@ -51,8 +54,10 @@ export class UserChangePasswordFormComponent implements OnInit {
       },
       error: e => {
         let notification: Notification = {text: "Une erreur est survenue"};
-        this.notificationService.pushNotification(notification);     
+        this.notificationService.pushNotification(notification);
         this.passwordForm.reset();
+          
+        this.errors = this.errorService.getFormViolations(e);        
       }
     })    
   }

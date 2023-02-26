@@ -105,4 +105,8 @@ export class UserService {
   {
     this.userAddresses$.next(addresses)
   }
+
+  editUserPassword(user: User) {    
+    return this.http.put<User>(`${this.userUrl}/reset_password`, {password: user.currentPassword, plainPassword: user.plainPassword})
+  }
 }
