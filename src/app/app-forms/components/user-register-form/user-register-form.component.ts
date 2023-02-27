@@ -62,7 +62,6 @@ export class UserRegisterFormComponent implements OnInit {
           this.user = res
         },
         error: e => {
-          console.log(e);
           
         }
       })
@@ -87,9 +86,6 @@ export class UserRegisterFormComponent implements OnInit {
     }
 
     if (this.method === "PUT") {
-      // delete this.user.password
-      console.log(this.user);
-      
       this.userService.editUser(this.user).subscribe({
         next: res => {
           let notification: Notification = { text: "Vos informations ont été mises à jour" };

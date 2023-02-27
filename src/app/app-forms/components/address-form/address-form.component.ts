@@ -41,9 +41,7 @@ export class AddressFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.userSubject$.subscribe(res => {
-      console.log(res);
-      
+    this.userService.userSubject$.subscribe(res => {      
       this.address.user = '/api/users/' + res.id
     })
   }
