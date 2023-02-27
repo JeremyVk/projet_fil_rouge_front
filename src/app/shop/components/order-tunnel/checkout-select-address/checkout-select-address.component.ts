@@ -25,15 +25,17 @@ export class CheckoutSelectAddressComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.userService.getUserLogged();
-    this.userService.getUserAddresses(this.user).subscribe({
-      next: (userAddresses) => {
-        this.userAddresses = userAddresses;
-        this.loadingData =  false;
-      },
-      error: (e) => {
-        console.error(e);
-      }
+    this.userService.userSubject$.subscribe(res => {
+      this.user = res;
+      this.userService.getUserAddresses().subscribe({
+        next: (userAddresses) => {
+          this.userAddresses = userAddresses;
+          this.loadingData =  false;
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      })
     })
   }
 

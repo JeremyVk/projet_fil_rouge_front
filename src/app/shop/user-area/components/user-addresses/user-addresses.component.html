@@ -1,0 +1,30 @@
+<div *ngIf="!isLoading">
+    <h3 *ngIf="addresses?.length === 0" class="text-center">Vous n'avez pas encore d'adresse enregistrée</h3>
+    <h3 *ngIf="addresses" class="text-center text-xl font-bold mb-5">Votre liste d'adresses</h3>
+    <div class="flex flex-col justify-center items-center w-full gap-5">
+        <div class="p-5 border-2 rounded-lg flex flex-col justify-between items-center lg:flex-row w-72 lg:w-128 lg:px-12" *ngFor="let address of addresses">
+            <div class="font-semibold text-center flex flex-col items-start justify-between">
+                <label for="{{ address.id }}"> <p>{{ address.firstname }}</p></label>
+                <label for="{{ address.id }}"> <p>{{ address.lastname }}</p></label>
+                <label for="{{ address.id }}"> <p>{{ address.street }}</p></label>
+                <label for="{{ address.id }}"> <p>{{ address.postalCode }}</p></label>
+            </div>
+            <div class="mt-5">
+                <div class="mb-2">
+                    <a [routerLink]="['/user/dashboard/edit-address/', address.id]">
+                        <app-button-cta text="Modifier votre adresse"></app-button-cta>
+                    </a>
+                </div>
+                <div (click)="removeAddresse(address)">
+                    <app-button-cta text="Supprimer cette adresse"></app-button-cta>
+                </div>
+            </div>
+        </div>
+        <a [routerLink]="['/user/dashboard/create-address']" class="mt-5">
+            <app-button-cta text="Créer une adresse"></app-button-cta>
+        </a>
+    </div>
+</div>
+<div class="mt-32" *ngIf="isLoading">
+    <app-spinner-data-loader></app-spinner-data-loader>
+</div>

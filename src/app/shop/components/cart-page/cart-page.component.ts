@@ -19,6 +19,7 @@ export class CartPageComponent implements OnInit {
   shippingCost: number = 400;
   loadingData: boolean = true;
 
+  user: User = {};
   errorMessages: Array<string> = [];
 
   constructor(
@@ -45,14 +46,16 @@ export class CartPageComponent implements OnInit {
       this.cart = cart;
     });
 
+    this.userService.userSubject$.subscribe(res => {
+      this.user = res;
+      this.loadingData = false
+    })
+
     if (this.cart.length > 0) {
       this.variantQuantity = this.cartService.getTotalVariantsQuantity();
       this.cartTotalPrice = this.cartService.getTotalCartPrice();
-
-      this.checkIfUserHaveAddresses(this.userService.getUserLogged())
     }
 
-    this.loadingData = false;
   }
 
   ngDoCheck() {
@@ -64,31 +67,15 @@ export class CartPageComponent implements OnInit {
     if (this.cart.length <= 0) {
       return;
     }
-    let user = this.userService.getUserLogged();
 
-    if (!user || !this.jwtService.hasJsonWebToken()) {
+    if (!this.user.id || !this.jwtService.hasJsonWebToken()) {
        return this.router.navigateByUrl('/login');
     }
     
-    if (!this.userHasAddresses) {
+    if (!this.user?.addresses?.length) {
       return this.router.navigateByUrl('/checkout/create-address');
     }
 
     return this.router.navigateByUrl('/checkout/select-address');
-  }
-
-   public checkIfUserHaveAddresses(user: User)
-  {
-    let result:boolean = false;
-    if (this.userService.getUserLogged()) {
-      this.userService.getUserAddressesCount(user).subscribe({
-        next: (res) => {
-          this.userHasAddresses = res > 0
-          this.loadingData = false
-    }
-      })
-    } else {
-      this.loadingData = false
-    }
   }
 }

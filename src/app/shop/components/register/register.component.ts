@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   lastNameCtrl = this.fb.control(this.user.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
   firstNameCtrl = this.fb.control(this.user.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
-  passwordCtrl = this.fb.control(this.user.password, [Validators.required, Validators.minLength(8)]);
+  passwordCtrl = this.fb.control(this.user.plainPassword, [Validators.required, Validators.minLength(8)]);
   passwordConfirmCtrl = this.fb.control('', [Validators.required]);
   emailCtrl = this.fb.control(this.user.email, [Validators.required, Validators.email]);
 
@@ -55,8 +55,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.registerUser(this.user).subscribe({
-      next: (res) => {
-        this.userService.setUserLogged(res[0])
+      next: () => {
         this.router.navigateByUrl('')
       },
       error: e => {

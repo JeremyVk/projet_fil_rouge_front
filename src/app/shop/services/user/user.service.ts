@@ -17,6 +17,7 @@ export class UserService {
   user: User = {}
 
   userSubject$: BehaviorSubject<User> = new BehaviorSubject<User>({})
+  userAddresses$: BehaviorSubject<Address[]> = new BehaviorSubject<Address[]>([])
 
   constructor(
     private http: HttpClient,
@@ -36,9 +37,7 @@ export class UserService {
       tap(elt => {
         this.jwtService.setJsonWebToken(elt.token);
         this.jwtService.setRefreshWebToken(elt['refresh_token']);
-      }),
-      mergeMap(_ => {
-        return this.findUserByEmail(user.email);
+        this.getUser();
       }),
     )
   }
@@ -53,18 +52,10 @@ export class UserService {
     return this.http.post<User>(`${this.userUrl}`, user)
     .pipe(
       mergeMap(_ => {
+        user.password = user.plainPassword
         return this.login(user)
       })
     );
-  }
-
-  setUserLogged(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  getUserLogged(): User {
-    let user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
   }
 
   getUserAddressesCount(user: User): Observable<number> {
@@ -73,13 +64,13 @@ export class UserService {
     );
   }
 
-  getUserAddresses(user: User): Observable<Array<Address>> {
-    return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${user.id}/addresses`).pipe(
+  getUserAddresses(): Observable<Array<Address>> {
+    return this.http.get<{'hydra:member': Array<Address>}>(`${this.userUrl}/${this.userSubject$.getValue().id}/addresses`).pipe(
       map((elt) => elt['hydra:member'])
     );
   }
 
-  editUser(user: User) {
+  editUser(user: User) {    
     return this.http.put<User>(`${this.userUrl}/${user.id}`, user)
   }
 
@@ -88,8 +79,24 @@ export class UserService {
   }
 
   getUser() {
-    this.http.get<User>(`${environment.url}/api/getMe`).subscribe(res => {
-      this.userSubject$.next(res)
+    this.http.get<User>(`${environment.url}/api/getMe`).subscribe({
+      next: res => {
+        if (res) {
+          this.userSubject$.next(res)
+        }
+      },
+      error: e => {
+        this.jwtService.deleteJsonWebToken();
+      }
     })
+  }
+
+  editUserAddressesSubject(addresses: Address[])
+  {
+    this.userAddresses$.next(addresses)
+  }
+
+  editUserPassword(user: User) {    
+    return this.http.put<User>(`${this.userUrl}/reset_password`, {password: user.currentPassword, plainPassword: user.plainPassword})
   }
 }

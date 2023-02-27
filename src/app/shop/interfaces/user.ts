@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export interface User {
     '@id'?: string,
     id? :number,
@@ -5,5 +7,8 @@ export interface User {
     lastname?: string,
     email?: string,
     roles?: Array<string>,
-    password?: string
+    plainPassword?: string,
+    currentPassword?: string,
+    password?: string,
+    addresses?: string[]
 }

@@ -40,9 +40,7 @@ export class LoginComponent implements OnInit {
 
     this.errors = [];
     this.userService.login(this.user).subscribe({
-      next: (res: Array<User>) => {
-        this.userService.setUserLogged(res[0])
-        //this.router.navigateByUrl('');
+      next: () => {
         this.location.back();
       },
       error: (e) => {

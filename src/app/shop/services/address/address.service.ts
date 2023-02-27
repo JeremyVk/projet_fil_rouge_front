@@ -16,4 +16,8 @@ addressUrl: string = `${environment.url}/api/addresses`
   public postAddress(address: Address) {
     return this.http.post<Address>(this.addressUrl, address);
   }
+
+  public editAddress(address: Address) {
+    return this.http.put<Address>(`${this.addressUrl}/${address.id}`, address);
+  }
 }

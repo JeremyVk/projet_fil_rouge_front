@@ -11,12 +11,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ShopModule } from '../shop.module';
 import { AppFormsModule } from 'src/app/app-forms/app-forms.module';
 import { ButtonCtaComponent } from '../../buttons/components/button-cta/button-cta.component';
+import { UserAddressesComponent } from './components/user-addresses/user-addresses.component';
+import { ButtonsModule } from 'src/app/buttons/buttons.module';
+import { UserCreateAddressComponent } from './components/user-create-address/user-create-address.component';
+import { UserEditAddressComponent } from './components/user-edit-address/user-edit-address.component';
 
 @NgModule({
   declarations: [
     UserDashboardComponent,
     UserAreaNavComponent,
     UserDataComponent,
+    UserAddressesComponent,
+    UserCreateAddressComponent,
+    UserEditAddressComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +32,7 @@ import { ButtonCtaComponent } from '../../buttons/components/button-cta/button-c
     ReactiveFormsModule,
     TranslateModule,
     AppFormsModule,
+    ButtonsModule
   ],
   providers: [UserAuthenticatedGuard]
 })

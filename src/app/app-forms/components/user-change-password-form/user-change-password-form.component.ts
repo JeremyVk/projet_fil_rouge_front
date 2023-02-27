@@ -27,8 +27,8 @@ export class UserChangePasswordFormComponent implements OnInit {
   errors: any = [];
   subscription = new Subscription();
 
-  passwordCtrl =  this.fb.control(this.user.password, [Validators.required, Validators.minLength(8)]);
-  passwordConfirmCtrl = this.fb.control('', [Validators.required]);
+  passwordCtrl =  this.fb.control(this.user.plainPassword, [Validators.required, Validators.minLength(8)]);
+  passwordConfirmCtrl = this.fb.control(this.user.currentPassword, [Validators.required]);
 
   ngOnInit(): void {
    this.subscription.add(this.userService.userSubject$.subscribe(res => {
@@ -36,21 +36,17 @@ export class UserChangePasswordFormComponent implements OnInit {
    }))
   }
 
-  arePasswordsSimilars: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-      let password = group.get('password')?.value;
-      let passwordConfirm = group.get('passwordConfirm')?.value;
-  
-      return password === passwordConfirm ? null : {notSame: true}
-  }
 
   passwordForm: FormGroup = this.fb.group({
-    password: this.passwordCtrl,
-    passwordConfirm: this.passwordConfirmCtrl,
-  },
-  {validators: this.arePasswordsSimilars })
+    currentPassword: this.passwordCtrl,
+    plainPassword: this.passwordConfirmCtrl,
+  })
 
   sendData() {
-    this.userService.editUser(this.user).subscribe({
+    if (this.passwordForm.invalid) {
+      return;
+    }
+    this.userService.editUserPassword(this.user).subscribe({
       next: res => {
         let notification: Notification = {text: "Votre mot de passe a bien été modifié"};
         this.notificationService.pushNotification(notification);     
@@ -58,8 +54,10 @@ export class UserChangePasswordFormComponent implements OnInit {
       },
       error: e => {
         let notification: Notification = {text: "Une erreur est survenue"};
-        this.notificationService.pushNotification(notification);     
+        this.notificationService.pushNotification(notification);
         this.passwordForm.reset();
+          
+        this.errors = this.errorService.getFormViolations(e);        
       }
     })    
   }
