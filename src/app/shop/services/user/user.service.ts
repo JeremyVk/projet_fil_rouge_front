@@ -58,15 +58,6 @@ export class UserService {
     );
   }
 
-  setUserLogged(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  getUserLogged(): User {
-    let user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
-  }
-
   getUserAddressesCount(user: User): Observable<number> {
     return this.http.get<{'hydra:totalItems': number}>(`${this.userUrl}/${user.id}/addresses`).pipe(
       map((elt) => elt["hydra:totalItems"])

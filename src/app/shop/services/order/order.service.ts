@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Address } from '../../interfaces/address';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { Order } from '../../interfaces/order';
+import { User } from '../../interfaces/user';
 import { CartService } from '../cart/cart.service';
 import { UserService } from '../user/user.service';
 
@@ -14,11 +15,15 @@ import { UserService } from '../user/user.service';
 export class OrderService {
 
   orderUrl: string = `${environment.url}/api/orders`
+  user: User = {}
   constructor(
     private http: HttpClient,
     private cartService: CartService,
     private userService: UserService
   ) { 
+    this.userService.userSubject$.subscribe(res => {
+      this.user = res
+    })
   }
 
 
@@ -30,7 +35,7 @@ export class OrderService {
 
   public createOrder(address: Address): Order {
     let order: Order = {};
-    order.user = this.userService.getUserLogged();
+    order.user = this.user;
     order.orderItems = this.cartService.getCartIntoLocalStorage();
     order.shippingAmount = environment.baseShippingAmount;
     order.shippingAddress = address.id;

@@ -41,7 +41,11 @@ export class AddressFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.address.user = this.userService.getUserLogged()['@id'];
+    this.userService.userSubject$.subscribe(res => {
+      console.log(res);
+      
+      this.address.user = '/api/users/' + res.id
+    })
   }
 
  
