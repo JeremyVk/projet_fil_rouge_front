@@ -37,9 +37,7 @@ export class UserService {
       tap(elt => {
         this.jwtService.setJsonWebToken(elt.token);
         this.jwtService.setRefreshWebToken(elt['refresh_token']);
-      }),
-      mergeMap(_ => {
-        return this.findUserByEmail(user.email);
+        this.getUser();
       }),
     )
   }
@@ -54,6 +52,7 @@ export class UserService {
     return this.http.post<User>(`${this.userUrl}`, user)
     .pipe(
       mergeMap(_ => {
+        user.password = user.plainPassword
         return this.login(user)
       })
     );

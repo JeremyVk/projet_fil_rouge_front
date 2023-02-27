@@ -78,7 +78,6 @@ export class UserRegisterFormComponent implements OnInit {
     if (this.method === 'POST') {
       this.userService.registerUser(this.user).subscribe({
         next: (res) => {
-          this.userService.setUserLogged(res[0])
           this.router.navigateByUrl('')
         },
         error: e => {
