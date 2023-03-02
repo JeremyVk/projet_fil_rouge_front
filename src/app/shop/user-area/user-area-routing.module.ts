@@ -6,6 +6,7 @@ import { UserCreateAddressComponent } from './components/user-create-address/use
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserDataComponent } from './components/user-data/user-data.component';
 import { UserEditAddressComponent } from './components/user-edit-address/user-edit-address.component';
+import { UserOrdersComponent } from './components/user-orders/user-orders.component';
 
 const routes: Routes = [
   { path: 'dashboard',
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: 'data', component: UserDataComponent},
       { path: 'addresses', component: UserAddressesComponent,},
       { path: 'create-address', component: UserCreateAddressComponent},
-      { path: 'edit-address/:id', component: UserEditAddressComponent}
+      { path: 'edit-address/:id', component: UserEditAddressComponent},
+      { path: 'orders', component: UserOrdersComponent,},
     ]
   },
 ];

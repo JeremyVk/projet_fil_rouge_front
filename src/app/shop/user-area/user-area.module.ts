@@ -15,6 +15,8 @@ import { UserAddressesComponent } from './components/user-addresses/user-address
 import { ButtonsModule } from 'src/app/buttons/buttons.module';
 import { UserCreateAddressComponent } from './components/user-create-address/user-create-address.component';
 import { UserEditAddressComponent } from './components/user-edit-address/user-edit-address.component';
+import { UserOrdersComponent } from './components/user-orders/user-orders.component';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { UserEditAddressComponent } from './components/user-edit-address/user-ed
     UserAddressesComponent,
     UserCreateAddressComponent,
     UserEditAddressComponent,
+    UserOrdersComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +35,8 @@ import { UserEditAddressComponent } from './components/user-edit-address/user-ed
     ReactiveFormsModule,
     TranslateModule,
     AppFormsModule,
-    ButtonsModule
+    ButtonsModule,
+    PipesModule
   ],
   providers: [UserAuthenticatedGuard]
 })
