@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { Order } from "./order";
 
 export interface User {
     '@id'?: string,
@@ -10,5 +11,6 @@ export interface User {
     plainPassword?: string,
     currentPassword?: string,
     password?: string,
-    addresses?: string[]
+    addresses?: string[],
+    orders?: Order[]
 }

@@ -21,7 +21,7 @@ export class UserOrdersComponent implements OnInit {
       if (res.id !== undefined) {
         this.userService.findUserOrders(res).subscribe({
           next: orders => {
-            this.orders = orders['hydra:member'];            
+            this.orders = orders['hydra:member'];
           },
           error: e => {
 

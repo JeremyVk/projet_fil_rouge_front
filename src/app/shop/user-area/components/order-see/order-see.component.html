@@ -1,0 +1,60 @@
+<h1 class="title mb-12">Votre commande numéro {{ order.number }}</h1>
+<div class="flex flex-col justify-center items-center">
+    <div class="flex flex-col gap-5 md:flex-row">
+        <div class="flex flex-col border-2 rounded-lg w-72">
+            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Addresse de livraison</p>
+            <div class="flex flex-col p-3">
+               <p>{{ order.shippingAddress?.firstname}}</p> 
+               <p>{{ order.shippingAddress?.lastname}}</p> 
+               <p>{{ order.shippingAddress?.street}}</p> 
+               <p>{{ order.shippingAddress?.postalCode}}</p> 
+            </div>
+        </div>
+
+        <div class="flex flex-col border-2 rounded-lg w-72">
+            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Addresse de facturation</p>
+            <div class="flex flex-col p-3">
+               <p>{{ order.shippingAddress?.firstname}}</p> 
+               <p>{{ order.shippingAddress?.lastname}}</p> 
+               <p>{{ order.shippingAddress?.street}}</p> 
+               <p>{{ order.shippingAddress?.postalCode}}</p> 
+            </div>
+        </div>
+    </div>
+
+    <div class="border-2 rounded-lg mt-5 px-4 sm:px-14 lg:px-28">
+        <div class="flex flex-col">
+            <p class="p-3 text-center font-bold text-lg">Détails</p>
+            <div class="p-3 flex flex-col">
+                <div *ngFor="let item of order.orderItems; let last = last">
+                    <div class="flex justify-center p-2 w-full mb-3">
+                        <div class="flex justify-start">
+                            <div class="w-16 mr-2">
+                                <img src="{{item.variant?.parent?.image}}" alt="">
+                            </div>
+                            <div class=" flex flex-col justify-between items-start w-32 md:w-80">
+                                <div class="">
+                                    <p class="font-semibold">{{ item.variant?.parent?.title }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-light text-sm">{{ item.variant?.parent?.editor }}</p>
+                                    <p class="font-light text-sm">{{ item.variant?.format?.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" flex flex-col justify-between items-end">
+                            <p>X {{ item.quantity }}</p>
+                            <p class="text-basePurple font-bold">{{ item|itemPrice|showPrice}} €</p>
+                        </div>
+                    </div>
+                    <hr *ngIf="!last">
+                </div>
+                <div class="flex flex-col justify-center items-start w-full">
+                    <p class="font-semibold">Total de vos articles : {{ order.amount|showPrice }} €</p>
+                    <p class="font-semibold">Livraison: {{ order.shippingAmount|showPrice }} €</p>
+                    <p class="font-semibold">Total TTC: {{ order|orderTotalAmount|showPrice }} €</p>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

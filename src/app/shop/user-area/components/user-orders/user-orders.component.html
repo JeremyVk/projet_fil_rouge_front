@@ -3,7 +3,7 @@
         <h3 class="title">Vous n'avez pas encore de commande</h3>
     </div>
     <div class="" *ngIf="orders.length">
-        <h1 class="title">Vos commandes</h1>
+        <h1 class="title mb-5">Vos commandes</h1>
         <div class=" w-full mx-auto flex flex-col justify-center items-center gap-3">
             <div *ngFor="let order of orders" class="border-2 rounded-lg p-5 flex flex-col justify-between items-center lg:flex-row w-96 lg:w-128">
                 <div class="flex flex-col">
@@ -11,8 +11,10 @@
                     <p>Passée le {{ order.createdAt|dateFormat }}</p>
                 </div>
                 <div>
-                    <p>Total de la commande: {{ order.amount|showPrice }}€</p>
-                    <app-button-cta text="Voir la commande"></app-button-cta>
+                    <p>Total de la commande: {{ order|orderTotalAmount|showPrice }}€</p>
+                    <a [routerLink]="['/user/dashboard/orders/', order.id]">
+                        <app-button-cta text="Voir la commande"></app-button-cta>
+                    </a>
                 </div>
             </div>
         </div>
