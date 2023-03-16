@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, mergeMap, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Address } from '../../interfaces/address';
 import { BaseVariant } from '../../interfaces/baseVariant';
@@ -38,7 +38,12 @@ export class OrderService {
     order.user = this.user;
     order.orderItems = this.cartService.getCartIntoLocalStorage();
     order.shippingAmount = environment.baseShippingAmount;
-    order.shippingAddress = address.id;
+    order.shippingAddressId = address.id;
     return order
+  }
+
+  public findOrderById(id: Number)
+  {
+    return this.http.get<Order>(`${this.orderUrl}/${id}`)
   }
 }

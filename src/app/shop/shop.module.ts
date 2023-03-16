@@ -33,6 +33,7 @@ import { NotificationElementComponent } from './components/notification/notifica
 import { BookFiltersComponent } from './components/filters/book-filters/book-filters.component';
 import { AppFormsModule } from '../app-forms/app-forms.module';
 import { ButtonsModule } from '../buttons/buttons.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import { ButtonsModule } from '../buttons/buttons.module';
     NavigationComponent,
     LoginComponent,
     RegisterComponent,
-    ShowPricePipe,
     CartComponent,
     CartPopupComponent,
     CartPopupArticleComponent,
@@ -70,9 +70,10 @@ import { ButtonsModule } from '../buttons/buttons.module';
     ReactiveFormsModule,
     TranslateModule,
     AppFormsModule,
-    ButtonsModule
+    ButtonsModule,
+    PipesModule
   ],
-  exports: [ProductListComponent, HeaderComponent, ShowPricePipe, AddToCartNotificationComponent],
+  exports: [ProductListComponent, HeaderComponent, AddToCartNotificationComponent],
   providers: [UserAuthenticatedGuard]
 })
 export class ShopModule {}

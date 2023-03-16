@@ -1,0 +1,50 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/shop/interfaces/order';
+import { OrderService } from 'src/app/shop/services/order/order.service';
+import { UserService } from 'src/app/shop/services/user/user.service';
+
+@Component({
+  selector: 'app-order-see',
+  templateUrl: './order-see.component.html',
+  styleUrls: ['./order-see.component.css']
+})
+export class OrderSeeComponent implements OnInit {
+
+  id: Number|null = null;
+  legacy: boolean = false;
+  order: Order = {};
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private orderService: OrderService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.id = null
+    this.id = Number(this.route.snapshot.paramMap.get('orderId'));
+    
+    if (this.id !== null) {
+      this.orderService.findOrderById(this.id).subscribe({
+        next: res => {
+          this.order = res;
+          this.checkIfLegacy()
+          console.log(this.order);
+        },
+        error: e => {
+          this.router.navigateByUrl('/')
+        }
+      })
+    }
+  }
+
+  checkIfLegacy() {    
+    this.userService.userSubject$.subscribe(res => {
+      if (this.order?.user?.id !== res.id) {
+        this.router.navigateByUrl('/')
+      }
+    }) 
+  }
+}

@@ -5,6 +5,7 @@ import { BehaviorSubject, map, mergeMap, Observable, Subject, tap} from 'rxjs';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { environment } from 'src/environments/environment';
 import { Address } from '../../interfaces/address';
+import { Hydra } from '../../interfaces/hydra';
 import { User } from '../../interfaces/user';
 
 @Injectable({
@@ -98,5 +99,9 @@ export class UserService {
 
   editUserPassword(user: User) {    
     return this.http.put<User>(`${this.userUrl}/reset_password`, {password: user.currentPassword, plainPassword: user.plainPassword})
+  }
+
+  findUserOrders(user: User) {
+    return this.http.get<Hydra>(`${this.userUrl}/${user.id}/orders`);
   }
 }
