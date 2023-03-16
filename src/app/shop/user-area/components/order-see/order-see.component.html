@@ -1,8 +1,12 @@
-<h1 class="title mb-12">Votre commande numéro {{ order.number }}</h1>
+<h1 class="title">Votre commande numéro {{ order.number }}</h1>
+<div class="flex flex-col justify-center items-center mb-12 mt-8">
+    <app-button-cta text="Télécharger la facture" (click)="downloadInvoice(order.id ?? 0)"></app-button-cta>
+    <p *ngIf="error.length" class="text-red-500 mt-5">{{ error }}</p>
+</div>
 <div class="flex flex-col justify-center items-center">
     <div class="flex flex-col gap-5 md:flex-row">
         <div class="flex flex-col border-2 rounded-lg w-72">
-            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Addresse de livraison</p>
+            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Adresse de livraison</p>
             <div class="flex flex-col p-3">
                <p>{{ order.shippingAddress?.firstname}}</p> 
                <p>{{ order.shippingAddress?.lastname}}</p> 
@@ -12,7 +16,7 @@
         </div>
 
         <div class="flex flex-col border-2 rounded-lg w-72">
-            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Addresse de facturation</p>
+            <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Adresse de facturation</p>
             <div class="flex flex-col p-3">
                <p>{{ order.shippingAddress?.firstname}}</p> 
                <p>{{ order.shippingAddress?.lastname}}</p> 
