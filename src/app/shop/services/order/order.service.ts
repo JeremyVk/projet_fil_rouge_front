@@ -46,4 +46,9 @@ export class OrderService {
   {
     return this.http.get<Order>(`${this.orderUrl}/${id}`)
   }
+
+  getOrderInvoice(orderId: number)
+  {
+    return this.http.get(`${this.orderUrl}/${orderId}/invoice`, { observe: 'response', responseType: 'blob' })
+  }
 }

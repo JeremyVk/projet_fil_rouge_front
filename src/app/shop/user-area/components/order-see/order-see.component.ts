@@ -14,6 +14,7 @@ export class OrderSeeComponent implements OnInit {
   id: Number|null = null;
   legacy: boolean = false;
   order: Order = {};
+  error: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -46,5 +47,21 @@ export class OrderSeeComponent implements OnInit {
         this.router.navigateByUrl('/')
       }
     }) 
+  }
+
+  downloadInvoice(orderId: number) {
+    return this.orderService.getOrderInvoice(orderId).subscribe({
+      next: res => {
+        if (res.body === null) return
+
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(res.body)
+        link.target = '_blank'
+        link.click();      
+      },
+      error: e => {
+        this.error = "Une erreur est survenue, Votre facture n'est pas disponible pour le moment"
+      }
+    })
   }
 }
