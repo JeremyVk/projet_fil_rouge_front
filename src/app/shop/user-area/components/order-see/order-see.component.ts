@@ -14,7 +14,8 @@ export class OrderSeeComponent implements OnInit {
   id: Number|null = null;
   legacy: boolean = false;
   order: Order = {};
-  error: string = ''
+  error: string = '';
+  taxAmount: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class OrderSeeComponent implements OnInit {
         next: res => {
           this.order = res;
           this.checkIfLegacy()
+          this.taxAmount = this.orderService.calculateTotalTax(this.order);
           console.log(this.order);
         },
         error: e => {
@@ -64,4 +66,6 @@ export class OrderSeeComponent implements OnInit {
       }
     })
   }
+
+
 }

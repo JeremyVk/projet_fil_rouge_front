@@ -57,6 +57,8 @@
                     <p class="font-semibold">Total de vos articles : {{ order.amount|showPrice }} €</p>
                     <p class="font-semibold">Livraison: {{ order.shippingAmount|showPrice }} €</p>
                     <p class="font-semibold">Total TTC: {{ order|orderTotalAmount|showPrice }} €</p>
+                    <p class="font-light text-sm">Dont TVA: {{ taxAmount|showPrice }} €</p>
+
                 </div>
             </div>            
         </div>

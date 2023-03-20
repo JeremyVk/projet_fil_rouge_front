@@ -47,8 +47,20 @@ export class OrderService {
     return this.http.get<Order>(`${this.orderUrl}/${id}`)
   }
 
-  getOrderInvoice(orderId: number)
+  public getOrderInvoice(orderId: number)
   {
     return this.http.get(`${this.orderUrl}/${orderId}/invoice`, { observe: 'response', responseType: 'blob' })
+  }
+
+  public calculateTotalTax(order: Order) {
+    let taxAmount = 0;
+
+    order.orderItems?.forEach(item => {
+      if (item.price && item.quantity && item.tax) {
+        taxAmount += ( item.price * item.quantity) * (item.tax)
+      }
+    })
+
+    return Math.round(taxAmount);
   }
 }

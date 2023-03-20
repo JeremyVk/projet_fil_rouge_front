@@ -1,4 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { Book } from '../../interfaces/book';
@@ -14,7 +15,8 @@ export class ProductTileComponent implements OnInit {
   isArticleInStock: boolean = true;
   maxAvailable: number = 0;
   inputQuantity: number = 0;
-  hasManyVariants: boolean = false;;
+  hasManyVariants: boolean = false;
+  url:string =  environment.productImagesUrl;
 
   constructor(private cartService: CartService) { }
 

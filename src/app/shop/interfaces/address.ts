@@ -4,5 +4,6 @@ export interface Address {
   lastname?: string,
   postalCode?: string,
   street?: string,
+  city?: string,
   user?: String
 }
