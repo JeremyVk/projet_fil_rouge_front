@@ -8,7 +8,7 @@
             </div>
         </li>
         <li *ngFor="let variant of variants">
-            <div class="flex justify-between py-3 border-t-2 w-full"  *ngIf="displayVariants && variant !== selectedVariant" (click)="changeSelectedVariant(variant)">
+            <div class="flex justify-between py-3 border-t-2 w-full"  *ngIf="displayVariants && variant !== selectedVariant && variant.stock && variant.stock > 0" (click)="changeSelectedVariant(variant)">
                 <div class="fantom-dropdown"></div>
                 <p class="">Format {{ variant?.format?.name }}</p>
                 <p class="font-bold text-basePurple">{{ variant.unitPrice|showPrice }} €</p>
