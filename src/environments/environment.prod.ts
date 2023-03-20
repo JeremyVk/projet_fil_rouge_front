@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: 'http://127.0.0.1:8000',
+  url: 'https://l2i-backend.herokuapp.com',
   baseShippingAmount: 400,
-  productImagesUrl: 'http://127.0.0.1:8000/images/products/'
+  productImagesUrl: 'https://l2i-backend.herokuapp.com/images/products/'
 };
