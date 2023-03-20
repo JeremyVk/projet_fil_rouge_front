@@ -29,6 +29,12 @@
                 <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.postalCode'|translate }}</div>
                 <div *ngIf="errors['postalCode']" class="text-error absolute bottom-0">{{ errors['postalCode']|translate }}</div>
             </div>
+            <div class="input-container flex-col mt-5 relative">
+                <label class="" for="form3Example1q">Ville</label>
+                <input type="text" id="form3Example1q" class="input" formControlName="city" [(ngModel)]="address.city" />
+                <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.postalCode'|translate }}</div>
+                <div *ngIf="errors['postalCode']" class="text-error absolute bottom-0">{{ errors['postalCode']|translate }}</div>
+            </div>
         </div>
         <div class="mt-5">
             <app-button-cta [form]="addressForm" text="Envoyer l'adresse"></app-button-cta>

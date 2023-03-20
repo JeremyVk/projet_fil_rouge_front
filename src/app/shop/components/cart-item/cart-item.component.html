@@ -1,7 +1,7 @@
 <div class="flex p-4 mb-5 border-2 justify-between mx-auto sm:w-96 lg:w-96">
     <div class="flex flex-start">
         <div class="">
-            <img src="{{ variant.parent?.image }}" alt="Image de {{ variant.parent?.title }}" class="w-16 object-cover">
+            <img src="{{ imageUrl + variant.parent?.image }}" alt="Image de {{ variant.parent?.title }}" class="w-16 object-cover">
         </div>
         <div class="w-2/3 pl-2 flex flex-col justify-between">
             <p class="text-sm font-bold pb-1">{{ variant.parent?.title }}</p>

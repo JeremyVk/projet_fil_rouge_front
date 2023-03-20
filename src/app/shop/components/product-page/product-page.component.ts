@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { Book } from '../../interfaces/book';
@@ -16,6 +17,7 @@ export class ProductPageComponent implements OnInit {
   variants: Array<BaseVariant> = [];
   selectedVariant: BaseVariant = {};
   loadingData: boolean = true;
+  imageUrl: string = environment.productImagesUrl
 
   constructor(
     private route: ActivatedRoute,
