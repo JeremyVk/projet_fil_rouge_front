@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/shop/interfaces/order';
 import { OrderService } from 'src/app/shop/services/order/order.service';
 import { UserService } from 'src/app/shop/services/user/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-see',
@@ -16,6 +17,7 @@ export class OrderSeeComponent implements OnInit {
   order: Order = {};
   error: string = '';
   taxAmount: number = 0;
+  imageUrl:string = environment.productImagesUrl
 
   constructor(
     private route: ActivatedRoute,
