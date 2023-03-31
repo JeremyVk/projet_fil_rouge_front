@@ -1,5 +1,5 @@
 <app-product-search-bar (productSearchQuery)="refreshBookList($event)"></app-product-search-bar>
-<div class="mt-32" *ngIf="isLoading">
+<div *ngIf="isLoading">
     <app-spinner-data-loader></app-spinner-data-loader>
 </div>
 <div *ngIf="!isLoading">
