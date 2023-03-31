@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { CartService } from '../../services/cart/cart.service';
@@ -11,6 +12,8 @@ import { ProductService } from '../../services/product/product.service';
 })
 export class CartPopupArticleComponent implements OnInit {
 @Input() variant: BaseVariant = {};
+imgUrl: string = environment.productImagesUrl
+
   constructor(
     private cartService: CartService,
     private productService: ProductService

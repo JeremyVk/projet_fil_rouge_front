@@ -11,10 +11,16 @@
             </div>
         </div>
     </div>
-    <div class=" flex flex-col items-center justify-between">
+    <div class=" flex flex-col items-end justify-between">
         <app-product-quantity-increment [variant]="variant"></app-product-quantity-increment>
-        <div class="text-basePurple">
-            {{ variantsPrice|showPrice }}€
+        <div class="flex justify-between items-end">
+            <div class="text-basePurple pr-3">
+                {{ variantsPrice|showPrice }}€
+            </div>
+            <div class="w-6" (click)="deleteVariant(variant)">
+                <img src="assets/images/svg/delete.svg" alt="">
+            </div>
         </div>
+        
     </div>
 </div>

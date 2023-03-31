@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BaseVariant } from '../../interfaces/baseVariant';
+import { CartService } from '../../services/cart/cart.service';
 import { ProductService } from '../../services/product/product.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class CartItemComponent implements OnInit {
   imageUrl: string = environment.productImagesUrl
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -24,5 +26,9 @@ export class CartItemComponent implements OnInit {
 
   ngDoCheck() {
     this.variantsPrice = this.productService.getVariantsPrice(this.variant)
+  }
+
+  deleteVariant(variant: BaseVariant) {
+    this.cartService.deleteArticleFromLocalStorage(variant);
   }
 }
