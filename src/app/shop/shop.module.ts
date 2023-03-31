@@ -34,6 +34,7 @@ import { BookFiltersComponent } from './components/filters/book-filters/book-fil
 import { AppFormsModule } from '../app-forms/app-forms.module';
 import { ButtonsModule } from '../buttons/buttons.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PipesModule } from '../pipes/pipes.module';
     AddToCartNotificationComponent,
     NotificationElementComponent,
     BookFiltersComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,7 @@ import { PipesModule } from '../pipes/pipes.module';
     ButtonsModule,
     PipesModule
   ],
-  exports: [ProductListComponent, HeaderComponent, AddToCartNotificationComponent],
+  exports: [ProductListComponent, HeaderComponent, AddToCartNotificationComponent, FooterComponent],
   providers: [UserAuthenticatedGuard]
 })
 export class ShopModule {}
