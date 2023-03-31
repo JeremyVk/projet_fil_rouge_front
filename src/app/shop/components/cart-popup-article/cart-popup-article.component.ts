@@ -11,8 +11,8 @@ import { ProductService } from '../../services/product/product.service';
   styleUrls: ['./cart-popup-article.component.css']
 })
 export class CartPopupArticleComponent implements OnInit {
-@Input() variant: BaseVariant = {};
-imgUrl: string = environment.productImagesUrl
+  @Input() variant: BaseVariant = {};
+  imgUrl: string = environment.productImagesUrl
 
   constructor(
     private cartService: CartService,

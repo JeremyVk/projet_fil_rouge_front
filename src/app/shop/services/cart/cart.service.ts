@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { BehaviorSubject, elementAt, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, elementAt, lastValueFrom, Observable, Subject } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { BaseVariant } from '../../interfaces/baseVariant';
 import { ProductVariantService } from '../product-variant/product-variant.service';
@@ -15,6 +15,8 @@ export class CartService {
   }
   updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
 
+  productDeleted$ = new Subject<BaseVariant>()
+
   cartSubject = new BehaviorSubject<Array<BaseVariant>>([]);
   cart$ = this.cartSubject.asObservable();
 
@@ -27,11 +29,11 @@ export class CartService {
     let variantInCart = this.getArticleInCart(article)
 
     if( !variantInCart) {
-      article.quantity = 1;
+      article.quantity = quantityToIncrement;
       let newCart = [...this.cartSubject.value, article];
       this.cartSubject.next(newCart);
-    } else {      
-      this.incrementVariantQuantity(variantInCart);
+    } else {
+      this.incrementVariantQuantity(variantInCart, quantityToIncrement);
     }
     this.pushCartToLocaleStorage(this.cartSubject.value);
   }
@@ -45,10 +47,11 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  deleteArticleFromLocalStorage(article: Article) {
-    let newCart = this.cartSubject.value.filter(elt => elt.id !== article.id);
+  deleteArticleFromLocalStorage(variant: BaseVariant) {
+    let newCart = this.cartSubject.value.filter(elt => elt.id !== variant.id);
     this.pushCartToLocaleStorage(newCart);
     this.cartSubject.next(newCart);
+    this.productDeleted$.next(variant)
   }
 
   getArticleQuantity(cart: Array<BaseVariant>) {
@@ -121,10 +124,10 @@ export class CartService {
     this.pushCartToLocaleStorage(this.cartSubject.value);
   }
 
-  incrementVariantQuantity(variant: BaseVariant) {
+  incrementVariantQuantity(variant: BaseVariant, quantityToIncrement: number = 1) {
     this.cartSubject.value.map(cartItem => {
-      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
-        cartItem.quantity && cartItem.quantity ++
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type && cartItem.quantity) {          
+        cartItem.quantity += quantityToIncrement
       }
     });
     this.pushCartToLocaleStorage(this.cartSubject.value);
@@ -170,6 +173,14 @@ export class CartService {
     });
 
     return messages;
+  }
+
+  getArticleQuantityInCart(variant: BaseVariant): number {
+    if (!this.isArticleInCart(variant)) {
+      return 0;
+    }
+
+    return this.getArticleInCart(variant)?.quantity ?? 0
   }
 }
 
