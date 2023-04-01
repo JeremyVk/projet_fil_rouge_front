@@ -23,6 +23,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   quantitySelected: number = 1;
   maxQuantity: number = 1;
 
+  productDeletedSubscription: any
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -32,7 +33,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const id: number = Number(this.route.snapshot.paramMap.get('productId'))!;
-    this.cartService.productDeleted$.subscribe( res =>{
+    this.productDeletedSubscription = this.cartService.productDeleted$.subscribe( res =>{
       this.setMaxQuantity()
     })
     this.getBook(id);
@@ -40,7 +41,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.cartService.productDeleted$.unsubscribe()
+    this.productDeletedSubscription.unsubscribe()
   }
 
   getBook(id:number) {
