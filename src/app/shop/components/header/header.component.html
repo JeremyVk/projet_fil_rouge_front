@@ -13,8 +13,8 @@
                 <div *ngIf="!user" class="mr-4">
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
-                <div>
-                        <app-cart class="relative"></app-cart>
+                <div class="pr-3">
+                    <app-cart class="relative"></app-cart>
                 </div>
                 <div *ngIf="user" class="">
                     <a class="" (click)="logout()">Se Déconnecter</a>
