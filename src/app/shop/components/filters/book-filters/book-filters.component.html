@@ -1,12 +1,20 @@
-<div class="col-span-1 bg-gray-300 hidden lg:block">
-    <h3 class="text-bold text-xl text-center">Filtres</h3>
+
+<div class="w-52 border-2 rounded-xl mx-auto p-5 mb-8 lg:hidden" (click)="toggleIsDisplayed()">
+    <p class="text-center font-bold">Filtrer</p>
+</div>
+
+<div class="fixed h-screen w-screen top-0 z-10 {{ !isDisplayed && isMobileDevice ? '-translate-x-full' : 'opacity-100 duration-100'  }} overflow-auto ease-in lg:static lg:w-auto lg:h-auto xl:col-span-1 bg-white lg:bg-gray-300">
+    <h3 class="font-bold text-xl text-center pt-5">Filtres</h3>
+    <div class="">
+        <img src="assets/images/svg/close.svg" class="absolute top-5 right-5 w-10 lg:hidden" (click)="toggleIsDisplayed()"/>
+    </div>
     <form #formatForm="ngForm" (ngSubmit)="filterBooks()" class="pl-5">
         <h3 class="text-xl font-semibold">Formats</h3>
-        <div *ngFor="let format of bookFormats, let i = index" class="pr-2 py-1">
+        <div *ngFor="let format of bookFormats, let i = index" class="pr-2 py-2">
             <input id="{{ format.name }}" type="checkbox" name="{{format.name}}" [(ngModel)]="format.checked" class="cursor-pointer mr-1">
-            <label for="{{ format.name }}">{{ format.name }}</label>
+            <label for="{{ format.name }}" class="cursor-pointer">{{ format.name }}</label>
         </div>
-        <div class="w-28">
+        <div class="w-28 mt-5">
             <app-button-cta text="Filtrer"></app-button-cta>
         </div>
     </form>

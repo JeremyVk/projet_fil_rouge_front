@@ -7,14 +7,14 @@
             <div class="flex items-center justify-end md:flex-row text-white w-80 ">
                 <div *ngIf="user" class="">
                     <a [routerLink]="['/user/dashboard/data']">
-                        <img src="assets/images/icons/icons8-utilisateur-64.png" alt="">
+                        <img src="assets/images/svg/user.svg" alt="user icon">
                     </a>
                 </div>
                 <div *ngIf="!user" class="mr-4">
                     <a class="" routerLink="login">Se connecter</a>
                 </div>
-                <div>
-                        <app-cart class="relative"></app-cart>
+                <div class="pr-3">
+                    <app-cart class="relative"></app-cart>
                 </div>
                 <div *ngIf="user" class="">
                     <a class="" (click)="logout()">Se Déconnecter</a>

@@ -13,7 +13,12 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
   bookFormats: Array<any> = [];
   formatsSelecteds: string = "";
   @Output() reloadProductsEmmiter = new EventEmitter<string>()
-  private bookFormatSubscription = new Subscription()
+  private bookFormatSubscription = new Subscription();
+
+  //MOBILES FILTERS
+  isDisplayed: boolean = false;
+  isMobileDevice: boolean = true
+  deviceWidth: number = 0
 
   constructor(
     private bookService: BookService,
@@ -23,9 +28,16 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.deviceWidth = window.innerWidth
+    
+    if (this.deviceWidth >= 1024) {
+      this.isMobileDevice = false
+    }
+
     this.bookFormatSubscription = this.bookService.bookFilterSubject$.subscribe(res => {
       this.bookFormats = res
     })
+
   }
 
   ngOnDestroy(): void {
@@ -33,6 +45,7 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
   }
 
   filterBooks() {
+    this.toggleIsDisplayed()
     this.formatsSelecteds = this.bookFormats.filter(elt => elt.checked)
     .map(elt => elt.name)
     .join(',')
@@ -42,5 +55,9 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/books' + url)
     this.reloadProductsEmmiter.emit('/api/books' + url)
     this.bookService.editBookFilters(this.bookFormats)
+  }
+
+  toggleIsDisplayed() {
+    this.isDisplayed = !this.isDisplayed;
   }
 }
