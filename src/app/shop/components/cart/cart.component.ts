@@ -29,4 +29,19 @@ export class CartComponent implements OnInit {
   updateArticleQuantity() {
     this.articleQuantity = this.cartService.getTotalVariantsQuantity();
   }
+
+  toggleShowPopup(state: string) {
+    if (window.innerWidth < 1024) {
+      this.showPopup = false
+      return
+    }
+
+    if (state === 'mouseover') {
+      this.showPopup = true
+    }
+
+    if (state === 'mouseleave') {
+      this.showPopup = false
+    }
+  }
 }

@@ -1,8 +1,8 @@
-<a class="text-center m-0 text-white relative" (mouseover)="showPopup=true" routerLink="cart">
+<a class="text-center m-0 text-white relative" (mouseover)="toggleShowPopup('mouseover')" routerLink="cart">
     <img src="assets/images/svg/cart-logo.svg" alt="cart logo">
     <p class="absolute top-4 right-5">{{ articleQuantity }}</p>
 </a>
 
-<div class="position-relative hidden  lg:{{ showPopup ? 'block' : 'hidden' }} ">
-    <app-cart-popup [cart]="cart" (closePopupEmitter)="showPopup=false"></app-cart-popup>
+<div class="relative {{ showPopup ? 'block' : 'hidden' }} ">
+    <app-cart-popup [cart]="cart" (closePopupEmitter)="toggleShowPopup('mouseleave')"></app-cart-popup>
 </div>
