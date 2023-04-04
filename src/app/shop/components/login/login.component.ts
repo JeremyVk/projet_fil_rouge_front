@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormErrorService } from 'src/app/services/form-error.service';
 import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { User } from '../../interfaces/user';
@@ -28,10 +28,21 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private location: Location
+    private location: Location,
+    private router: Router,
+    private route: ActivatedRoute,
+    private jwtService: JsonWebTokenService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let token = this.route.snapshot.queryParamMap.get("token");
+
+    if (token) {
+      this.jwtService.setJsonWebToken(token);
+      this.userService.getUser();
+      this.router.navigateByUrl('/');
+    }
+  }
 
   login() {
     if(this.userLoginForm.invalid) {
