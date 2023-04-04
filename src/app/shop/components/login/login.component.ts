@@ -7,6 +7,7 @@ import { JsonWebTokenService } from 'src/app/services/json-web-token.service';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user/user.service';
 import {Location} from "@angular/common";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import {Location} from "@angular/common";
 export class LoginComponent implements OnInit {
   user: User = {};
   errors: Array<HttpErrorResponse> = [];
+  githubLoginUrl: string = environment.url + '/connect/github'
 
   emailCtrl = this.fb.control(this.user.email, [Validators.required, Validators.email])
   passwordCtrl = this.fb.control(this.user.password, [Validators.required])
