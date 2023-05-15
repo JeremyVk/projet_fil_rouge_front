@@ -41,7 +41,7 @@ export class ProductListComponent implements OnInit {
       url = this.urlService.generateUrlForGetService()
     }
 
-    return this.productService.getAllArticlesByUrl(url).subscribe(res => {      
+    return this.productService.getAllArticlesByUrl(url).subscribe(res => {
       this.consumeResponse(res)
     })
   }
@@ -49,7 +49,6 @@ export class ProductListComponent implements OnInit {
   refreshBookList(productSearchQuery: string) {
     this.isLoading = true;
     this.productService.getBooksBySearch(productSearchQuery).subscribe(res => {
-      
       this.articleList = res['hydra:member'];
       this.pagination = res['hydra:view']
       this.isLoading = false;

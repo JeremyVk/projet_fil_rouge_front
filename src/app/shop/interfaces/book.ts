@@ -1,7 +1,8 @@
 import { Article } from "./article";
-import { BookVariant } from "./bookVariant";
+import {Author} from "./author";
 
 export interface Book extends Article {
     format?: string,
     editor?: string,
+    authors?: Author[]
 }
