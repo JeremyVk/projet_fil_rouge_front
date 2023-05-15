@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-center items-center pt-3 lg:flex-row lg:w-auto mx-auto lg:justify-center lg:items-start" *ngIf="cart.length > 0">
         <div class="w-full lg:w-auto lg:pr-3">
             <p class="text-center text-lg font-semibold">
-                {{ variantQuantity }} Produits
+                {{ variantQuantity }} {{ variantQuantity > 1 ? 'Produits' : 'Produit' }}
             </p>
             <div class="text-center bg-red-300 p-3 w-10/12 mx-auto my-5" *ngFor="let error of errorMessages">
                 <p class="text-white">{{ error }}</p>
