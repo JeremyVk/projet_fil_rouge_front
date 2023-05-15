@@ -1,4 +1,5 @@
 import { BaseVariant } from "./baseVariant";
+import {Author} from "./author";
 
 export interface Article {
     id?: number,
@@ -8,4 +9,5 @@ export interface Article {
     image?: string,
     quantity?: number,
     variants?: Array<BaseVariant>,
+    authors?: Author[]
 }
