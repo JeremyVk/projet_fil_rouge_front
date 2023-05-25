@@ -16,13 +16,11 @@ export class ProductSearchBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  searchProducts()
-  {
-    if(this.searchQuery.length > 0) {
+  searchProducts() {
+    if (this.searchQuery.length > 0) {
       this.productSearchQuery.emit(this.searchQuery);
       this.searchQuery = ""
     }
- 
   }
 
 }

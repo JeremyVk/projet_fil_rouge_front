@@ -18,19 +18,22 @@ export class AddressFormComponent implements OnInit {
   errors: any = [];
   @Input() method: string = "";
   @Input() checkout: boolean = false;
+  userAddress: string = '';
 
   lastNameCtrl = this.fb.control(this.address.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
   firstNameCtrl = this.fb.control(this.address.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
   postalCodeCtrl = this.fb.control(this.address.postalCode, [Validators.required, Validators.minLength(5)]);
   streetCtrl = this.fb.control(this.address.street, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
   cityCtrl = this.fb.control(this.address.city, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
+  idCtrl = this.fb.control(this.address.id, []);
 
   addressForm: FormGroup = this.fb.group({
     lastname: this.lastNameCtrl,
     firstname: this.firstNameCtrl,
     postalCode: this.postalCodeCtrl,
     street: this.streetCtrl,
-    city: this.cityCtrl
+    city: this.cityCtrl,
+    id: this.address.id !== null ? this.idCtrl : ['']
   })
 
   constructor(
@@ -43,19 +46,33 @@ export class AddressFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.userSubject$.subscribe(res => {      
-      this.address.user = '/api/users/' + res.id
+    this.userService.userSubject$.subscribe(res => {
+      this.userAddress = '/api/users/' + res.id
+      this.addressForm.addControl('user', this.fb.control(this.userAddress, [Validators.required]))
+
+      if (this.method === "PUT") {
+        this.addressForm.setValue(
+          {
+            id: this.address.id,
+            lastname: this.address.lastname,
+            firstname: this.address.firstname,
+            postalCode: this.address.postalCode,
+            street:this.address.street,
+            city: this.address.city,
+            user: this.userAddress
+          },
+        )
+      }
     })
   }
-
- 
 
   public postAddress() {
     if (this.addressForm.invalid) {
       return;
     }
+
     if (this.method === "POST") {
-      this.addressService.postAddress(this.address).subscribe({
+      this.addressService.postAddress(this.addressForm.value).subscribe({
         next: (res) => {
           this.userService.getUser();
           this.redirect();
@@ -66,7 +83,7 @@ export class AddressFormComponent implements OnInit {
       })
     }
     if (this.method === "PUT") {
-      this.addressService.editAddress(this.address).subscribe({
+      this.addressService.editAddress(this.addressForm.value).subscribe({
         next: (res) => {
           this.redirect();
         },

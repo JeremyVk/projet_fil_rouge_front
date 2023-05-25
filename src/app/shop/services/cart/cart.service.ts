@@ -10,7 +10,7 @@ import { ProductVariantService } from '../product-variant/product-variant.servic
 export class CartService {
   constructor(
     private productVariantService: ProductVariantService
-  ) {    
+  ) {
     this.cartSubject.next(this.getCartIntoLocalStorage())
   }
   updateCartEmitter = new EventEmitter<Array<BaseVariant>>();
@@ -21,14 +21,13 @@ export class CartService {
   cart$ = this.cartSubject.asObservable();
 
   addProductToCart(article: BaseVariant, quantityToIncrement: number = 1): void|string {
-
     if(!this.isArticleInStock(article)) {
       return "L'article n'est plus en stock";
     }
 
     let variantInCart = this.getArticleInCart(article)
 
-    if( !variantInCart) {
+    if (!variantInCart) {
       article.quantity = quantityToIncrement;
       let newCart = [...this.cartSubject.value, article];
       this.cartSubject.next(newCart);
@@ -76,7 +75,7 @@ export class CartService {
   }
 
   isArticleInStock(article: BaseVariant): boolean {
-   
+
     if(!article.stock) {
       return false;
     }
@@ -110,14 +109,14 @@ export class CartService {
       if (variant.unitPrice && variant.quantity) {
         total +=  variant.unitPrice * variant.quantity;
       }
-      
+
     })
     return total;
   }
 
   decrementVariantQuantity(variant: BaseVariant) {
     this.cartSubject.value.map(cartItem => {
-      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {          
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type) {
         cartItem.quantity && cartItem.quantity --
       }
     });
@@ -126,7 +125,7 @@ export class CartService {
 
   incrementVariantQuantity(variant: BaseVariant, quantityToIncrement: number = 1) {
     this.cartSubject.value.map(cartItem => {
-      if (variant.id === cartItem?.id && variant.type === cartItem?.type && cartItem.quantity) {          
+      if (variant.id === cartItem?.id && variant.type === cartItem?.type && cartItem.quantity) {
         cartItem.quantity += quantityToIncrement
       }
     });
@@ -150,19 +149,19 @@ export class CartService {
     let variantsRemoved: Array<BaseVariant> = [];
     cart.forEach(variant => {
       let variantRefreshed: BaseVariant = variantsRefresheds.find(elt => elt.id === variant.id) ?? {};
-      
+
       if (variantRefreshed
           && variantRefreshed.stock !== undefined
           && variant.quantity !== undefined
           && variant.quantity > variantRefreshed.stock
-        ) {        
+        ) {
         cart = cart.filter(elt => elt.id !== variant.id);
         variantsRemoved.push({title: variant.parent?.title, format: variant.format});
       }
     })
     this.cartSubject.next(cart);
     this.pushCartToLocaleStorage(cart);
-    
+
     return variantsRemoved
   }
 
