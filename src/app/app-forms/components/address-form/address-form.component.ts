@@ -20,8 +20,8 @@ export class AddressFormComponent implements OnInit {
   @Input() checkout: boolean = false;
   userAddress: string = '';
 
-  lastNameCtrl = this.fb.control(this.address.lastname, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]);
-  firstNameCtrl = this.fb.control(this.address.firstname, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
+  lastNameCtrl = this.fb.control(this.address.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]);
+  firstNameCtrl = this.fb.control(this.address.firstname, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]);
   postalCodeCtrl = this.fb.control(this.address.postalCode, [Validators.required, Validators.minLength(5)]);
   streetCtrl = this.fb.control(this.address.street, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
   cityCtrl = this.fb.control(this.address.city, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
