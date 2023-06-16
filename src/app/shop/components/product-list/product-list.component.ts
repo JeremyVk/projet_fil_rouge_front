@@ -27,6 +27,7 @@ export class ProductListComponent implements OnInit {
   isLoading = false;
   pagination: HydraView = {}
   formats: string|null = null;
+  error: string = ''
 
   ngOnInit(): void {
     this.formats = this.route.snapshot.queryParamMap.get("formats");
@@ -41,8 +42,13 @@ export class ProductListComponent implements OnInit {
       url = this.urlService.generateUrlForGetService()
     }
 
-    return this.productService.getAllArticlesByUrl(url).subscribe(res => {
-      this.consumeResponse(res)
+    return this.productService.getAllArticlesByUrl(url).subscribe({
+      next: (res) => {
+        this.consumeResponse(res)
+      },
+      error: (error) => {
+        this.error = error.message
+      }
     })
   }
 
@@ -56,7 +62,6 @@ export class ProductListComponent implements OnInit {
       this.trueBookListLength =  `${this.articleList.length} ${this.articleList.length > 1 ? 'résultats' : 'résultat'}`;
     })
   }
-
 
   consumeResponse(response: Hydra) {
         this.articleList = response['hydra:member'];

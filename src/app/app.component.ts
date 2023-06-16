@@ -9,8 +9,8 @@ import { UserService } from './shop/services/user/user.service';
 })
 export class AppComponent {
   title = 'projet_fil_rouge_front';
-  
-  constructor(translate: TranslateService, private userService: UserService) {    
+
+  constructor(translate: TranslateService, private userService: UserService) {
     this.userService.getUser();
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('fr');
@@ -29,7 +29,7 @@ export class AppComponent {
             },
             lastname: {
               max_length: "Le nom ne doit pas dépasser 30 caractères",
-              min_length: "Le nom doit faire au moins 2 caractères",
+              min_length: "Le nom doit faire au moins 3 caractères",
               required: 'Le nom est requis',
             },
             email: {
@@ -46,6 +46,16 @@ export class AppComponent {
             address: {
               street: "La rue doit faire au moins 4 caractères",
               postalCode: "Le code postal doit faire au moins 5 caractères",
+              firstname: {
+                max_length: "Le prénom ne doit pas dépasser 20 caractères",
+                min_length: "Le prénom doit faire au moins 3 caractères",
+                required: 'Le prénom est requis',
+              },
+              lastname: {
+                max_length: "Le nom ne doit pas dépasser 30 caractères",
+                min_length: "Le nom doit faire au moins 3 caractères",
+                required: 'Le nom est requis',
+              },
             }
           }
         }

@@ -2,16 +2,24 @@
     <form class="" (submit)="postAddress()" [formGroup]="addressForm" >
         <div class="flex justify-center flex-col items-center w-full">
             <div class="input-container flex-col">
-                <label class="" for="form3Example1q">Nom</label>
-                <input type="text" id="form3Example1q" class="input"  formControlName="lastname" [(ngModel)]="address.lastname"/>
-                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.lastname.min_length'|translate }}</div>
-                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('maxlength')" class="text-error">{{ 'app.form.error.lastname.max_length'|translate }}</div>
-                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('required')" class="text-error">{{ 'app.form.error.lastname.required'|translate }}</div>
-                <div *ngIf="errors['lastname']" class="text-error">{{ errors['lastname']|translate }}</div>
+                <label class="" for="lastname">Nom</label>
+                <input type="text" class="input" id="lastname"  formControlName="lastname"/>
+                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')" class="text-error">
+                  {{ 'app.form.error.lastname.min_length'|translate }}
+                </div>
+                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('maxlength')" class="text-error">
+                  {{ 'app.form.error.lastname.max_length'|translate }}
+                </div>
+                <div *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('required')" class="text-error">
+                  {{ 'app.form.error.lastname.required'|translate }}
+                </div>
+                <div *ngIf="errors['lastname']" class="text-error">
+                  {{ errors['lastname']|translate }}
+                </div>
             </div>
             <div class="input-container flex-col mt-5">
                 <label class="" for="form3Example1q">Prénom</label>
-                <input type="text" id="form3Example1q" class="input" formControlName="firstname" [(ngModel)]="address.firstname"/>
+                <input type="text" class="input" formControlName="firstname"/>
                 <div *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.firstname.min_length'|translate }}</div>
                 <div *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('maxlength')" class="text-error">{{ 'app.form.error.firstname.max_length'|translate }}</div>
                 <div *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('required')" class="text-error">{{ 'app.form.error.firstname.required'|translate }}</div>
@@ -19,21 +27,21 @@
             </div>
             <div class="input-container flex-col mt-5 relative">
                 <label class="" for="form3Example1q">Rue</label>
-                <input type="text" id="form3Example1q" class="input" formControlName="street" [(ngModel)]="address.street" />
+                <input type="text" class="input" formControlName="street"/>
                 <div *ngIf="streetCtrl.dirty && streetCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.street'|translate }}</div>
-                <div *ngIf="errors['street']" class="text-error absolute bottom-0">{{ errors['street']|translate }}</div>
+                <div *ngIf="errors['street']" class="text-error bottom-0">{{ errors['street']|translate }}</div>
             </div>
             <div class="input-container flex-col mt-5 relative">
                 <label class="" for="form3Example1q">Code postal</label>
-                <input type="text" id="form3Example1q" class="input" formControlName="postalCode" [(ngModel)]="address.postalCode" />
+                <input type="text" class="input" formControlName="postalCode"/>
                 <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.postalCode'|translate }}</div>
-                <div *ngIf="errors['postalCode']" class="text-error absolute bottom-0">{{ errors['postalCode']|translate }}</div>
+                <div *ngIf="errors['postalCode']" class="text-error bottom-0">{{ errors['postalCode']|translate }}</div>
             </div>
             <div class="input-container flex-col mt-5 relative">
                 <label class="" for="form3Example1q">Ville</label>
-                <input type="text" id="form3Example1q" class="input" formControlName="city" [(ngModel)]="address.city" />
+                <input type="text" class="input" formControlName="city"/>
                 <div *ngIf="postalCodeCtrl.dirty && postalCodeCtrl.hasError('minlength')" class="text-error">{{ 'app.form.error.address.postalCode'|translate }}</div>
-                <div *ngIf="errors['postalCode']" class="text-error absolute bottom-0">{{ errors['postalCode']|translate }}</div>
+                <div *ngIf="errors['postalCode']" class="text-error bottom-0">{{ errors['postalCode']|translate }}</div>
             </div>
         </div>
         <div class="mt-5">
