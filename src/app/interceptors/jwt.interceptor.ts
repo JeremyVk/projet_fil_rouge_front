@@ -24,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if (!token) {
       return next.handle(request);
     }
-    
+
     if(this.jwtService.isJsonWebTokenExpired(token) && refreshToken && request.url !== this.jwtService.refreshTokenUrl && request.url !== this.jwtService.loginUrl) {
       this.jwtService.deleteJsonWebToken();
       return this.jwtService.refreshJwtToken(refreshToken).pipe(
@@ -37,7 +37,6 @@ export class JwtInterceptor implements HttpInterceptor {
           return next.handle(request)
         }),
         catchError(err => {
-          // this.userService.logout();
           return next.handle(request)
         })
       )

@@ -16,5 +16,4 @@ export class UserAuthenticatedGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.jwtService.hasJsonWebToken() || this.router.parseUrl('/login');
     }
-  
 }
