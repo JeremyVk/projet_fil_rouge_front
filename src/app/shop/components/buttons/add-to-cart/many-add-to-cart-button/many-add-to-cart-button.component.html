@@ -1,7 +1,7 @@
 
 <div class="w-full">
     <button (click)="toggleOpenLayer()" class="p-2 rounded-full border-2 border-black" type="submit">
-        <img class="w-8" src="assets/images/cart.png">
+        <img class="w-8" src="assets/images/cart.png" alt="icône d'ajout au panier">
     </button>
 </div>
 <div *ngIf="openLayer" class="variant-listing absolute w-full bg-white p-4 border-2 border-gray-600 rounded-lg -left-2 bottom-0 transform">
@@ -25,7 +25,7 @@
         </div>
         <div class="flex justify-end items-center pt-4 pr-5">
             <div class="w-12" (click)="toggleOpenLayer()">
-                <img src="assets/images/close.svg" alt="">
+                <img src="assets/images/close.svg" alt="icone permettant de fermer la popup d'ajout au panier">
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 </div>
 <div class="flex flex-col justify-center items-center mx-auto mt-5 sm:w-48 md:w-148 md:justify-around md:items-start md:flex-row md:mt-12" *ngIf="!loadingData">
     <div class="">
-        <img src="{{ imageUrl + article.image }}" alt="" class="w-56 md:pr-3 md:w-56">
+        <img src="{{ imageUrl + article.image }}" alt="Image de l'article {{ article.title }}" class="w-56 md:pr-3 md:w-56">
     </div>
     <div class="flex flex-col items-start w-full md:w-auto pl-3">
         <h1 class="font-bold text-xl mt-5 md:mt-0">{{ article.title }}</h1>

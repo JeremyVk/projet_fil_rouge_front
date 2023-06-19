@@ -8,20 +8,20 @@
         <div class="flex flex-col border-2 rounded-lg w-72">
             <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Adresse de livraison</p>
             <div class="flex flex-col p-3">
-               <p>{{ order.shippingAddress?.firstname}}</p> 
-               <p>{{ order.shippingAddress?.lastname}}</p> 
-               <p>{{ order.shippingAddress?.street}}</p> 
-               <p>{{ order.shippingAddress?.postalCode}}</p> 
+               <p>{{ order.shippingAddress?.firstname}}</p>
+               <p>{{ order.shippingAddress?.lastname}}</p>
+               <p>{{ order.shippingAddress?.street}}</p>
+               <p>{{ order.shippingAddress?.postalCode}}</p>
             </div>
         </div>
 
         <div class="flex flex-col border-2 rounded-lg w-72">
             <p class="p-3 border-b-2 bg-slate-400 bg-opacity-60 w-full">Adresse de facturation</p>
             <div class="flex flex-col p-3">
-               <p>{{ order.shippingAddress?.firstname}}</p> 
-               <p>{{ order.shippingAddress?.lastname}}</p> 
-               <p>{{ order.shippingAddress?.street}}</p> 
-               <p>{{ order.shippingAddress?.postalCode}}</p> 
+               <p>{{ order.shippingAddress?.firstname}}</p>
+               <p>{{ order.shippingAddress?.lastname}}</p>
+               <p>{{ order.shippingAddress?.street}}</p>
+               <p>{{ order.shippingAddress?.postalCode}}</p>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                     <div class="flex justify-center p-2 w-full mb-3">
                         <div class="flex justify-start">
                             <div class="w-16 mr-2">
-                                <img src="{{imageUrl + item.variant?.parent?.image}}" alt="">
+                                <img src="{{imageUrl + item.variant?.parent?.image}}" alt="Image de l'article {{ item.variant?.parent?.title }} sur la page de résumé commande">
                             </div>
                             <div class=" flex flex-col justify-between items-start w-32 md:w-80">
                                 <div class="">
@@ -60,7 +60,7 @@
                     <p class="font-light text-sm">Dont TVA: {{ taxAmount|showPrice }} €</p>
 
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>

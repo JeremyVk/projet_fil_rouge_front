@@ -8,7 +8,6 @@
     <a class="cursor-pointer" *ngIf="pagination['hydra:previous'] && pagination['hydra:previous'] !== pagination['@id'] && pagination['hydra:previous'] !== pagination['hydra:first']" (click)="changePage(pagination['hydra:previous'])" >
         {{ getUrlPageNumber(pagination['hydra:previous']) }}
     </a>
-
     <a class="font-bold text-basePurple">
         {{ getUrlPageNumber(pagination['@id'] ?? "") }}
     </a>
