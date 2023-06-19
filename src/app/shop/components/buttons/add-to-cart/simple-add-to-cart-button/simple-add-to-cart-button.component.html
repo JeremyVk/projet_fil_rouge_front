@@ -2,7 +2,7 @@
     <form *ngIf="variant" (ngSubmit)="addToCart(variant)"  #productQuantity="ngForm">
         <p *ngIf="!isArticleInStock" class="text-red-500 my-auto ">Hors stock</p>
         <button *ngIf="isArticleInStock"class="p-2 rounded-full border-2 border-black " [disabled]="!isArticleInStock" type="submit">
-            <img class="w-8" src="assets/images/cart.png">
+            <img class="w-8" src="assets/images/cart.png" alt="Icone d'ajout au panier">
         </button>
     </form>
 </div>
