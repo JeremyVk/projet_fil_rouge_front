@@ -11,22 +11,35 @@ export class UrlService {
     private router: Router
   ) { }
 
+  createUrl(query: string|null = null, formats: string|null = null, page: number | null = null) {
+    if (page === null) {
+      page = Number(this.route.snapshot.queryParamMap.get('page'));
+    }
 
-  generateUrlForGetService()
-  {
-    let pageNumber = Number(this.route.snapshot.queryParamMap.get('page'));
-    let formats = this.route.snapshot.queryParamMap.get('formats');
-    let currentRoute = this.router.url.split('?')[0]
+    if (formats === null) {
+      formats = this.route.snapshot.queryParamMap.get('formats');
+    }
+
+    if (!query) {
+      query = this.route.snapshot.queryParamMap.get('query');
+    }
+
+    let url =  ''
     let nextSeparator = '?'
-    let url =  `/api${currentRoute}/`
 
     if (formats) {
       url = `${url}${nextSeparator}formats=${formats}`
       nextSeparator = '&'
     }
 
-    if (pageNumber) {
-      url = `${url}${nextSeparator}page=${pageNumber}`
+    if (query) {
+      url = `${url}${nextSeparator}query=${query}`
+      nextSeparator = '&'
+    }
+
+    if (page !== 0) {
+      url = `${url}${nextSeparator}page=${page}`
+      nextSeparator = '&'
     }
 
     return url

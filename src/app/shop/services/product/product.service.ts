@@ -15,15 +15,15 @@ export class ProductService {
     private http: HttpClient,
     ) { }
 
-  getAllArticlesByUrl(url: string|null = null) {    
-    if (url) {
-      return this.http.get<Hydra>(`${environment.url}${url}`)
+  getAllArticlesWithParams(params: string|null = null) {
+    if (params) {
+      return this.http.get<Hydra>(`${this.bookUrl}${params}`)
     }
 
     return this.http.get<Hydra>(this.bookUrl)
   }
 
-  getAllArticlesPageNumber(pageNumber: number|null = null) {    
+  getAllArticlesPageNumber(pageNumber: number|null = null) {
     return this.http.get<Hydra>(`${this.bookUrl}?page=${pageNumber}`)
   }
 
@@ -41,7 +41,7 @@ export class ProductService {
       )
   }
 
-  getParent(variant: BaseVariant): Observable<Article> {    
+  getParent(variant: BaseVariant): Observable<Article> {
     return this.http.get<Article>(`${environment.url}${variant.parent}`)
   }
 

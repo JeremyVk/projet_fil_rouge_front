@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BookService } from 'src/app/shop/services/book/book.service';
 import { ProductService } from 'src/app/shop/services/product/product.service';
+import {UrlService} from "../../../services/url/url.service";
 
 @Component({
   selector: 'app-book-filters',
@@ -24,12 +25,13 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
     private bookService: BookService,
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private urlService: UrlService
   ) { }
 
   ngOnInit(): void {
     this.deviceWidth = window.innerWidth
-    
+
     if (this.deviceWidth >= 1024) {
       this.isMobileDevice = false
     }
@@ -50,14 +52,20 @@ export class BookFiltersComponent implements OnInit, OnDestroy {
     .map(elt => elt.name)
     .join(',')
 
-    let url = this.productService.getUrlProductFiltered('books', this.formatsSelecteds)
-    
+    let url = this.urlService.createUrl(null, this.formatsSelecteds)
+
     this.router.navigateByUrl('/books' + url)
-    this.reloadProductsEmmiter.emit('/api/books' + url)
+    this.reloadProductsEmmiter.emit(url)
     this.bookService.editBookFilters(this.bookFormats)
   }
 
   toggleIsDisplayed() {
     this.isDisplayed = !this.isDisplayed;
+  }
+
+  cleanFilters() {
+    this.bookFormats.forEach(format => {
+      format.checked = false
+    })
   }
 }

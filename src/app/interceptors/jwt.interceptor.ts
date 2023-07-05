@@ -25,7 +25,14 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    if(this.jwtService.isJsonWebTokenExpired(token) && refreshToken && request.url !== this.jwtService.refreshTokenUrl && request.url !== this.jwtService.loginUrl) {
+    if (this.jwtService.isJsonWebTokenExpired(token) && !refreshToken) {
+      return next.handle(request);
+    }
+
+    if (this.jwtService.isJsonWebTokenExpired(token)
+      && refreshToken
+      && request.url !== this.jwtService.refreshTokenUrl
+    ) {
       this.jwtService.deleteJsonWebToken();
       return this.jwtService.refreshJwtToken(refreshToken).pipe(
         mergeMap(res => {
@@ -46,6 +53,6 @@ export class JwtInterceptor implements HttpInterceptor {
       setHeaders: {Authorization: `Bearer ${this.jwtService.getJsonWebToken()}`}
     })
 
-  return next.handle(request)
+    return next.handle(request)
   }
 }

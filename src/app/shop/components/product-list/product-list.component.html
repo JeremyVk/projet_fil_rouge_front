@@ -5,7 +5,7 @@
 <div *ngIf="!isLoading">
     <div class="">
         <p *ngIf="productSearchQuery.length > 0" class="text-center mt-0 mb-4">{{ trueBookListLength }} pour '<strong>{{ productSearchQuery}}'</strong>.
-            <a role="button" (click)="getAllBooks()" class="text-bold text-indigo-800 ">Réinitialiser la recherche</a>
+            <a role="button" (click)="restoreBooks()" class="text-bold text-indigo-800 ">Réinitialiser la recherche</a>
         </p>
     </div>
     <div [hidden]="isLoading" class="flex flex-col items-stretch lg:flex-row mx-auto xl:container my-5">

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { HydraView } from 'src/app/shop/interfaces/hydra-view';
 import { ProductService } from 'src/app/shop/services/product/product.service';
+import {UrlService} from "../../../services/url/url.service";
 
 @Component({
   selector: 'app-pagination',
@@ -14,19 +15,20 @@ export class PaginationComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private urlService: UrlService
   ) { }
 
   ngOnInit(): void {
   }
 
   ngDoCheck() {
-    
+
   }
 
   changePage(url: string) {
     let urlToNavigate = url.replace('/api', '')
-    
+    url = this.urlService.createUrl(null, null, this.getUrlPageNumber(url))
     this.router.navigateByUrl(urlToNavigate)
     this.changePageEmmiter.emit(url)
   }
