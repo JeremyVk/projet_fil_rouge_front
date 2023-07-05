@@ -22,7 +22,6 @@ const routes: Routes = [
   },
   { path: 'books', component: ProductListComponent },
   { path: 'product/:productId', component: ProductPageComponent },
-  { path: 'product/:productType/:productId', component: ProductPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
