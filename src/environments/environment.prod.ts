@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: 'http://l2i.back.auev5816.odns.fr',
+  url: 'https://www.l2i.backend.jeremy-vk.fr',
   baseShippingAmount: 400,
-  productImagesUrl: 'http://l2i.back.auev5816.odns.fr/images/products'
+  productImagesUrl: 'https://www.l2i.backend.jeremy-vk.fr/images/products'
 };
